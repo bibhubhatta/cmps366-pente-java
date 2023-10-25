@@ -2,7 +2,8 @@ package edu.ramapo.bbhatta.cmps366_pente_java;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class PositionTest {
     @Test
@@ -25,8 +26,8 @@ public class PositionTest {
         Position position1 = new Position(1, 2);
         Position position2 = new Position(1, 2);
         Position position3 = new Position(2, 3);
-        assertTrue(position1.equals(position2));
-        assertFalse(position1.equals(position3));
+        assertEquals(position1, position2);
+        assertNotEquals(position1, position3);
     }
 
     @Test
@@ -117,5 +118,13 @@ public class PositionTest {
         Position position = new Position(18, 18);
         String str = position.toString(19);
         assertEquals("A19", str);
+    }
+
+    @Test
+    public void testToStringWithUpRight() {
+        Position center = new Position(9, 9);
+        Position upRight = center.upRight();
+        String str = upRight.toString(19);
+        assertEquals("K11", str);
     }
 }
