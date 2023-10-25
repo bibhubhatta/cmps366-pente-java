@@ -14,10 +14,14 @@ public class Position {
     /**
      * The row of the position.
      */
+    @SuppressWarnings("java:S116")
+    // Suppressing the warning for the variable name
+    // because it has an underscore in it.
     protected int _row;
     /**
      * The column of the position.
      */
+    @SuppressWarnings("java:S116")
     protected int _col;
 
 
