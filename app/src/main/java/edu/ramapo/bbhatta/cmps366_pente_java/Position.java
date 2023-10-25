@@ -1,5 +1,7 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import java.util.Objects;
+
 /**
  * The Position class represents a position on the board.
  * It is represented by a row and a column.
@@ -60,12 +62,33 @@ public class Position {
 
     /**
      * Checks if the position is equal to another position.
+     * Two positions are equal if their rows and columns are equal.
+     * This method overrides the equals method in the Object class.
      *
-     * @param position The position to compare to.
+     * @param o The object to compare to.
      * @return True if the positions are equal, false otherwise.
      */
-    public boolean equals(Position position) {
-        return this._row == position.row() && this._col == position.col();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position)) return false;
+
+        Position position = (Position) o;
+
+        if (_row != position._row) return false;
+        return _col == position._col;
+    }
+
+    /**
+     * Gets the hash code of the position.
+     * This method overrides the hashCode method in the Object class.
+     * This method is required because the equals method is overridden.
+     *
+     * @return The hash code of the position.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(_row, _col);
     }
 
     /**
