@@ -376,4 +376,48 @@ public class Board {
         return diagonal.toArray(new Stone[0]);
     }
 
+    /**
+     * Gets all the starting positions for the positive diagonals.
+     *
+     * @return All the starting positions for the positive diagonals.
+     */
+    public Position[] getAllPositiveDiagonalStarts() {
+        Position[] starts = new Position[numRows() + numCols() - 1];
+
+        int index = 0;
+        for (int row = 0; row < numRows(); row++) {
+            starts[index] = new Position(row, 0);
+            index++;
+        }
+
+        for (int col = 1; col < numCols(); col++) {
+            starts[index] = new Position(_numRows - 1, col);
+            index++;
+        }
+
+        return starts;
+    }
+
+    /**
+     * Gets all the starting positions for the negative diagonals.
+     *
+     * @return All the starting positions for the negative diagonals.
+     */
+    public Position[] getAllNegativeDiagonalStarts() {
+        Position[] starts = new Position[numRows() + numCols() - 1];
+
+        int index = 0;
+        for (int col = 0; col < numCols(); col++) {
+            starts[index] = new Position(0, col);
+            index++;
+        }
+
+        for (int row = 1; row < numRows(); row++) {
+            starts[index] = new Position(row, _numCols - 1);
+            index++;
+        }
+
+        return starts;
+    }
+
 }

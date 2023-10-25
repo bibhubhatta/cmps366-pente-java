@@ -240,4 +240,36 @@ public class BoardTest {
         assertEquals(Stone.WHITE, diagonal[1]);
         assertEquals(Stone.BLACK, diagonal[2]);
     }
+
+    @Test
+    public void testGetAllPositiveDiagonalStarts() {
+        Board board = new Board(3, 3);
+
+        Position[] starts = board.getAllPositiveDiagonalStarts();
+
+        Position[] expected = new Position[5];
+        expected[0] = new Position(0, 0);
+        expected[1] = new Position(1, 0);
+        expected[2] = new Position(2, 0);
+        expected[3] = new Position(2, 1);
+        expected[4] = new Position(2, 2);
+
+        assertArrayEquals(expected, starts);
+    }
+
+    @Test
+    public void testGetAllNegativeDiagonalStarts() {
+        Board board = new Board(3, 3);
+
+        Position[] starts = board.getAllNegativeDiagonalStarts();
+
+        Position[] expected = new Position[5];
+        expected[0] = new Position(0, 0);
+        expected[1] = new Position(0, 1);
+        expected[2] = new Position(0, 2);
+        expected[3] = new Position(1, 2);
+        expected[4] = new Position(2, 2);
+
+        assertArrayEquals(expected, starts);
+    }
 }
