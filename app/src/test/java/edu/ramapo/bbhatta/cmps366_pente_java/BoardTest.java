@@ -35,7 +35,7 @@ public class BoardTest {
     public void testBoardCopyConstructor() {
         Board board = new Board(defaultBoard);
 
-        board.set(9, 9, Board.WHITE);
+        board.set(9, 9, Stone.WHITE);
 
         Board copiedBoard = new Board(board);
 
@@ -52,7 +52,7 @@ public class BoardTest {
 
         // Check that the copied board is not the same object as the original board.
         Position origin = new Position(0, 0);
-        board.set(0, 0, Board.BLACK);
+        board.set(0, 0, Stone.BLACK);
         assertNotEquals(board.get(origin), copiedBoard.get(origin));
     }
 
@@ -61,12 +61,12 @@ public class BoardTest {
     public void testSet() {
 
         Position center = new Position(9, 9);
-        defaultBoard.set(center, Board.WHITE);
-        assertEquals(Board.WHITE, defaultBoard.get(center));
+        defaultBoard.set(center, Stone.WHITE);
+        assertEquals(Stone.WHITE, defaultBoard.get(center));
 
         Position position = new Position(0, 0);
-        defaultBoard.set(position, Board.BLACK);
-        assertEquals(Board.BLACK, defaultBoard.get(position));
+        defaultBoard.set(position, Stone.BLACK);
+        assertEquals(Stone.BLACK, defaultBoard.get(position));
     }
 
     @Test
@@ -112,15 +112,15 @@ public class BoardTest {
     public void testIsFull() {
         Board board = new Board(3, 3);
         assertFalse(board.isFull());
-        board.set(new Position(0, 0), Board.BLACK);
-        board.set(new Position(0, 1), Board.WHITE);
-        board.set(new Position(0, 2), Board.BLACK);
-        board.set(new Position(1, 0), Board.WHITE);
-        board.set(new Position(1, 1), Board.BLACK);
-        board.set(new Position(1, 2), Board.WHITE);
-        board.set(new Position(2, 0), Board.BLACK);
-        board.set(new Position(2, 1), Board.WHITE);
-        board.set(new Position(2, 2), Board.BLACK);
+        board.set(new Position(0, 0), Stone.BLACK);
+        board.set(new Position(0, 1), Stone.WHITE);
+        board.set(new Position(0, 2), Stone.BLACK);
+        board.set(new Position(1, 0), Stone.WHITE);
+        board.set(new Position(1, 1), Stone.BLACK);
+        board.set(new Position(1, 2), Stone.WHITE);
+        board.set(new Position(2, 0), Stone.BLACK);
+        board.set(new Position(2, 1), Stone.WHITE);
+        board.set(new Position(2, 2), Stone.BLACK);
         assertTrue(board.isFull());
     }
 
@@ -131,7 +131,7 @@ public class BoardTest {
         assertTrue(board.isEmpty(0, 1));
         assertTrue(board.isEmpty(1, 0));
         assertTrue(board.isEmpty(1, 1));
-        board.set(new Position(0, 0), Board.BLACK);
+        board.set(new Position(0, 0), Stone.BLACK);
         assertFalse(board.isEmpty(0, 0));
         assertTrue(board.isEmpty(0, 1));
         assertTrue(board.isEmpty(1, 0));
@@ -176,4 +176,21 @@ public class BoardTest {
         pos = defaultBoard.stringToPosition("");
         assertNull(pos);
     }
+
+    @Test
+    public void testGetInvalidPosition() {
+        Board board = new Board(19, 19);
+        Stone testCell = board.get(-1, 0);
+        assertNull(testCell);
+
+        testCell = board.get(0, -1);
+        assertNull(testCell);
+
+        testCell = board.get(19, 0);
+        assertNull(testCell);
+
+        testCell = board.get(0, 19);
+        assertNull(testCell);
+    }
+
 }

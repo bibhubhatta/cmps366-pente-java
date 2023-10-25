@@ -14,15 +14,7 @@ public class Board {
     /*
      * The character representing an empty position.
      */
-    static final char EMPTY = 'O';
-    /*
-     * The character representing a black stone.
-     */
-    static final char BLACK = 'B';
-    /*
-     * The character representing a white stone.
-     */
-    static final char WHITE = 'W';
+    static final Stone EMPTY = null;
 
     /*
      * The number of rows in the board.
@@ -36,7 +28,7 @@ public class Board {
     /*
      * The 2D array of characters.
      */
-    protected char[][] _board;
+    protected Stone[][] _board;
 
     /**
      * Default constructor for the Board class.
@@ -47,7 +39,7 @@ public class Board {
     public Board(int numRows, int numCols) {
         this._numRows = numRows;
         this._numCols = numCols;
-        this._board = new char[numRows][numCols];
+        this._board = new Stone[numRows][numCols];
 
         // Initialize the board with empty cells.
         for (int row = 0; row < numRows; row++) {
@@ -65,7 +57,7 @@ public class Board {
     public Board(Board board) {
         this._numRows = board.numRows();
         this._numCols = board.numCols();
-        this._board = new char[this._numRows][this._numCols];
+        this._board = new Stone[this._numRows][this._numCols];
 
         // Copy the board.
         for (int row = 0; row < this._numRows; row++) {
@@ -94,15 +86,22 @@ public class Board {
     }
 
     /**
-     * Gets the character at the given position.
+     * Gets the stone at the given position.
+     * The position must be in the board.
+     * If the position is not in the board, null is returned.
      *
      * @param row The row of the position.
      *            The row must be in the range [0, numRows).
      * @param col The column of the position.
      *            The column must be in the range [0, numCols).
-     * @return The character at the given position.
+     * @return The stone at the given position.
      */
-    public char get(int row, int col) {
+    public Stone get(int row, int col) {
+        // return null if the position is not in the board.
+        if (!this.isInBoard(row, col)) {
+            return null;
+        }
+
         return this._board[row][col];
     }
 
@@ -111,31 +110,31 @@ public class Board {
      *
      * @param position The position.
      */
-    public char get(Position position) {
+    public Stone get(Position position) {
         return this.get(position.row(), position.col());
     }
 
     /**
-     * Sets the character at the given position.
+     * Sets the stone at the given position.
      *
-     * @param row       The row of the position.
-     *                  The row must be in the range [0, numRows).
-     * @param col       The column of the position.
-     *                  The column must be in the range [0, numCols).
-     * @param character The character to set.
+     * @param row   The row of the position.
+     *              The row must be in the range [0, numRows).
+     * @param col   The column of the position.
+     *              The column must be in the range [0, numCols).
+     * @param stone The stone to set.
      */
-    public void set(int row, int col, char character) {
-        this._board[row][col] = character;
+    public void set(int row, int col, Stone stone) {
+        this._board[row][col] = stone;
     }
 
     /**
-     * Sets the character at the given position.
+     * Sets the stone at the given position.
      *
-     * @param position  The position.
-     * @param character The character to set.
+     * @param position The position.
+     * @param stone    The stone to set.
      */
-    public void set(Position position, char character) {
-        this.set(position.row(), position.col(), character);
+    public void set(Position position, Stone stone) {
+        this.set(position.row(), position.col(), stone);
     }
 
     /**
@@ -148,7 +147,7 @@ public class Board {
      * @return True if the given position is empty.
      */
     public boolean isEmpty(int row, int col) {
-        return this.get(row, col) == EMPTY;
+        return this.get(row, col) == Board.EMPTY;
     }
 
     /**
