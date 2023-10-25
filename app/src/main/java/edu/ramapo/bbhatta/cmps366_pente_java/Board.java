@@ -1,5 +1,6 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -246,5 +247,133 @@ public class Board {
         return null;
     }
 
+    /**
+     * Gets the row of the board.
+     *
+     * @param row The row to get.
+     *            The row must be in the range [0, numRows).
+     *            If the row is not in the range, then an empty array is returned.
+     * @return The row of the board.
+     */
+    public Stone[] getRow(int row) {
+        if (row < 0 || row >= this._numRows) {
+            return new Stone[0];
+        }
+
+        return this._board[row];
+    }
+
+    /**
+     * Gets the row of the board
+     *
+     * @param position The position to get the row of.
+     *                 The position must be in the board.
+     *                 If the position is not in the board or is null, then an empty array is returned.
+     */
+    public Stone[] getRow(Position position) {
+        if (position == null || !this.isInBoard(position)) {
+            return new Stone[0];
+        }
+
+        return this.getRow(position.row());
+    }
+
+    /**
+     * Gets the column of the board.
+     *
+     * @param col The column to get.
+     *            The column must be in the range [0, numCols).
+     *            If the column is not in the range, then an empty array is returned.
+     * @return The column of the board.
+     */
+    public Stone[] getColumn(int col) {
+        if (col < 0 || col >= this._numCols) {
+            return new Stone[0];
+        }
+
+        Stone[] column = new Stone[this._numRows];
+        for (int row = 0; row < this._numRows; row++) {
+            column[row] = this._board[row][col];
+        }
+
+        return column;
+    }
+
+    /**
+     * Gets the column of the board.
+     *
+     * @param position The position to get the column of.
+     *                 The position must be in the board.
+     *                 If the position is not in the board or is null, then an empty array is returned.
+     */
+    public Stone[] getColumn(Position position) {
+        if (position == null || !this.isInBoard(position)) {
+            return new Stone[0];
+        }
+
+        return this.getColumn(position.col());
+    }
+
+
+    /**
+     * Gets the positive diagonal that goes through the given position.
+     *
+     * @param position The position to get the positive diagonal of.
+     *                 The position must be in the board.
+     *                 If the position is not in the board or is null, then an empty array is returned.
+     */
+    public Stone[] getPositiveDiagonal(Position position) {
+        if (position == null || !this.isInBoard(position)) {
+            return new Stone[0];
+        }
+
+        Position diagonalStart = position;
+        Position downLeft = diagonalStart.downLeft();
+
+        while (isInBoard(downLeft)) {
+            diagonalStart = downLeft;
+            downLeft = diagonalStart.downLeft();
+        }
+
+        ArrayList<Stone> diagonal = new ArrayList<>();
+
+        Position current = diagonalStart;
+        while (isInBoard(current)) {
+            diagonal.add(get(current));
+            current = current.upRight();
+        }
+
+        return diagonal.toArray(new Stone[0]);
+    }
+
+    /**
+     * Gets the negative diagonal that goes through the given position.
+     *
+     * @param position The position to get the negative diagonal of.
+     *                 The position must be in the board.
+     *                 If the position is not in the board or is null, then an empty array is returned.
+     */
+    public Stone[] getNegativeDiagonal(Position position) {
+        if (position == null || !this.isInBoard(position)) {
+            return new Stone[0];
+        }
+
+        Position diagonalStart = position;
+        Position upLeft = diagonalStart.upLeft();
+        while (isInBoard(upLeft)) {
+            diagonalStart = upLeft;
+            upLeft = diagonalStart.upLeft();
+        }
+
+        ArrayList<Stone> diagonal = new ArrayList<>();
+
+        Position current = diagonalStart;
+        while (isInBoard(current)) {
+            diagonal.add(get(current));
+            current = current.downRight();
+        }
+
+        return diagonal.toArray(new Stone[0]);
+    }
 
 }
