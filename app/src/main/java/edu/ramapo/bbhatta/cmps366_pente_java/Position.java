@@ -1,5 +1,6 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -182,6 +183,6 @@ public class Position {
      */
     public String toString(int noRowsInBoard) {
         char row = (char) ('A' + (noRowsInBoard - _row - 1));
-        return String.format("%c%d", row, _col + 1);
+        return String.format(Locale.US, "%c%d", row, _col + 1);
     }
 }
