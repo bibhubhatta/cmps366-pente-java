@@ -1,6 +1,5 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
-import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -168,21 +167,4 @@ public class Position {
         return new Position(_row + 1, _col + 1);
     }
 
-
-    /**
-     * Converts the position to a string.
-     *
-     * @param noRowsInBoard The number of rows in the board.
-     *                      This is used to convert the row to a letter.
-     *                      The letter is the (noRowsInBoard - row + 1) converted to a letter.
-     *                      For example, if noRowsInBoard is 19 and the row is 0, then the letter is 'S'.
-     *                      If noRowsInBoard is 19 and the row is 18, then the letter is 'A'.
-     *                      The number of columns is always a number, so the total number of columns
-     *                      is not required.
-     * @return The position as a string.
-     */
-    public String toString(int noRowsInBoard) {
-        char row = (char) ('A' + (noRowsInBoard - _row - 1));
-        return String.format(Locale.US, "%c%d", row, _col + 1);
-    }
 }

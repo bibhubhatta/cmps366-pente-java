@@ -106,25 +106,4 @@ public class PositionTest {
         assertEquals(4, downRight.col());
     }
 
-    @Test
-    public void testToStringTopRow() {
-        Position position = new Position(0, 0);
-        String str = position.toString(19);
-        assertEquals("S1", str);
-    }
-
-    @Test
-    public void testToStringBottomRow() {
-        Position position = new Position(18, 18);
-        String str = position.toString(19);
-        assertEquals("A19", str);
-    }
-
-    @Test
-    public void testToStringWithUpRight() {
-        Position center = new Position(9, 9);
-        Position upRight = center.upRight();
-        String str = upRight.toString(19);
-        assertEquals("K11", str);
-    }
 }
