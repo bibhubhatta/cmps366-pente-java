@@ -1,8 +1,12 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
 /**
- * @class Position
- * @brief This class is used to store the row and column of a position on the board.
+ * The Position class represents a position on the board.
+ * It is represented by a row and a column.
+ * <p>
+ * The row and column are zero-based.
+ * Bounds checking is not performed.
+ * The position is immutable.
  */
 public class Position {
     /**
@@ -57,7 +61,7 @@ public class Position {
     /**
      * Checks if the position is equal to another position.
      *
-     * @param position
+     * @param position The position to compare to.
      * @return True if the positions are equal, false otherwise.
      */
     public boolean equals(Position position) {
@@ -135,7 +139,6 @@ public class Position {
     public Position downRight() {
         return new Position(_row + 1, _col + 1);
     }
-
 
 
     /**
