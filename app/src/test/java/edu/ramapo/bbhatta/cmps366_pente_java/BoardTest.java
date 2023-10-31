@@ -52,7 +52,7 @@ public class BoardTest {
 
         // Check that the copied board is not the same object as the original board.
         Position origin = new Position(0, 0);
-        board.set(0, 0, Stone.BLACK);
+        board = board.set(0, 0, Stone.BLACK);
         assertNotEquals(board.get(origin), copiedBoard.get(origin));
     }
 
@@ -61,11 +61,11 @@ public class BoardTest {
     public void testSet() {
 
         Position center = new Position(9, 9);
-        defaultBoard.set(center, Stone.WHITE);
+        defaultBoard = defaultBoard.set(center, Stone.WHITE);
         assertEquals(Stone.WHITE, defaultBoard.get(center));
 
         Position position = new Position(0, 0);
-        defaultBoard.set(position, Stone.BLACK);
+        defaultBoard = defaultBoard.set(position, Stone.BLACK);
         assertEquals(Stone.BLACK, defaultBoard.get(position));
     }
 
@@ -112,15 +112,15 @@ public class BoardTest {
     public void testIsFull() {
         Board board = new Board(3, 3);
         assertFalse(board.isFull());
-        board.set(new Position(0, 0), Stone.BLACK);
-        board.set(new Position(0, 1), Stone.WHITE);
-        board.set(new Position(0, 2), Stone.BLACK);
-        board.set(new Position(1, 0), Stone.WHITE);
-        board.set(new Position(1, 1), Stone.BLACK);
-        board.set(new Position(1, 2), Stone.WHITE);
-        board.set(new Position(2, 0), Stone.BLACK);
-        board.set(new Position(2, 1), Stone.WHITE);
-        board.set(new Position(2, 2), Stone.BLACK);
+        board = board.set(new Position(0, 0), Stone.BLACK);
+        board = board.set(new Position(0, 1), Stone.WHITE);
+        board = board.set(new Position(0, 2), Stone.BLACK);
+        board = board.set(new Position(1, 0), Stone.WHITE);
+        board = board.set(new Position(1, 1), Stone.BLACK);
+        board = board.set(new Position(1, 2), Stone.WHITE);
+        board = board.set(new Position(2, 0), Stone.BLACK);
+        board = board.set(new Position(2, 1), Stone.WHITE);
+        board = board.set(new Position(2, 2), Stone.BLACK);
         assertTrue(board.isFull());
     }
 
@@ -131,7 +131,7 @@ public class BoardTest {
         assertTrue(board.isEmpty(0, 1));
         assertTrue(board.isEmpty(1, 0));
         assertTrue(board.isEmpty(1, 1));
-        board.set(new Position(0, 0), Stone.BLACK);
+        board = board.set(new Position(0, 0), Stone.BLACK);
         assertFalse(board.isEmpty(0, 0));
         assertTrue(board.isEmpty(0, 1));
         assertTrue(board.isEmpty(1, 0));
@@ -196,9 +196,9 @@ public class BoardTest {
     @Test
     public void testGetRow() {
         Board board = new Board(3, 3);
-        board.set(new Position(0, 0), Stone.BLACK);
-        board.set(new Position(0, 1), Stone.WHITE);
-        board.set(new Position(0, 2), Stone.BLACK);
+        board = board.set(new Position(0, 0), Stone.BLACK);
+        board = board.set(new Position(0, 1), Stone.WHITE);
+        board = board.set(new Position(0, 2), Stone.BLACK);
         Stone[] row = board.getRow(0);
         assertEquals(Stone.BLACK, row[0]);
         assertEquals(Stone.WHITE, row[1]);
@@ -208,9 +208,9 @@ public class BoardTest {
     @Test
     public void testGetColumn() {
         Board board = new Board(3, 3);
-        board.set(new Position(0, 0), Stone.BLACK);
-        board.set(new Position(1, 0), Stone.WHITE);
-        board.set(new Position(2, 0), Stone.BLACK);
+        board = board.set(new Position(0, 0), Stone.BLACK);
+        board = board.set(new Position(1, 0), Stone.WHITE);
+        board = board.set(new Position(2, 0), Stone.BLACK);
         Stone[] column = board.getColumn(0);
         assertEquals(Stone.BLACK, column[0]);
         assertEquals(Stone.WHITE, column[1]);
@@ -220,9 +220,9 @@ public class BoardTest {
     @Test
     public void testGetNegativeDiagonal() {
         Board board = new Board(3, 3);
-        board.set(new Position(0, 0), Stone.BLACK);
-        board.set(new Position(1, 1), Stone.WHITE);
-        board.set(new Position(2, 2), Stone.BLACK);
+        board = board.set(new Position(0, 0), Stone.BLACK);
+        board = board.set(new Position(1, 1), Stone.WHITE);
+        board = board.set(new Position(2, 2), Stone.BLACK);
         Stone[] diagonal = board.getNegativeDiagonal(new Position(1, 1));
         assertEquals(Stone.BLACK, diagonal[0]);
         assertEquals(Stone.WHITE, diagonal[1]);
@@ -232,9 +232,9 @@ public class BoardTest {
     @Test
     public void testGetPositiveDiagonal() {
         Board board = new Board(3, 3);
-        board.set(new Position(0, 2), Stone.BLACK);
-        board.set(new Position(1, 1), Stone.WHITE);
-        board.set(new Position(2, 0), Stone.BLACK);
+        board = board.set(new Position(0, 2), Stone.BLACK);
+        board = board.set(new Position(1, 1), Stone.WHITE);
+        board = board.set(new Position(2, 0), Stone.BLACK);
         Stone[] diagonal = board.getPositiveDiagonal(new Position(1, 1));
         assertEquals(Stone.BLACK, diagonal[0]);
         assertEquals(Stone.WHITE, diagonal[1]);

@@ -123,9 +123,12 @@ public class Board {
      * @param col   The column of the position.
      *              The column must be in the range [0, numCols).
      * @param stone The stone to set.
+     * @return The resulting board.
      */
-    public void set(int row, int col, Stone stone) {
-        this._board[row][col] = stone;
+    public Board set(int row, int col, Stone stone) {
+        Board resultingBoard = new Board(this);
+        resultingBoard._board[row][col] = stone;
+        return resultingBoard;
     }
 
     /**
@@ -133,9 +136,10 @@ public class Board {
      *
      * @param position The position.
      * @param stone    The stone to set.
+     * @return
      */
-    public void set(Position position, Stone stone) {
-        this.set(position.row(), position.col(), stone);
+    public Board set(Position position, Stone stone) {
+        return this.set(position.row(), position.col(), stone);
     }
 
     /**
