@@ -175,4 +175,16 @@ public class Position {
         return new Position(position._row + 1, position._col + 1);
     }
 
+    /**
+     * Gets the distance between this position and another position.
+     * The distance is the maximum of the absolute values of the differences
+     * between the rows and the columns.
+     *
+     * @param position1 The first position.
+     * @param position2 The second position.
+     * @return The distance between this position and another position.
+     */
+    public static int distance(Position position1, Position position2) {
+        return Math.max(Math.abs(position1._row - position2._row), Math.abs(position1._col - position2._col));
+    }
 }
