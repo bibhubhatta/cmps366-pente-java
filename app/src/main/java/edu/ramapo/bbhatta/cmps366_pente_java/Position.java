@@ -98,73 +98,81 @@ public class Position {
     /**
      * Gets the position above this position.
      *
+     * @param position The position to get the position above.
      * @return The position above this position.
      */
-    public Position up() {
-        return new Position(_row - 1, _col);
+    public static Position up(Position position) {
+        return new Position(position._row - 1, position._col);
     }
 
     /**
      * Gets the position below this position.
      *
+     * @param position The position to get the position below.
      * @return The position below this position.
      */
-    public Position down() {
-        return new Position(_row + 1, _col);
+    public static Position down(Position position) {
+        return new Position(position._row + 1, position._col);
     }
 
     /**
      * Gets the position to the left of this position.
      *
+     * @param position The position to get the position to the left of.
      * @return The position to the left of this position.
      */
-    public Position left() {
-        return new Position(_row, _col - 1);
+    public static Position left(Position position) {
+        return new Position(position._row, position._col - 1);
     }
 
     /**
      * Gets the position to the right of this position.
      *
+     * @param position The position to get the position to the right of.
      * @return The position to the right of this position.
      */
-    public Position right() {
-        return new Position(_row, _col + 1);
+    public static Position right(Position position) {
+        return new Position(position._row, position._col + 1);
     }
 
     /**
      * Gets the position above and to the left of this position.
      *
+     * @param position The position to get the position above and to the left of.
      * @return The position above and to the left of this position.
      */
-    public Position upLeft() {
-        return new Position(_row - 1, _col - 1);
+    public static Position upLeft(Position position) {
+        return new Position(position._row - 1, position._col - 1);
     }
 
     /**
      * Gets the position above and to the right of this position.
      *
+     * @param position The position to get the position above and to the right of.
      * @return The position above and to the right of this position.
      */
-    public Position upRight() {
-        return new Position(_row - 1, _col + 1);
+    public static Position upRight(Position position) {
+        return new Position(position._row - 1, position._col + 1);
     }
 
     /**
      * Gets the position below and to the left of this position.
      *
+     * @param position The position to get the position below and to the left of.
      * @return The position below and to the left of this position.
      */
-    public Position downLeft() {
-        return new Position(_row + 1, _col - 1);
+    public static Position downLeft(Position position) {
+        return new Position(position._row + 1, position._col - 1);
     }
 
     /**
      * Gets the position below and to the right of this position.
      *
+     * @param position The position to get the position below and to the right of.
      * @return The position below and to the right of this position.
      */
-    public Position downRight() {
-        return new Position(_row + 1, _col + 1);
+    public static Position downRight(Position position) {
+        return new Position(position._row + 1, position._col + 1);
     }
 
 }
