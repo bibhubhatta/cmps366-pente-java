@@ -14,15 +14,11 @@ public class Position {
     /**
      * The row of the position.
      */
-    @SuppressWarnings("java:S116")
-    // Suppressing the warning for the variable name
-    // because it has an underscore in it.
-    protected int _row;
+    protected int row;
     /**
      * The column of the position.
      */
-    @SuppressWarnings("java:S116")
-    protected int _col;
+    protected int col;
 
 
     /**
@@ -32,8 +28,8 @@ public class Position {
      * @param col The column of the position.
      */
     public Position(int row, int col) {
-        this._row = row;
-        this._col = col;
+        this.row = row;
+        this.col = col;
     }
 
     /**
@@ -42,17 +38,18 @@ public class Position {
      * @param position The position to copy.
      */
     public Position(Position position) {
-        this._row = position.row();
-        this._col = position.col();
+        this.row = position.row;
+        this.col = position.col;
+        
     }
 
-    /**
+     /**
      * Gets the row of the position.
      *
      * @return The row of the position.
      */
-    public int row() {
-        return _row;
+    public int getRow() {
+        return row;
     }
 
     /**
@@ -60,8 +57,8 @@ public class Position {
      *
      * @return The column of the position.
      */
-    public int col() {
-        return _col;
+    public int getCol() {
+        return col;
     }
 
     /**
@@ -79,8 +76,8 @@ public class Position {
 
         Position position = (Position) o;
 
-        if (_row != position._row) return false;
-        return _col == position._col;
+        if (row != position.row) return false;
+        return col == position.col;
     }
 
     /**
@@ -92,7 +89,7 @@ public class Position {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(_row, _col);
+        return Objects.hash(row, col);
     }
 
     /**
@@ -102,7 +99,7 @@ public class Position {
      * @return The position above this position.
      */
     public static Position up(Position position) {
-        return new Position(position._row - 1, position._col);
+        return new Position(position.row - 1, position.col);
     }
 
     /**
@@ -112,7 +109,7 @@ public class Position {
      * @return The position below this position.
      */
     public static Position down(Position position) {
-        return new Position(position._row + 1, position._col);
+        return new Position(position.row + 1, position.col);
     }
 
     /**
@@ -122,7 +119,7 @@ public class Position {
      * @return The position to the left of this position.
      */
     public static Position left(Position position) {
-        return new Position(position._row, position._col - 1);
+        return new Position(position.row, position.col - 1);
     }
 
     /**
@@ -132,7 +129,7 @@ public class Position {
      * @return The position to the right of this position.
      */
     public static Position right(Position position) {
-        return new Position(position._row, position._col + 1);
+        return new Position(position.row, position.col + 1);
     }
 
     /**
@@ -142,7 +139,7 @@ public class Position {
      * @return The position above and to the left of this position.
      */
     public static Position upLeft(Position position) {
-        return new Position(position._row - 1, position._col - 1);
+        return new Position(position.row - 1, position.col - 1);
     }
 
     /**
@@ -152,7 +149,7 @@ public class Position {
      * @return The position above and to the right of this position.
      */
     public static Position upRight(Position position) {
-        return new Position(position._row - 1, position._col + 1);
+        return new Position(position.row - 1, position.col + 1);
     }
 
     /**
@@ -162,7 +159,7 @@ public class Position {
      * @return The position below and to the left of this position.
      */
     public static Position downLeft(Position position) {
-        return new Position(position._row + 1, position._col - 1);
+        return new Position(position.row + 1, position.col - 1);
     }
 
     /**
@@ -172,7 +169,7 @@ public class Position {
      * @return The position below and to the right of this position.
      */
     public static Position downRight(Position position) {
-        return new Position(position._row + 1, position._col + 1);
+        return new Position(position.row + 1, position.col + 1);
     }
 
     /**
@@ -185,6 +182,6 @@ public class Position {
      * @return The distance between this position and another position.
      */
     public static int distance(Position position1, Position position2) {
-        return Math.max(Math.abs(position1._row - position2._row), Math.abs(position1._col - position2._col));
+        return Math.max(Math.abs(position1.row - position2.row), Math.abs(position1.col - position2.col));
     }
 }

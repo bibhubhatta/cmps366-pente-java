@@ -115,7 +115,7 @@ public class Board {
      * @param position The position.
      */
     public Stone get(Position position) {
-        return this.get(position.row(), position.col());
+        return this.get(position.getRow(), position.getCol());
     }
 
     /**
@@ -142,7 +142,7 @@ public class Board {
      * @return
      */
     public Board set(Position position, Stone stone) {
-        return this.set(position.row(), position.col(), stone);
+        return this.set(position.getRow(), position.getCol(), stone);
     }
 
     /**
@@ -165,7 +165,7 @@ public class Board {
      * @return True if the given position is empty.
      */
     public boolean isEmpty(Position position) {
-        return this.isEmpty(position.row(), position.col());
+        return this.isEmpty(position.getRow(), position.getCol());
     }
 
     /**
@@ -186,7 +186,7 @@ public class Board {
      * @return True if the given position is in the board.
      */
     public boolean isInBoard(Position position) {
-        return this.isInBoard(position.row(), position.col());
+        return this.isInBoard(position.getRow(), position.getCol());
     }
 
     /**
@@ -216,8 +216,8 @@ public class Board {
      * @return The position as a string.
      */
     public String positionToString(Position position) {
-        char col = (char) ('A' + position.col());
-        return String.format(Locale.US, "%c%d", col, this._numRows - position.row());
+        char col = (char) ('A' + position.getCol());
+        return String.format(Locale.US, "%c%d", col, this._numRows - position.getRow());
     }
 
 
@@ -282,7 +282,7 @@ public class Board {
             return new Stone[0];
         }
 
-        return this.getRow(position.row());
+        return this.getRow(position.getRow());
     }
 
     /**
@@ -318,7 +318,7 @@ public class Board {
             return new Stone[0];
         }
 
-        return this.getColumn(position.col());
+        return this.getColumn(position.getCol());
     }
 
 
@@ -665,7 +665,7 @@ public class Board {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int row = 0; row < this._numRows; row++) {
-            // Add the row number
+            // Add the getRow number
             stringBuilder.append(String.format(Locale.US, "%2d ", this._numRows - row));
             for (int col = 0; col < this._numCols; col++) {
                 Stone stone = this.get(row, col);
