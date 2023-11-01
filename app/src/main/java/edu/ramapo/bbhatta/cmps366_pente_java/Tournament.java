@@ -88,6 +88,17 @@ public class Tournament {
         return resultingTournament;
     }
 
+    /**
+     * Gets the tournament score of a player.
+     *
+     * @return The tournament score of a player.
+     * If the player is not in the tournament, null is returned.
+     */
+    public Integer getScore(Player player) {
+        if (!roster.containsKey(player)) return null;
+        return roster.get(player);
+    }
+
     public Board getBoard() {
         return round.getBoard();
     }
