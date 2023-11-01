@@ -92,7 +92,7 @@ public class BoardTest {
         String centerStr = defaultBoard.positionToString(center);
         assertEquals("J10", centerStr);
 
-        Position upRight = center.upRight();
+        Position upRight = Position.upRight(center);
         String upRightStr = defaultBoard.positionToString(upRight);
         assertEquals("K11", upRightStr);
     }

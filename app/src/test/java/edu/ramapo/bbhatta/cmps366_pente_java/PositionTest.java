@@ -45,7 +45,7 @@ public class PositionTest {
     @Test
     public void testUp() {
         Position position = new Position(2, 3);
-        Position up = position.up();
+        Position up = Position.up(position);
         assertEquals(1, up.row());
         assertEquals(3, up.col());
     }
@@ -53,7 +53,7 @@ public class PositionTest {
     @Test
     public void testDown() {
         Position position = new Position(2, 3);
-        Position down = position.down();
+        Position down = Position.down(position);
         assertEquals(3, down.row());
         assertEquals(3, down.col());
     }
@@ -61,7 +61,7 @@ public class PositionTest {
     @Test
     public void testLeft() {
         Position position = new Position(2, 3);
-        Position left = position.left();
+        Position left = Position.left(position);
         assertEquals(2, left.row());
         assertEquals(2, left.col());
     }
@@ -69,7 +69,7 @@ public class PositionTest {
     @Test
     public void testRight() {
         Position position = new Position(2, 3);
-        Position right = position.right();
+        Position right = Position.right(position);
         assertEquals(2, right.row());
         assertEquals(4, right.col());
     }
@@ -77,7 +77,7 @@ public class PositionTest {
     @Test
     public void testUpLeft() {
         Position position = new Position(2, 3);
-        Position upLeft = position.upLeft();
+        Position upLeft = Position.upLeft(position);
         assertEquals(1, upLeft.row());
         assertEquals(2, upLeft.col());
     }
@@ -85,7 +85,7 @@ public class PositionTest {
     @Test
     public void testUpRight() {
         Position position = new Position(2, 3);
-        Position upRight = position.upRight();
+        Position upRight = Position.upRight(position);
         assertEquals(1, upRight.row());
         assertEquals(4, upRight.col());
     }
@@ -93,7 +93,7 @@ public class PositionTest {
     @Test
     public void testDownLeft() {
         Position position = new Position(2, 3);
-        Position downLeft = position.downLeft();
+        Position downLeft = Position.downLeft(position);
         assertEquals(3, downLeft.row());
         assertEquals(2, downLeft.col());
     }
@@ -101,7 +101,7 @@ public class PositionTest {
     @Test
     public void testDownRight() {
         Position position = new Position(2, 3);
-        Position downRight = position.downRight();
+        Position downRight = Position.downRight(position);
         assertEquals(3, downRight.row());
         assertEquals(4, downRight.col());
     }
