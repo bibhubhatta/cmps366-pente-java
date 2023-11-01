@@ -11,9 +11,6 @@ import java.util.function.UnaryOperator;
  * It is represented by a 2D array of positions.
  */
 
-// Suppressing the warning for attribute names
-// because it has an underscore in it.
-@SuppressWarnings("java:S116")
 public class Board {
     /*
      * The character representing an empty position.
@@ -23,16 +20,16 @@ public class Board {
     /*
      * The number of rows in the board.
      */
-    protected int _numRows;
+    protected int numRows;
     /*
      * The number of columns in the board.
      */
-    protected int _numCols;
+    protected int numCols;
 
     /*
      * The 2D array of characters.
      */
-    protected Stone[][] _board;
+    protected Stone[][] boardArray;
 
     /**
      * Default constructor for the Board class.
@@ -41,14 +38,14 @@ public class Board {
      * @param numCols The number of columns of the board.
      */
     public Board(int numRows, int numCols) {
-        this._numRows = numRows;
-        this._numCols = numCols;
-        this._board = new Stone[numRows][numCols];
+        this.numRows = numRows;
+        this.numCols = numCols;
+        this.boardArray = new Stone[numRows][numCols];
 
         // Initialize the board with empty cells.
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
-                this._board[row][col] = EMPTY;
+                this.boardArray[row][col] = EMPTY;
             }
         }
     }
@@ -59,14 +56,14 @@ public class Board {
      * @param board The board to copy.
      */
     public Board(Board board) {
-        this._numRows = board.numRows();
-        this._numCols = board.numCols();
-        this._board = new Stone[this._numRows][this._numCols];
+        this.numRows = board.getNoRows();
+        this.numCols = board.getNoCols();
+        this.boardArray = new Stone[this.numRows][this.numCols];
 
         // Copy the board.
-        for (int row = 0; row < this._numRows; row++) {
-            for (int col = 0; col < this._numCols; col++) {
-                this._board[row][col] = board.get(row, col);
+        for (int row = 0; row < this.numRows; row++) {
+            for (int col = 0; col < this.numCols; col++) {
+                this.boardArray[row][col] = board.get(row, col);
             }
         }
     }
@@ -76,8 +73,8 @@ public class Board {
      *
      * @return The number of rows of the board.
      */
-    public int numRows() {
-        return this._numRows;
+    public int getNoRows() {
+        return this.numRows;
     }
 
     /**
@@ -85,8 +82,8 @@ public class Board {
      *
      * @return The number of columns of the board.
      */
-    public int numCols() {
-        return this._numCols;
+    public int getNoCols() {
+        return this.numCols;
     }
 
     /**
@@ -106,7 +103,7 @@ public class Board {
             return null;
         }
 
-        return this._board[row][col];
+        return this.boardArray[row][col];
     }
 
     /**
@@ -130,7 +127,7 @@ public class Board {
      */
     public Board set(int row, int col, Stone stone) {
         Board resultingBoard = new Board(this);
-        resultingBoard._board[row][col] = stone;
+        resultingBoard.boardArray[row][col] = stone;
         return resultingBoard;
     }
 
@@ -176,7 +173,7 @@ public class Board {
      * @return True if the given position is in the board.
      */
     public boolean isInBoard(int row, int col) {
-        return row >= 0 && row < this._numRows && col >= 0 && col < this._numCols;
+        return row >= 0 && row < this.numRows && col >= 0 && col < this.numCols;
     }
 
     /**
@@ -195,8 +192,8 @@ public class Board {
      * @return True if the board is full.
      */
     public boolean isFull() {
-        for (int row = 0; row < this._numRows; row++) {
-            for (int col = 0; col < this._numCols; col++) {
+        for (int row = 0; row < this.numRows; row++) {
+            for (int col = 0; col < this.numCols; col++) {
                 if (this.isEmpty(row, col)) {
                     return false;
                 }
@@ -217,7 +214,7 @@ public class Board {
      */
     public String positionToString(Position position) {
         char col = (char) ('A' + position.getCol());
-        return String.format(Locale.US, "%c%d", col, this._numRows - position.getRow());
+        return String.format(Locale.US, "%c%d", col, this.numRows - position.getRow());
     }
 
 
@@ -239,7 +236,7 @@ public class Board {
             char colChar = position.charAt(0);
             int col = colChar - 'A';
 
-            int row = _numRows - Integer.parseInt(position.substring(1));
+            int row = numRows - Integer.parseInt(position.substring(1));
 
             Position pos = new Position(row, col);
 
@@ -263,11 +260,11 @@ public class Board {
      * @return The row of the board.
      */
     public Stone[] getRow(int row) {
-        if (row < 0 || row >= this._numRows) {
+        if (row < 0 || row >= this.numRows) {
             return new Stone[0];
         }
 
-        return this._board[row];
+        return this.boardArray[row];
     }
 
     /**
@@ -294,13 +291,13 @@ public class Board {
      * @return The column of the board.
      */
     public Stone[] getColumn(int col) {
-        if (col < 0 || col >= this._numCols) {
+        if (col < 0 || col >= this.numCols) {
             return new Stone[0];
         }
 
-        Stone[] column = new Stone[this._numRows];
-        for (int row = 0; row < this._numRows; row++) {
-            column[row] = this._board[row][col];
+        Stone[] column = new Stone[this.numRows];
+        for (int row = 0; row < this.numRows; row++) {
+            column[row] = this.boardArray[row][col];
         }
 
         return column;
@@ -389,16 +386,16 @@ public class Board {
      * @return All the starting positions for the positive diagonals.
      */
     public Position[] getAllPositiveDiagonalStarts() {
-        Position[] starts = new Position[numRows() + numCols() - 1];
+        Position[] starts = new Position[getNoRows() + getNoCols() - 1];
 
         int index = 0;
-        for (int row = 0; row < numRows(); row++) {
+        for (int row = 0; row < getNoRows(); row++) {
             starts[index] = new Position(row, 0);
             index++;
         }
 
-        for (int col = 1; col < numCols(); col++) {
-            starts[index] = new Position(_numRows - 1, col);
+        for (int col = 1; col < getNoCols(); col++) {
+            starts[index] = new Position(numRows - 1, col);
             index++;
         }
 
@@ -411,16 +408,16 @@ public class Board {
      * @return All the starting positions for the negative diagonals.
      */
     public Position[] getAllNegativeDiagonalStarts() {
-        Position[] starts = new Position[numRows() + numCols() - 1];
+        Position[] starts = new Position[getNoRows() + getNoCols() - 1];
 
         int index = 0;
-        for (int col = 0; col < numCols(); col++) {
+        for (int col = 0; col < getNoCols(); col++) {
             starts[index] = new Position(0, col);
             index++;
         }
 
-        for (int row = 1; row < numRows(); row++) {
-            starts[index] = new Position(row, _numCols - 1);
+        for (int row = 1; row < getNoRows(); row++) {
+            starts[index] = new Position(row, numCols - 1);
             index++;
         }
 
@@ -438,17 +435,17 @@ public class Board {
      * @return All the sequences of the board.
      */
     public Stone[][] getAllBoardSequences() {
-        Stone[][] sequences = new Stone[(numRows() + numCols()) * 3 - 2][];
+        Stone[][] sequences = new Stone[(getNoRows() + getNoCols()) * 3 - 2][];
         int index = 0;
 
         // Get all the rows.
-        for (int row = 0; row < numRows(); row++) {
+        for (int row = 0; row < getNoRows(); row++) {
             sequences[index] = getRow(row);
             index++;
         }
 
         // Get all the columns.
-        for (int col = 0; col < numCols(); col++) {
+        for (int col = 0; col < getNoCols(); col++) {
             sequences[index] = getColumn(col);
             index++;
         }
@@ -538,8 +535,8 @@ public class Board {
      */
     public List<Position> getEmptyPositions() {
         ArrayList<Position> emptyPositions = new ArrayList<>();
-        for (int row = 0; row < this._numRows; row++) {
-            for (int col = 0; col < this._numCols; col++) {
+        for (int row = 0; row < this.numRows; row++) {
+            for (int col = 0; col < this.numCols; col++) {
                 if (this.isEmpty(row, col)) {
                     emptyPositions.add(new Position(row, col));
                 }
@@ -555,8 +552,8 @@ public class Board {
      */
     public int getNoStones() {
         int noStones = 0;
-        for (int row = 0; row < this._numRows; row++) {
-            for (int col = 0; col < this._numCols; col++) {
+        for (int row = 0; row < this.numRows; row++) {
+            for (int col = 0; col < this.numCols; col++) {
                 if (!this.isEmpty(row, col)) {
                     noStones++;
                 }
@@ -574,8 +571,8 @@ public class Board {
      */
     public int getNoStones(Stone stone) {
         int noStones = 0;
-        for (int row = 0; row < this._numRows; row++) {
-            for (int col = 0; col < this._numCols; col++) {
+        for (int row = 0; row < this.numRows; row++) {
+            for (int col = 0; col < this.numCols; col++) {
                 if (this.get(row, col) == stone) {
                     noStones++;
                 }
@@ -591,7 +588,7 @@ public class Board {
      * @return The center position of the board.
      */
     public Position getCenter() {
-        return new Position(this._numRows / 2, this._numCols / 2);
+        return new Position(this.numRows / 2, this.numCols / 2);
     }
 
     /**
@@ -664,10 +661,10 @@ public class Board {
     public String displayString() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int row = 0; row < this._numRows; row++) {
+        for (int row = 0; row < this.numRows; row++) {
             // Add the getRow number
-            stringBuilder.append(String.format(Locale.US, "%2d ", this._numRows - row));
-            for (int col = 0; col < this._numCols; col++) {
+            stringBuilder.append(String.format(Locale.US, "%2d ", this.numRows - row));
+            for (int col = 0; col < this.numCols; col++) {
                 Stone stone = this.get(row, col);
                 if (stone == null) {
                     stringBuilder.append("O");
@@ -681,7 +678,7 @@ public class Board {
 
         // Add the column letters
         stringBuilder.append("   ");
-        for (int col = 0; col < this._numCols; col++) {
+        for (int col = 0; col < this.numCols; col++) {
             stringBuilder.append(String.format(Locale.US, "%c ", 'A' + col));
         }
         stringBuilder.append("\n");

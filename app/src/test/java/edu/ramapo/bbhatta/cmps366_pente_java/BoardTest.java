@@ -20,12 +20,12 @@ public class BoardTest {
     public void testBoardConstructor() {
         Board board = new Board(19, 21);
 
-        assertEquals(19, board.numRows());
-        assertEquals(21, board.numCols());
+        assertEquals(19, board.getNoRows());
+        assertEquals(21, board.getNoCols());
 
         // Iterate through the board and check that all positions are empty.
-        for (int row = 0; row < board.numRows(); row++) {
-            for (int col = 0; col < board.numCols(); col++) {
+        for (int row = 0; row < board.getNoRows(); row++) {
+            for (int col = 0; col < board.getNoCols(); col++) {
                 assertEquals(Board.EMPTY, board.get(new Position(row, col)));
             }
         }
@@ -40,12 +40,12 @@ public class BoardTest {
         Board copiedBoard = new Board(board);
 
         // Check that the copied board is the same as the original board.
-        assertEquals(board.numRows(), copiedBoard.numRows());
-        assertEquals(board.numCols(), copiedBoard.numCols());
+        assertEquals(board.getNoRows(), copiedBoard.getNoRows());
+        assertEquals(board.getNoCols(), copiedBoard.getNoCols());
 
         // Iterate through the board and check that all positions are the same.
-        for (int row = 0; row < board.numRows(); row++) {
-            for (int col = 0; col < board.numCols(); col++) {
+        for (int row = 0; row < board.getNoRows(); row++) {
+            for (int col = 0; col < board.getNoCols(); col++) {
                 assertEquals(board.get(new Position(row, col)), copiedBoard.get(new Position(row, col)));
             }
         }
