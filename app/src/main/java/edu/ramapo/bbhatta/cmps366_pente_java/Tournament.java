@@ -103,15 +103,15 @@ public class Tournament {
         return round.getBoard();
     }
 
-    public int getCaptures(Player player) {
+    public Integer getCaptures(Player player) {
         return round.getCaptures(player);
     }
 
-    public int getRoundScore(Player player) {
+    public Integer getRoundScore(Player player) {
         return round.getScore(player);
     }
 
-    public int getNoCaptures(Player player) {
+    public Integer getNoCaptures(Player player) {
         return round.getCaptures(player);
     }
 

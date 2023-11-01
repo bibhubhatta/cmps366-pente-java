@@ -17,15 +17,15 @@ public class DemoTest {
     @Test
     public void testInitialCaptures() {
         Tournament tournament = getPenteFromFile();
-        assertEquals(0, tournament.getCaptures(HUMAN));
-        assertEquals(0, tournament.getCaptures(COMPUTER));
+        assertEquals(0, (int) tournament.getCaptures(HUMAN));
+        assertEquals(0, (int) tournament.getCaptures(COMPUTER));
     }
 
     @Test
     public void testInitialRoundScore() {
         Tournament tournament = getPenteFromFile();
-        assertEquals(0, tournament.getRoundScore(HUMAN));
-        assertEquals(0, tournament.getRoundScore(COMPUTER));
+        assertEquals(0, (int) tournament.getRoundScore(HUMAN));
+        assertEquals(0, (int) tournament.getRoundScore(COMPUTER));
     }
 
     @Test
@@ -39,8 +39,8 @@ public class DemoTest {
     public void testMakeMove() {
         Tournament tournament = getPenteFromFile();
         tournament = tournament.makeMove("J12");
-        assertEquals(2, tournament.getNoCaptures(HUMAN));
-        assertEquals(0, tournament.getNoCaptures(COMPUTER));
+        assertEquals(2, (int) tournament.getNoCaptures(HUMAN));
+        assertEquals(0, (int) tournament.getNoCaptures(COMPUTER));
     }
 
     private Tournament getPenteFromFile() {
