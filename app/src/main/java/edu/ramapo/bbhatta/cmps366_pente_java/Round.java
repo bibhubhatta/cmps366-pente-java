@@ -90,6 +90,27 @@ public class Round {
     }
 
     /**
+     * Gets the last player of the round.
+     * The last player is the player that was added to the round last,
+     * and therefore the player that plays last.
+     *
+     * @return the last player of the round
+     */
+    protected Player getLastPlayer() {
+        if (players.isEmpty()) {
+            return null;
+        }
+
+        Player lastPlayer = null;
+
+        for (Player player : players.keySet()) {
+            lastPlayer = player;
+        }
+
+        return lastPlayer;
+    }
+
+    /**
      * Adds a player to the round.
      * The player is assigned a stone, and the next player is set.
      * The order in which the players are added is the order in which they play.
@@ -114,11 +135,19 @@ public class Round {
 
 
         Player nextPlayer = getFirstPlayer();
+        Player previousPlayer = getLastPlayer();
+
         PlayerData playerData = new PlayerData(player, stone, nextPlayer, numCaptures);
 
         Round resultingRound = new Round(this);
+
+        if (previousPlayer != null) {
+            resultingRound.players.get(previousPlayer).nextPlayer = player;
+        }
+
         resultingRound.availableStones.remove(stone);
         resultingRound.players.put(player, playerData);
+
         return resultingRound;
     }
 
