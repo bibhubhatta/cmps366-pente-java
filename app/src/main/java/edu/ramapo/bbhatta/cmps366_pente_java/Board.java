@@ -207,14 +207,14 @@ public class Board {
      *
      * @param position The position to convert.
      *                 The string is in the format of "A1", "B2", etc.
-     *                 The letter is the (noRowsInBoard - row + 1) converted to a letter.
-     *                 For example, if noRowsInBoard is 19 and the row is 0, then the letter is 'S'.
-     *                 If noRowsInBoard is 19 and the row is 18, then the letter is 'A'.
+     *                 The letter is the (col + 1) converted to a letter.
+     *                 For example, if the col is 0, then the letter is 'A'.
+     *                 The number is the (noRowsInBoard - row) converted to a string.
      * @return The position as a string.
      */
     public String positionToString(Position position) {
-        char row = (char) ('A' + (_numRows - position.row() - 1));
-        return String.format(Locale.US, "%c%d", row, position.col() + 1);
+        char col = (char) ('A' + position.col());
+        return String.format(Locale.US, "%c%d", col, this._numRows - position.row());
     }
 
 
@@ -233,12 +233,12 @@ public class Board {
             // Convert the string to uppercase and remove all whitespace.
             position = position.toUpperCase().replaceAll("\\s+", "");
 
-            char row = position.charAt(0);
-            int rowInt = _numRows - (row - 'A') - 1;
+            char colChar = position.charAt(0);
+            int col = colChar - 'A';
 
-            int col = Integer.parseInt(position.substring(1)) - 1;
+            int row = _numRows - Integer.parseInt(position.substring(1));
 
-            Position pos = new Position(rowInt, col);
+            Position pos = new Position(row, col);
 
             if (isInBoard(pos)) {
                 return pos;

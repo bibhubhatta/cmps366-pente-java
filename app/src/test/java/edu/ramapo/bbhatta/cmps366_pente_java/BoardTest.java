@@ -74,7 +74,7 @@ public class BoardTest {
 
         Position position = new Position(0, 0);
         String str = defaultBoard.positionToString(position);
-        assertEquals("S1", str);
+        assertEquals("A19", str);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class BoardTest {
 
         Position position = new Position(18, 18);
         String str = defaultBoard.positionToString(position);
-        assertEquals("A19", str);
+        assertEquals("S1", str);
     }
 
     @Test
