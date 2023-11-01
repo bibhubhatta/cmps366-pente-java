@@ -21,6 +21,12 @@ public class Stone {
      * The white stone.
      */
     static final Stone WHITE = new Stone('W');
+
+    /*
+     * The empty stone.
+     */
+    static final Stone EMPTY = null;
+
     /**
      * The color of the stone.
      */
@@ -81,5 +87,16 @@ public class Stone {
     @Override
     public int hashCode() {
         return this.color();
+    }
+
+    /**
+     * Gets the string representation of the stone.
+     * The string representation is the color of the stone.
+     *
+     * @return The string representation of the stone.
+     */
+    @Override
+    public String toString() {
+        return String.valueOf(this.color()).substring(0, 1);
     }
 }
