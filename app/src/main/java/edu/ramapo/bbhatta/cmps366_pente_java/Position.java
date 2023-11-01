@@ -40,56 +40,6 @@ public class Position {
     public Position(Position position) {
         this.row = position.row;
         this.col = position.col;
-        
-    }
-
-     /**
-     * Gets the row of the position.
-     *
-     * @return The row of the position.
-     */
-    public int getRow() {
-        return row;
-    }
-
-    /**
-     * Gets the column of the position.
-     *
-     * @return The column of the position.
-     */
-    public int getCol() {
-        return col;
-    }
-
-    /**
-     * Checks if the position is equal to another position.
-     * Two positions are equal if their rows and columns are equal.
-     * This method overrides the equals method in the Object class.
-     *
-     * @param o The object to compare to.
-     * @return True if the positions are equal, false otherwise.
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Position)) return false;
-
-        Position position = (Position) o;
-
-        if (row != position.row) return false;
-        return col == position.col;
-    }
-
-    /**
-     * Gets the hash code of the position.
-     * This method overrides the hashCode method in the Object class.
-     * This method is required because the equals method is overridden.
-     *
-     * @return The hash code of the position.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(row, col);
     }
 
     /**
@@ -183,5 +133,54 @@ public class Position {
      */
     public static int distance(Position position1, Position position2) {
         return Math.max(Math.abs(position1.row - position2.row), Math.abs(position1.col - position2.col));
+    }
+
+    /**
+     * Gets the row of the position.
+     *
+     * @return The row of the position.
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * Gets the column of the position.
+     *
+     * @return The column of the position.
+     */
+    public int getCol() {
+        return col;
+    }
+
+    /**
+     * Checks if the position is equal to another position.
+     * Two positions are equal if their rows and columns are equal.
+     * This method overrides the equals method in the Object class.
+     *
+     * @param o The object to compare to.
+     * @return True if the positions are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position)) return false;
+
+        Position position = (Position) o;
+
+        if (row != position.row) return false;
+        return col == position.col;
+    }
+
+    /**
+     * Gets the hash code of the position.
+     * This method overrides the hashCode method in the Object class.
+     * This method is required because the equals method is overridden.
+     *
+     * @return The hash code of the position.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, col);
     }
 }
