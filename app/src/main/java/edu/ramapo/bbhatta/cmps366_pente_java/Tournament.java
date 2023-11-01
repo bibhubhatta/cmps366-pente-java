@@ -5,20 +5,20 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
 
-public class Pente {
+public class Tournament {
 
 
     protected LinkedHashMap<Player, Integer> roster;
     protected Round round;
 
-    public Pente(int numRows, int numCols) {
+    public Tournament(int numRows, int numCols) {
         this.round = new Round(numRows, numCols);
         this.roster = new LinkedHashMap<>();
     }
 
-    public Pente(Pente pente) {
-        this.round = pente.round;
-        this.roster = pente.roster;
+    public Tournament(Tournament tournament) {
+        this.round = tournament.round;
+        this.roster = tournament.roster;
     }
 
     /**
@@ -27,7 +27,7 @@ public class Pente {
      * @param file The file to read from.
      * @return The Pente object.
      */
-    public static Pente fromFile(File file) throws IOException {
+    public static Tournament fromFile(File file) throws IOException {
         // Open file and read it as string
         String serialString = new String(Files.readAllBytes(file.toPath()));
 
@@ -41,9 +41,9 @@ public class Pente {
         int humanScore = serial.getHumanScore();
         int computerScore = serial.getComputerScore();
 
-        Pente pente = new Pente(19, 19);
-        pente.roster.put(human, humanScore);
-        pente.roster.put(computer, computerScore);
+        Tournament tournament = new Tournament(19, 19);
+        tournament.roster.put(human, humanScore);
+        tournament.roster.put(computer, computerScore);
 
         // Create a round object from the serial object
 
@@ -69,9 +69,9 @@ public class Pente {
         // Set the current player
         round = round.setCurrentPlayer(currentPlayer);
         // Create a Pente object from the round object
-        pente.round = round;
+        tournament.round = round;
 
-        return pente;
+        return tournament;
     }
 
     /**
@@ -82,8 +82,8 @@ public class Pente {
      * @param player The player to add.
      * @return The resulting game state.
      */
-    public Pente addPlayer(Player player, int score) {
-        Pente resultingTournament = new Pente(this);
+    public Tournament addPlayer(Player player, int score) {
+        Tournament resultingTournament = new Tournament(this);
         resultingTournament.roster.putIfAbsent(player, score);
         return resultingTournament;
     }
@@ -112,13 +112,13 @@ public class Pente {
         return round.getCurrentStone();
     }
 
-    public Pente makeMove(Position position) {
-        Pente resultingTournament = new Pente(this);
+    public Tournament makeMove(Position position) {
+        Tournament resultingTournament = new Tournament(this);
         resultingTournament.round = round.makeMove(position);
         return resultingTournament;
     }
 
-    public Pente makeMove(String move) {
+    public Tournament makeMove(String move) {
         Position position = round.getBoard().stringToPosition(move);
         return makeMove(position);
     }

@@ -16,36 +16,36 @@ public class DemoTest {
 
     @Test
     public void testInitialCaptures() {
-        Pente pente = getPenteFromFile();
-        assertEquals(0, pente.getCaptures(HUMAN));
-        assertEquals(0, pente.getCaptures(COMPUTER));
+        Tournament tournament = getPenteFromFile();
+        assertEquals(0, tournament.getCaptures(HUMAN));
+        assertEquals(0, tournament.getCaptures(COMPUTER));
     }
 
     @Test
     public void testInitialRoundScore() {
-        Pente pente = getPenteFromFile();
-        assertEquals(0, pente.getRoundScore(HUMAN));
-        assertEquals(0, pente.getRoundScore(COMPUTER));
+        Tournament tournament = getPenteFromFile();
+        assertEquals(0, tournament.getRoundScore(HUMAN));
+        assertEquals(0, tournament.getRoundScore(COMPUTER));
     }
 
     @Test
     public void testCurrentPlayerAndStone() {
-        Pente pente = getPenteFromFile();
-        assertEquals(HUMAN, pente.getCurrentPlayer());
-        assertEquals(Stone.BLACK, pente.getCurrentStone());
+        Tournament tournament = getPenteFromFile();
+        assertEquals(HUMAN, tournament.getCurrentPlayer());
+        assertEquals(Stone.BLACK, tournament.getCurrentStone());
     }
 
     @Test
     public void testMakeMove() {
-        Pente pente = getPenteFromFile();
-        pente = pente.makeMove("J12");
-        assertEquals(2, pente.getNoCaptures(HUMAN));
-        assertEquals(0, pente.getNoCaptures(COMPUTER));
+        Tournament tournament = getPenteFromFile();
+        tournament = tournament.makeMove("J12");
+        assertEquals(2, tournament.getNoCaptures(HUMAN));
+        assertEquals(0, tournament.getNoCaptures(COMPUTER));
     }
 
-    private Pente getPenteFromFile() {
+    private Tournament getPenteFromFile() {
         try {
-            return Pente.fromFile(serial1File);
+            return Tournament.fromFile(serial1File);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
