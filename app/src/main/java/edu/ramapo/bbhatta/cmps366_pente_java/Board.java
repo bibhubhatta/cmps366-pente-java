@@ -136,7 +136,7 @@ public class Board {
      *
      * @param position The position.
      * @param stone    The stone to set.
-     * @return
+     * @return The resulting board.
      */
     public Board set(Position position, Stone stone) {
         return this.set(position.getRow(), position.getCol(), stone);
