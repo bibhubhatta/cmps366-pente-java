@@ -527,6 +527,27 @@ public class Board {
         return stoneSequences.toArray(new Stone[0][]);
     }
 
+
+    /**
+     * Gets all the sequences of the board that contain the given stone.
+     *
+     * @param stone The stone to get the sequences of.
+     * @return All the sequences of the board that contain the given stone.
+     */
+    public Stone[][] getAllStoneSequences(Stone stone) {
+        Stone[][] stoneSequences = getAllStoneSequences();
+        ArrayList<Stone[]> stoneSequencesOfStone = new ArrayList<>();
+
+        for (Stone[] stoneSequence : stoneSequences) {
+            if (stoneSequence[0] == stone) {
+                stoneSequencesOfStone.add(stoneSequence);
+            }
+        }
+
+        return stoneSequencesOfStone.toArray(new Stone[0][]);
+    }
+
+
     public int getNoStoneSequences(Stone stone, int length) {
         int noSequences = 0;
 

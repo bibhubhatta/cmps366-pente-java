@@ -319,6 +319,66 @@ public class Round {
     }
 
     /**
+     * Gets the winner of the round.
+     * A player wins the round if they have a sequence of 5 stones or more,
+     * or if they have captured 5 or more pairs of stones.
+     *
+     * @return the winner of the round
+     * If there is no winner, null is returned
+     */
+    protected Player getWinner() {
+        for (Player player : players.keySet()) {
+            if (getNoCapturedPairs(player) >= 5) {
+                return player;
+            }
+
+            Stone[][] allStoneSequences = board.getAllStoneSequences(getStone(player));
+
+            for (Stone[] stoneSequence : allStoneSequences) {
+                if (stoneSequence.length >= 5) {
+                    return player;
+                }
+            }
+        }
+        return null;
+
+    }
+
+    /**
+     * Checks if the round is a draw.
+     * A round is a draw if there is no winner, and the board is full.
+     *
+     * @return true if the round is a draw, false otherwise
+     */
+    protected boolean isDraw() {
+        return getWinner() == null && board.isFull();
+    }
+
+    /**
+     * Checks if the round is over.
+     * A round is over if there is a winner, or if the round is a draw.
+     *
+     * @return true if the round is over, false otherwise
+     */
+    protected boolean isOver() {
+        return getWinner() != null || isDraw();
+    }
+
+    /**
+     * Gets the number of captured pairs of the specified player.
+     *
+     * @param player the player to get the number of captured pairs
+     * @return the number of captures of the specified player
+     * If the player is not added to the round, null is returned
+     */
+    public Integer getNoCapturedPairs(Player player) {
+        if (!players.containsKey(player)) {
+            return null;
+        }
+        return players.get(player).numCaptures;
+    }
+
+    /**
      * Stores the data of a player in a round.
      * It is immutable.
      */
