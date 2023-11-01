@@ -527,6 +527,22 @@ public class Board {
         return stoneSequences.toArray(new Stone[0][]);
     }
 
+    public int getNoStoneSequences(Stone stone, int length) {
+        int noSequences = 0;
+
+        Stone[][] stoneSequences = getAllStoneSequences();
+
+        for (Stone[] stoneSequence : stoneSequences) {
+            if (stoneSequence[0] != stone) {
+                continue;
+            }
+            if (stoneSequence.length == length) {
+                noSequences++;
+            }
+        }
+
+        return noSequences;
+    }
 
     /**
      * Gets all the empty positions of the board.

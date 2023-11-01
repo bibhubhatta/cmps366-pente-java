@@ -284,8 +284,38 @@ public class Round {
         return makeMove(position);
     }
 
+    /**
+     * Gets the score of the specified player.
+     * The score is the number of captures + number of stones in a row of 4
+     * + number of stones in a row of 5 * 5
+     *
+     * @param player the player to get the score of
+     * @return the score of the specified player
+     * If the player is not added to the round, null is returned
+     */
     public Integer getScore(Player player) {
-        return Objects.requireNonNull(players.get(player)).numCaptures;
+        if (!players.containsKey(player)) {
+            return null;
+        }
+
+        return players.get(player).numCaptures
+                + board.getNoStoneSequences(getStone(player), 4)
+                + board.getNoStoneSequences(getStone(player), 5) * 5;
+    }
+
+    /**
+     * Gets the stone of the specified player.
+     *
+     * @param player the player that is playing the stone
+     * @return the stone of the specified player
+     * If the player is not added to the round, null is returned
+     */
+    protected Stone getStone(Player player) {
+        if (!players.containsKey(player)) {
+            return null;
+        }
+
+        return players.get(player).stone;
     }
 
     /**
