@@ -1,7 +1,10 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.function.UnaryOperator;
 
 /**
  * The Board class represents the board.
@@ -332,11 +335,11 @@ public class Board {
         }
 
         Position diagonalStart = position;
-        Position downLeft = diagonalStart.downLeft();
+        Position downLeft = Position.downLeft(diagonalStart);
 
         while (isInBoard(downLeft)) {
             diagonalStart = downLeft;
-            downLeft = diagonalStart.downLeft();
+            downLeft = Position.downLeft(diagonalStart);
         }
 
         ArrayList<Stone> diagonal = new ArrayList<>();
@@ -344,7 +347,7 @@ public class Board {
         Position current = diagonalStart;
         while (isInBoard(current)) {
             diagonal.add(get(current));
-            current = current.upRight();
+            current = Position.upRight(current);
         }
 
         return diagonal.toArray(new Stone[0]);
@@ -363,10 +366,10 @@ public class Board {
         }
 
         Position diagonalStart = position;
-        Position upLeft = diagonalStart.upLeft();
+        Position upLeft = Position.upLeft(diagonalStart);
         while (isInBoard(upLeft)) {
             diagonalStart = upLeft;
-            upLeft = diagonalStart.upLeft();
+            upLeft = Position.upLeft(diagonalStart);
         }
 
         ArrayList<Stone> diagonal = new ArrayList<>();
@@ -374,7 +377,7 @@ public class Board {
         Position current = diagonalStart;
         while (isInBoard(current)) {
             diagonal.add(get(current));
-            current = current.downRight();
+            current = Position.downRight(current);
         }
 
         return diagonal.toArray(new Stone[0]);
@@ -424,4 +427,266 @@ public class Board {
         return starts;
     }
 
+    /**
+     * Gets all the sequences of the board.
+     * The sequences are in the following order:
+     * 1. All the rows.
+     * 2. All the columns.
+     * 3. All the positive diagonals.
+     * 4. All the negative diagonals.
+     *
+     * @return All the sequences of the board.
+     */
+    public Stone[][] getAllBoardSequences() {
+        Stone[][] sequences = new Stone[(numRows() + numCols()) * 3 - 2][];
+        int index = 0;
+
+        // Get all the rows.
+        for (int row = 0; row < numRows(); row++) {
+            sequences[index] = getRow(row);
+            index++;
+        }
+
+        // Get all the columns.
+        for (int col = 0; col < numCols(); col++) {
+            sequences[index] = getColumn(col);
+            index++;
+        }
+
+        // Get all the positive diagonals.
+        Position[] positiveDiagonalStarts = getAllPositiveDiagonalStarts();
+        for (Position start : positiveDiagonalStarts) {
+            sequences[index] = getPositiveDiagonal(start);
+            index++;
+        }
+
+        // Get all the negative diagonals.
+        Position[] negativeDiagonalStarts = getAllNegativeDiagonalStarts();
+        for (Position start : negativeDiagonalStarts) {
+            sequences[index] = getNegativeDiagonal(start);
+            index++;
+        }
+
+        return sequences;
+
+    }
+
+    /**
+     * Converts a board sequence to a stone sequence.
+     * For example, if the board sequence is [Stone.BLACK, Stone.WHITE, Stone.BLACK, Stone.Black, Stone.EMPTY],
+     * then the stone sequence is [[Stone.BLACK], [Stone.WHITE], [Stone.BLACK, Stone.BLACK]].
+     *
+     * @param boardSequence The board sequence to convert.
+     * @return The stone sequence.
+     */
+    public Stone[][] convertBoardSequenceToStoneSequence(Stone[] boardSequence) {
+        ArrayList<Stone[]> stoneSequences = new ArrayList<>();
+
+        ArrayList<Stone> stoneSequence = new ArrayList<>();
+
+        int index = 0;
+
+        while (index < boardSequence.length) {
+            if (boardSequence[index] == EMPTY) {
+                index++;
+                continue;
+            }
+
+            stoneSequence.add(boardSequence[index]);
+            while (index < boardSequence.length - 1 && boardSequence[index] == boardSequence[index + 1]) {
+                index++;
+                stoneSequence.add(boardSequence[index]);
+            }
+
+            stoneSequences.add(stoneSequence.toArray(new Stone[0]));
+            stoneSequence.clear();
+            index++;
+        }
+
+        return stoneSequences.toArray(new Stone[0][]);
+
+    }
+
+
+    /**
+     * Gets all the sequences of the board as stone sequences.
+     * The sequences are in the following order:
+     * 1. All the rows.
+     * 2. All the columns.
+     * 3. All the positive diagonals.
+     * 4. All the negative diagonals.
+     *
+     * @return All the sequences of the board as stone sequences.
+     */
+    public Stone[][] getAllStoneSequences() {
+        Stone[][] boardSequences = getAllBoardSequences();
+        ArrayList<Stone[]> stoneSequences = new ArrayList<>();
+
+        for (Stone[] boardSequence : boardSequences) {
+            Stone[][] sequences = convertBoardSequenceToStoneSequence(boardSequence);
+            stoneSequences.addAll(Arrays.asList(sequences));
+        }
+
+        return stoneSequences.toArray(new Stone[0][]);
+    }
+
+
+    /**
+     * Gets all the empty positions of the board.
+     *
+     * @return All the empty positions of the board.
+     */
+    public List<Position> getEmptyPositions() {
+        ArrayList<Position> emptyPositions = new ArrayList<>();
+        for (int row = 0; row < this._numRows; row++) {
+            for (int col = 0; col < this._numCols; col++) {
+                if (this.isEmpty(row, col)) {
+                    emptyPositions.add(new Position(row, col));
+                }
+            }
+        }
+        return emptyPositions;
+    }
+
+    /**
+     * Gets the number of stones on the board.
+     *
+     * @return The number of stones on the board.
+     */
+    public int getNoStones() {
+        int noStones = 0;
+        for (int row = 0; row < this._numRows; row++) {
+            for (int col = 0; col < this._numCols; col++) {
+                if (!this.isEmpty(row, col)) {
+                    noStones++;
+                }
+            }
+        }
+        return noStones;
+    }
+
+
+    /**
+     * Gets the number of stones of the given stone on the board.
+     *
+     * @param stone The stone to get the number of.
+     * @return The number of stones of the given stone on the board.
+     */
+    public int getNoStones(Stone stone) {
+        int noStones = 0;
+        for (int row = 0; row < this._numRows; row++) {
+            for (int col = 0; col < this._numCols; col++) {
+                if (this.get(row, col) == stone) {
+                    noStones++;
+                }
+            }
+        }
+        return noStones;
+    }
+
+
+    /**
+     * Gets the center position of the board.
+     *
+     * @return The center position of the board.
+     */
+    public Position getCenter() {
+        return new Position(this._numRows / 2, this._numCols / 2);
+    }
+
+    /**
+     * Gets the captured positions in the given direction.
+     * The direction is a static function that takes a position and returns the next position in the direction.
+     * For example, the up method takes a position and returns the position above it.
+     *
+     * @param position        The position to get the captured positions of.
+     * @param directionMethod The direction method.
+     *                        The direction method takes a position and returns the next position in the direction.
+     * @return The captured positions in the given direction method.
+     */
+    protected List<Position> getCapturedPositions(Position position, UnaryOperator<Position> directionMethod) {
+        ArrayList<Position> capturedPositions = new ArrayList<>();
+
+        // Check if the position is empty.
+        if (isEmpty(position)) {
+            return capturedPositions;
+        }
+
+        // Check if the position is in the board.
+        if (!isInBoard(position)) {
+            return capturedPositions;
+        }
+
+        Position oneAway = directionMethod.apply(position);
+        Position twoAway = directionMethod.apply(oneAway);
+        Position threeAway = directionMethod.apply(twoAway);
+
+        Stone stone = get(position);
+        Stone oneAwayStone = get(oneAway);
+        Stone twoAwayStone = get(twoAway);
+        Stone threeAwayStone = get(threeAway);
+
+        if (oneAwayStone != null && oneAwayStone == twoAwayStone && stone == threeAwayStone) {
+            capturedPositions.add(oneAway);
+            capturedPositions.add(twoAway);
+        }
+
+        return capturedPositions;
+    }
+
+
+    public List<Position> getCapturedPositions(Position position) {
+        ArrayList<Position> capturedPositions = new ArrayList<>();
+
+        // Check if the position is empty.
+        if (isEmpty(position)) {
+            return capturedPositions;
+        }
+
+        // Check if the position is in the board.
+        if (!isInBoard(position)) {
+            return capturedPositions;
+        }
+
+        capturedPositions.addAll(getCapturedPositions(position, Position::up));
+        capturedPositions.addAll(getCapturedPositions(position, Position::down));
+        capturedPositions.addAll(getCapturedPositions(position, Position::left));
+        capturedPositions.addAll(getCapturedPositions(position, Position::right));
+        capturedPositions.addAll(getCapturedPositions(position, Position::upLeft));
+        capturedPositions.addAll(getCapturedPositions(position, Position::upRight));
+        capturedPositions.addAll(getCapturedPositions(position, Position::downLeft));
+        capturedPositions.addAll(getCapturedPositions(position, Position::downRight));
+
+        return capturedPositions;
+
+    }
+
+    public String displayString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int row = 0; row < this._numRows; row++) {
+            // Add the row number
+            stringBuilder.append(String.format(Locale.US, "%2d ", this._numRows - row));
+            for (int col = 0; col < this._numCols; col++) {
+                Stone stone = this.get(row, col);
+                if (stone == null) {
+                    stringBuilder.append("O");
+                } else {
+                    stringBuilder.append(stone);
+                }
+                stringBuilder.append(" ");
+            }
+            stringBuilder.append("\n");
+        }
+
+        // Add the column letters
+        stringBuilder.append("   ");
+        for (int col = 0; col < this._numCols; col++) {
+            stringBuilder.append(String.format(Locale.US, "%c ", 'A' + col));
+        }
+        stringBuilder.append("\n");
+
+
+        return stringBuilder.toString();
+    }
 }
