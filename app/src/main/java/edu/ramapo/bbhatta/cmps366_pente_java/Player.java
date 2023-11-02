@@ -1,5 +1,7 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 /**
@@ -39,5 +41,11 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @NotNull
+    @Override
+    public String toString() {
+        return name;
     }
 }
