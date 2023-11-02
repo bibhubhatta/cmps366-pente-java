@@ -75,6 +75,15 @@ public class Tournament {
     }
 
     /**
+     * Gets all the players in the tournament.
+     *
+     * @return All the players in the tournament.
+     */
+    public Iterable<Player> getPlayers() {
+        return roster.keySet();
+    }
+
+    /**
      * Adds a player to the tournament.
      * <p>
      * If the player is already in the tournament, then the player is not added.

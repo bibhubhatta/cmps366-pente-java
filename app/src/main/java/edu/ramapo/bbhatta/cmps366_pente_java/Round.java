@@ -111,6 +111,15 @@ public class Round {
     }
 
     /**
+     * Gets all the players in the round.
+     *
+     * @return all the players in the round
+     */
+    public Iterable<Player> getPlayers() {
+        return new ArrayList<>(players.keySet());
+    }
+
+    /**
      * Adds a player to the round.
      * The player is assigned a stone, and the next player is set.
      * The order in which the players are added is the order in which they play.
