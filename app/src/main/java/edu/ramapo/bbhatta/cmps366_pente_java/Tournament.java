@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Tournament {
 
@@ -17,8 +18,8 @@ public class Tournament {
     }
 
     public Tournament(Tournament tournament) {
-        this.round = tournament.round;
-        this.roster = tournament.roster;
+        this.round = tournament.getRound();
+        this.roster = (LinkedHashMap<Player, Integer>) tournament.getRoster();
     }
 
     /**
@@ -136,6 +137,15 @@ public class Tournament {
         return new Round(round);
     }
 
+    /**
+     * Gets the roster of the tournament.
+     *
+     * @return A copy of the roster of the tournament.
+     */
+    public Map<Player, Integer> getRoster() {
+        return new LinkedHashMap<>(roster);
+    }
+
 
     public Integer getCaptures(Player player) {
         return round.getCaptures(player);
@@ -159,7 +169,18 @@ public class Tournament {
 
     public Tournament makeMove(Position position) {
         Tournament resultingTournament = new Tournament(this);
-        resultingTournament.round = round.makeMove(position);
+        Round resultingRound = round.makeMove(position);
+
+        if (resultingRound.isOver()) {
+
+            // Add the round score to the tournament score
+            for (Player player : resultingRound.getPlayers()) {
+                resultingTournament.roster.put(player, roster.get(player) + resultingRound.getScore(player));
+            }
+        }
+
+        resultingTournament.round = resultingRound;
+
         return resultingTournament;
     }
 
