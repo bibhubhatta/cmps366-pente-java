@@ -2,6 +2,7 @@ package edu.ramapo.bbhatta.cmps366_pente_java;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -266,6 +267,40 @@ public class Round {
     }
 
     /**
+     * Gets the available moves.
+     */
+    public List<Position> getAvailableMoves() {
+
+        ArrayList<Position> availablePositions = new ArrayList<>();
+        // If it is the first move, return the center
+        if (isFirstMove()) {
+            availablePositions.add(board.getCenter());
+            return availablePositions;
+        }
+
+        // If it is the second move of the first player, return the positions that are at least 3 spaces away from the center
+        if (isSecondTurnOfFirstPlayer()) {
+            for (Position position : board.getEmptyPositions()) {
+                if (Position.distance(board.getCenter(), position) >= 3) {
+                    availablePositions.add(position);
+                }
+            }
+            return availablePositions;
+        }
+
+        // Otherwise, return all the empty positions
+        return board.getEmptyPositions();
+    }
+
+    private boolean isFirstMove() {
+        return board.getNoStones() == 0;
+    }
+
+    private boolean isSecondTurnOfFirstPlayer() {
+        return board.getNoStones() == players.size() && getCurrentPlayer().equals(getFirstPlayer());
+    }
+
+    /**
      * Checks if a move is valid.
      *
      * @param position the position to check
@@ -292,15 +327,16 @@ public class Round {
         }
 
         // Check if it is the first move, and if it is, check if the position is the center
-        if (board.getNoStones() == 0 && !position.equals(board.getCenter())) {
+        if (isFirstMove() && !position.equals(board.getCenter())) {
             throw new IllegalArgumentException("First move must be in the center");
         }
 
         // Check if it is the second turn of the first player, and if it is, check if the move is at least 3 spaces away from the center
-        if (board.getNoStones() == players.size() && getCurrentPlayer().equals(getFirstPlayer()) && Position.distance(board.getCenter(), position) < 3) {
+        if (isSecondTurnOfFirstPlayer() && Position.distance(board.getCenter(), position) < 3) {
             throw new IllegalArgumentException("Second move of first player must be at least 3 spaces away from the center");
         }
     }
+
 
     /**
      * Makes a move.
