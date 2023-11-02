@@ -1,15 +1,21 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 import java.util.Scanner;
 
 public class ConsolePente {
     public static void main(String[] args) {
-        Tournament tournament = new Tournament(19, 19);
-        Player human1 = new Player("Human1");
-        Player human2 = new Player("Human2");
+        Tournament tournament;
+        boolean userWantsToLoad = askYesNoQuestion("Do you want to load a game? (y/n)");
 
-        tournament = tournament.addPlayer(human1);
-        tournament = tournament.addPlayer(human2);
+        if (userWantsToLoad) {
+            tournament = getTournamentFromUserFile();
+
+        } else {
+            tournament = getDefaultTournament();
+        }
 
         while (true) {
             while (!tournament.getRound().isOver()) {
@@ -39,6 +45,40 @@ public class ConsolePente {
                 break;
             }
         }
+    }
+
+    private static Tournament getDefaultTournament() {
+        // Create a new game
+        Tournament newTournament = new Tournament(19, 19);
+        Player human = new Player("Human");
+        Player computer = new Player("Computer");
+
+        newTournament = newTournament.addPlayer(human);
+        newTournament = newTournament.addPlayer(computer);
+        return newTournament;
+    }
+
+    @NotNull
+    private static Tournament getTournamentFromUserFile() {
+        Tournament tournament;
+
+        while (true) {
+            try {
+                System.out.println("Enter the path to the file:");
+                Scanner scanner = new Scanner(System.in);
+                String inputPath = scanner.nextLine();
+
+                File inputFile = new File(inputPath);
+
+                tournament = Tournament.fromFile(inputFile);
+                return tournament;
+            } catch (Exception e) {
+                System.out.println("Invalid path");
+                System.out.println(e.getMessage());
+                System.out.println("Try again");
+            }
+        }
+
     }
 
     private static void printCurrentPlayerAndStone(Tournament tournament) {
