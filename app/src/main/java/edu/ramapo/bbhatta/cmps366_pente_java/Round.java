@@ -148,6 +148,10 @@ public class Round {
         resultingRound.availableStones.remove(stone);
         resultingRound.players.put(player, playerData);
 
+        if (currentPlayer == null) {
+            resultingRound.currentPlayer = player;
+        }
+
         return resultingRound;
     }
 
@@ -204,8 +208,12 @@ public class Round {
      * Gets the current stone.
      *
      * @return the current stone
+     * If the player is not added to the round, null is returned
      */
     public Stone getCurrentStone() {
+        if (!players.containsKey(currentPlayer)) {
+            return null;
+        }
         return Objects.requireNonNull(players.get(currentPlayer)).stone;
     }
 
@@ -214,9 +222,13 @@ public class Round {
      *
      * @param player the player to get the number of captures of
      * @return the number of captures of the specified player
+     * If the player is not added to the round, null is returned
      */
     public Integer getCaptures(Player player) {
-        return Objects.requireNonNull(players.get(player)).numCaptures;
+        if (!players.containsKey(player)) {
+            return null;
+        }
+        return players.get(player).numCaptures;
     }
 
     public Round makeMove(Position position) {
@@ -298,9 +310,7 @@ public class Round {
             return null;
         }
 
-        return players.get(player).numCaptures
-                + board.getNoStoneSequences(getStone(player), 4)
-                + board.getNoStoneSequences(getStone(player), 5) * 5;
+        return players.get(player).numCaptures + board.getNoStoneSequences(getStone(player), 4) + board.getNoStoneSequences(getStone(player), 5) * 5;
     }
 
     /**
