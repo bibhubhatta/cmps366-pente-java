@@ -3,8 +3,10 @@ package edu.ramapo.bbhatta.cmps366_pente_java;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Tournament {
 
@@ -187,6 +189,42 @@ public class Tournament {
     public Tournament makeMove(String move) {
         Position position = round.getBoard().stringToPosition(move);
         return makeMove(position);
+    }
+
+    public Tournament initializeRound(Iterable<Player> players) {
+        Round newRound = new Round(round.getBoard().getNoRows(), round.getBoard().getNoCols());
+        for (Player player : players) {
+            newRound = newRound.addPlayer(player);
+        }
+
+        Tournament resultingTournament = new Tournament(this);
+        resultingTournament.round = newRound;
+        return resultingTournament;
+    }
+
+    public Tournament initializeRound() {
+
+        Player[] players = roster.keySet().toArray(new Player[0]);
+
+        // Check if there are two players with the same score
+        // If two players have the same score, raise an exception
+        // because the order needs to be specified
+
+        for (int i = 0; i < players.length - 1; i++) {
+            if (Objects.equals(roster.get(players[i]), roster.get(players[i + 1]))) {
+                throw new IllegalStateException("Two players have the same score");
+            }
+        }
+
+        // Sort the players by score
+        Arrays.sort(players, (player1, player2) -> {
+            int score1 = roster.get(player1);
+            int score2 = roster.get(player2);
+
+            return Integer.compare(score2, score1);
+        });
+
+        return initializeRound(Arrays.asList(players));
     }
 
     public Position getBestMove() {

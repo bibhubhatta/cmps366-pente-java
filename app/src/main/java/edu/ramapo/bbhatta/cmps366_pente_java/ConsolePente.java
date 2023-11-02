@@ -11,22 +11,34 @@ public class ConsolePente {
         tournament = tournament.addPlayer(human1);
         tournament = tournament.addPlayer(human2);
 
-        while (!tournament.getRound().isOver()) {
-            printTournamentScores(tournament);
-            printRoundScores(tournament);
-            printCaptures(tournament);
+        while (true) {
+            while (!tournament.getRound().isOver()) {
+                printTournamentScores(tournament);
+                printRoundScores(tournament);
+                printCaptures(tournament);
+                printBoard(tournament);
+                printCurrentPlayerAndStone(tournament);
+
+                Position userMove = getUserMove(tournament);
+                tournament = tournament.makeMove(userMove);
+            }
+
             printBoard(tournament);
-            printCurrentPlayerAndStone(tournament);
+            printRoundScores(tournament);
+            printTournamentScores(tournament);
 
-            Position userMove = getUserMove(tournament);
-            tournament = tournament.makeMove(userMove);
+            try {
+                tournament = tournament.initializeRound();
+            } catch (IllegalStateException e) {
+                // Conduct a toss to see who goes first
+            }
+
+
+            boolean userWantsToPlayAgain = askYesNoQuestion("Do you want to play another round? (y/n)");
+            if (!userWantsToPlayAgain) {
+                break;
+            }
         }
-
-        printBoard(tournament);
-
-        printRoundScores(tournament);
-
-        printTournamentScores(tournament);
     }
 
     private static void printCurrentPlayerAndStone(Tournament tournament) {
@@ -90,6 +102,24 @@ public class ConsolePente {
 
         for (Player player : tournament.getPlayers()) {
             System.out.println(player + ": " + tournament.getScore(player));
+        }
+    }
+
+    public static boolean askYesNoQuestion(String question) {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            System.out.println(question);
+            input = scanner.nextLine().trim().toLowerCase();
+
+            if (input.equals("y")) {
+                return true;
+            } else if (input.equals("n")) {
+                return false;
+            } else {
+                System.out.println("Invalid input. Please enter 'y' or 'n'.");
+            }
         }
     }
 }
