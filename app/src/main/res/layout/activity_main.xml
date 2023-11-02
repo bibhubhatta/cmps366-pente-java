@@ -22,7 +22,7 @@
             >
 
         <TextView
-                android:id="@+id/title"
+                android:id="@+id/tv_title"
                 android:text="@string/title"
 
                 android:layout_width="wrap_content"
@@ -37,7 +37,8 @@
                 />
 
         <Button
-                android:id="@+id/start_new_tournament"
+                android:id="@+id/btn_start_new_tournament"
+
                 android:text="@string/start_new_tournament"
 
                 android:layout_width="wrap_content"
@@ -45,7 +46,8 @@
                 />
 
         <Button
-                android:id="@+id/load_tournament"
+                android:id="@+id/btn_load_tournament"
+
                 android:text="@string/load_tournament"
 
                 android:layout_width="wrap_content"

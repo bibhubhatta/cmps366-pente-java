@@ -4,15 +4,61 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static edu.ramapo.bbhatta.cmps366_pente_java.Player.COMPUTER;
 import static edu.ramapo.bbhatta.cmps366_pente_java.Player.HUMAN;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DemoTest {
 
     private final File serial1File = new File("C:\\Users\\bibhu\\Documents\\Projects\\cmps366-pente-java\\app\\src\\test\\resources\\serials\\case1-prioritizing_capturing.txt");
 
+
+    private void isSameGameState(GameState gameState, Tournament tournament) {
+        assertEquals(gameState.humanTournamentScore, tournament.getScore(HUMAN));
+        assertEquals(gameState.computerTournamentScore, tournament.getScore(COMPUTER));
+        assertEquals(gameState.humanCaptures, tournament.getCaptures(HUMAN));
+        assertEquals(gameState.computerCaptures, tournament.getCaptures(COMPUTER));
+        assertEquals(gameState.humanRoundScore, tournament.getRoundScore(HUMAN));
+        assertEquals(gameState.computerRoundScore, tournament.getRoundScore(COMPUTER));
+        assertEquals(gameState.currentPlayer, tournament.getCurrentPlayer());
+        assertEquals(gameState.currentStone, tournament.getCurrentStone());
+
+        Position bestMove = tournament.getBestMove();
+        String bestMoveString = tournament.getBoard().positionToString(bestMove);
+        assertTrue(gameState.possibleBestMoves.contains(bestMoveString));
+    }
+
+    @Test
+    public void testSerial1() throws IOException {
+        ArrayList<GameState> gameStates = new ArrayList<>();
+        final File serial = new File("C:\\Users\\bibhu\\Documents\\Projects\\cmps366-pente-java\\app\\src\\test\\resources\\serials\\case1-prioritizing_capturing.txt");
+
+        ArrayList<String> possibleBestMoves = new ArrayList<>();
+        possibleBestMoves.add("J12");
+
+        gameStates.add(new GameState(0, 0, 0, 0, 0, 0, HUMAN, Stone.BLACK, possibleBestMoves));
+
+        possibleBestMoves = new ArrayList<>();
+        possibleBestMoves.add("C18");
+        possibleBestMoves.add("C2");
+
+        gameStates.add(new GameState(0, 0, 2, 0, 2, 0, COMPUTER, Stone.WHITE, possibleBestMoves));
+
+        // The best moves are the same as before, because there were two before.
+        gameStates.add(new GameState(0, 0, 2, 0, 2, 0, HUMAN, Stone.BLACK, possibleBestMoves));
+
+
+        Tournament tournament = Tournament.fromFile(serial);
+        for (GameState gameState : gameStates) {
+            isSameGameState(gameState, tournament);
+            tournament = tournament.makeMove(gameState.possibleBestMoves.get(0));
+        }
+
+    }
 
     @Test
     public void testInitialCaptures() {
@@ -49,5 +95,33 @@ public class DemoTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    protected class GameState {
+        public Integer humanTournamentScore;
+        public Integer computerTournamentScore;
+        public Integer humanCaptures;
+        public Integer computerCaptures;
+        public Integer humanRoundScore;
+        public Integer computerRoundScore;
+        public Player currentPlayer;
+        public Stone currentStone;
+
+        public List<String> possibleBestMoves;
+
+        public GameState(int humanTournamentScore, int computerTournamentScore, int humanCaptures, int computerCaptures, int humanRoundScore, int computerRoundScore, Player currentPlayer, Stone currentStone, List<String> possibleBestMoves) {
+            this.humanTournamentScore = humanTournamentScore;
+            this.computerTournamentScore = computerTournamentScore;
+            this.humanCaptures = humanCaptures;
+            this.computerCaptures = computerCaptures;
+            this.humanRoundScore = humanRoundScore;
+            this.computerRoundScore = computerRoundScore;
+            this.currentPlayer = currentPlayer;
+            this.currentStone = currentStone;
+            this.possibleBestMoves = possibleBestMoves;
+        }
+
+
     }
 }

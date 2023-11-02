@@ -3,4 +3,5 @@
     <string name="start_new_tournament">Start New Tournament</string>
     <string name="load_tournament">Load Tournament</string>
     <string name="title">Pente</string>
+    <string name="toss_coin">Toss Coin</string>
 </resources>
