@@ -102,17 +102,33 @@ public class ConsolePente {
         }
     }
 
+    private static void printBestMove(Tournament tournament) {
+        // Print the best move
+        System.out.println("Best Move:");
+
+        Position bestMove = tournament.getBestMove();
+        String bestMoveString = tournament.getBoard().positionToString(bestMove);
+
+        System.out.println(bestMoveString);
+    }
+
     private static Position getUserMove(Tournament tournament) {
         // Surround the move in a try-catch block to catch invalid moves
         while (true) {
             try {
                 // Prompt the user for a move
-                System.out.println("Enter a move:");
+                System.out.println("Enter a move (h for help):");
                 Scanner scanner = new Scanner(System.in);
-                String inputMove = scanner.nextLine();
+                String userInput = scanner.nextLine();
+
+                // Check if the user wants help
+                if (userInput.equals("h")) {
+                    printBestMove(tournament);
+                    continue;
+                }
 
                 // Convert the move to a position
-                Position position = tournament.getBoard().stringToPosition(inputMove);
+                Position position = tournament.getBoard().stringToPosition(userInput);
 
                 // Make the move to see if it is valid
                 tournament.makeMove(position);

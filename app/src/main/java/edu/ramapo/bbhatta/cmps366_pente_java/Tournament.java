@@ -228,7 +228,7 @@ public class Tournament {
     }
 
     public Position getBestMove() {
-        return null;
+        return new Strategy(round).getBestMove();
     }
 
 
