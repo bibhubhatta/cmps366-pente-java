@@ -1,6 +1,7 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Strategy class represents a strategy for a game.
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 public class Strategy {
 
     Round round;
+    Random random = new Random();
 
     public Strategy(Round round) {
         this.round = round;
@@ -26,19 +28,23 @@ public class Strategy {
     public Position getBestMove() {
         ArrayList<Position> availablePositions = (ArrayList<Position>) round.getAvailableMoves();
 
-        Position bestMove = availablePositions.get(0);
         int bestScore = 0;
+        ArrayList<Position> bestMoves = new ArrayList<>();
 
         for (Position position : availablePositions) {
 
             int score = getPseudoScore(position);
+
             if (score > bestScore) {
-                bestMove = position;
+                bestMoves.clear();
                 bestScore = score;
+                bestMoves.add(position);
+            } else if (score == bestScore) {
+                bestMoves.add(position);
             }
         }
 
-        return bestMove;
+        return bestMoves.get(random.nextInt(bestMoves.size()));
     }
 
     private int getPseudoScore(Position position) {
@@ -48,7 +54,31 @@ public class Strategy {
             Round testRound = round.setCurrentPlayer(player);
             testRound = testRound.makeMove(position);
 
-            score += testRound.getScore(player);
+            score += testRound.getScore(player) * 1000;
+            score += testRound.getCaptures(player) * 100;
+            score += getSequenceScore(testRound, position) * 10;
+        }
+
+        score -= Position.distance(position, round.getBoard().getCenter());
+        return score;
+    }
+
+    private int getSequenceScore(Round round, Position position) {
+        int score = 0;
+
+        Board board = round.getBoard();
+        Stone stone = board.get(position);
+
+        if (stone == null) return 0;
+
+        Stone[][] allStoneSequences = board.getAllStoneSequences();
+
+        for (Stone[] stoneSequence : allStoneSequences) {
+            int sequenceLength = stoneSequence.length;
+            if (sequenceLength < 2) continue;
+            if (stoneSequence[0] == stone) {
+                score += sequenceLength * sequenceLength;
+            }
         }
 
         return score;
