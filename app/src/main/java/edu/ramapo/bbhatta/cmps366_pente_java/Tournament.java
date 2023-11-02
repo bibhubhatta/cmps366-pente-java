@@ -80,12 +80,27 @@ public class Tournament {
      * If the player is already in the tournament, then the player is not added.
      *
      * @param player The player to add.
-     * @return The resulting game state.
+     * @param score  The score of the player.
+     * @return The resulting tournament state.
      */
     public Tournament addPlayer(Player player, int score) {
         Tournament resultingTournament = new Tournament(this);
         resultingTournament.roster.putIfAbsent(player, score);
+        resultingTournament.round = round.addPlayer(player);
         return resultingTournament;
+    }
+
+    /**
+     * Adds a player to the tournament.
+     * <p>
+     * The score of the player is set to 0.
+     * If the player is already in the tournament, then the player is not added.
+     *
+     * @param player The player to add.
+     * @return The resulting tournament state.
+     */
+    public Tournament addPlayer(Player player) {
+        return addPlayer(player, 0);
     }
 
     /**
@@ -102,6 +117,16 @@ public class Tournament {
     public Board getBoard() {
         return round.getBoard();
     }
+
+    /**
+     * Gets the round that is being played.
+     *
+     * @return A copy of the round that is being played.
+     */
+    public Round getRound() {
+        return new Round(round);
+    }
+
 
     public Integer getCaptures(Player player) {
         return round.getCaptures(player);
