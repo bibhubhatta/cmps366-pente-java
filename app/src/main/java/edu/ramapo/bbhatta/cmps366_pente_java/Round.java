@@ -71,7 +71,11 @@ public class Round {
     public Round(Round round) {
         this.board = new Board(round.board);
         this.availableStones = new ArrayList<>(round.availableStones);
-        this.players = new LinkedHashMap<>(round.players);
+        this.players = new LinkedHashMap<>();
+        // Make a deep copy of the PlayerData objects
+        for (Player player : round.players.keySet()) {
+            this.players.put(player, new PlayerData(round.players.get(player)));
+        }
         this.currentPlayer = round.currentPlayer;
     }
 
