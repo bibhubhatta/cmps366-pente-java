@@ -22,15 +22,38 @@ public class MainActivity extends AppCompatActivity {
         startNewTournamentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Conduct a toss to see who goes first
-                // Start the CoinTossActivity Activity when the button is clicked
-                Intent intent = new Intent(MainActivity.this, CoinTossActivity.class);
-                startActivity(intent);
-                
-                // Start a new tournament
+                Tournament newTournament = getNewTournament();
             }
         });
 
+    }
+
+    private Tournament getNewTournament() {
+        boolean humanWinsToss = conductToss();
+
+        // Create a new game
+        Tournament newTournament = new Tournament(19, 19);
+        Player human = Player.HUMAN;
+        Player computer = Player.COMPUTER;
+
+        if (humanWinsToss) {
+            newTournament = newTournament.addPlayer(human);
+            newTournament = newTournament.addPlayer(computer);
+        } else {
+            newTournament = newTournament.addPlayer(computer);
+            newTournament = newTournament.addPlayer(human);
+        }
+        return newTournament;
+    }
+
+    private boolean conductToss() {
+        // Conduct a toss to see who goes first
+        // Start the CoinTossActivity Activity when the button is clicked
+        Intent intent = new Intent(MainActivity.this, CoinTossActivity.class);
+        startActivity(intent);
+
+        // Get the result of the toss from the CoinTossActivity Activity
+        return getIntent().getBooleanExtra(CoinTossActivity.COIN_TOSS_RESULT_KEY, false);
     }
 
 

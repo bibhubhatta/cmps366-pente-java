@@ -4,4 +4,13 @@
     <string name="load_tournament">Load Tournament</string>
     <string name="title">Pente</string>
     <string name="toss_coin">Toss Coin</string>
+
+    <string name="initial_result">Result: Not Tossed Yet</string>
+    <string name="result_won">You won!</string>
+    <string name="result_lost">You lost!</string>
+    <string name="result_prefix">Result: </string>
+    <string name="heads_option">Heads</string>
+    <string name="tails_option">Tails</string>
+    <string name="continue_text">Continue</string>
+
 </resources>
