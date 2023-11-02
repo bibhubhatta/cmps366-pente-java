@@ -267,10 +267,15 @@ public class Round {
             throw new IllegalStateException("Player not added to round");
         }
 
+        // Check if the position is null
+        if (position == null) {
+            throw new IllegalArgumentException("Invalid position");
+        }
+
         // Check if the position is empty
         ArrayList<Position> emptyPositions = (ArrayList<Position>) board.getEmptyPositions();
         if (!emptyPositions.contains(position)) {
-            throw new IllegalArgumentException("Position is not empty");
+            throw new IllegalArgumentException("Position is not available");
         }
 
         // Check if it is the first move, and if it is, check if the position is the center
@@ -279,7 +284,7 @@ public class Round {
         }
 
         // Check if it is the second turn of the first player, and if it is, check if the move is at least 3 spaces away from the center
-        if (board.getNoStones() != 0 && getCurrentPlayer().equals(getFirstPlayer()) && Position.distance(board.getCenter(), position) < 3) {
+        if (board.getNoStones() == players.size() && getCurrentPlayer().equals(getFirstPlayer()) && Position.distance(board.getCenter(), position) < 3) {
             throw new IllegalArgumentException("Second move of first player must be at least 3 spaces away from the center");
         }
     }

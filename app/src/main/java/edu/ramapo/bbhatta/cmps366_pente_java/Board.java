@@ -660,7 +660,11 @@ public class Board {
         Stone twoAwayStone = get(twoAway);
         Stone threeAwayStone = get(threeAway);
 
-        if (oneAwayStone != null && oneAwayStone == twoAwayStone && stone == threeAwayStone) {
+        if (oneAwayStone != null
+                && stone != oneAwayStone
+                && oneAwayStone == twoAwayStone
+                && stone == threeAwayStone
+        ) {
             capturedPositions.add(oneAway);
             capturedPositions.add(twoAway);
         }
