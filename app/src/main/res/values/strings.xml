@@ -12,5 +12,8 @@
     <string name="heads_option">Heads</string>
     <string name="tails_option">Tails</string>
     <string name="continue_text">Continue</string>
+    <string name="tournament">Tournament</string>
+    <string name="end_tournament">End Tournament</string>
+    <string name="play_round">Play Round</string>
 
 </resources>
