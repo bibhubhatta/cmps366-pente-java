@@ -67,5 +67,60 @@
 
     </TableLayout>
 
+    <!--    <GridLayout-->
+    <!--            android:id="@+id/boardGridLayout"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+
+    <!--            android:layout_marginTop="16dp"-->
+    <!--            >-->
+
+
+    <!--    </GridLayout>-->
+    <GridView
+            android:id="@+id/boardGridView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:numColumns="8"
+            android:verticalSpacing="1dp"
+            android:horizontalSpacing="1dp"
+            android:stretchMode="columnWidth"
+            android:background="#000000"
+            android:gravity="center"
+            android:columnWidth="30dp"
+            android:padding="1dp"/>
+
+    <!--    Cell Layout-->
+    <TextView
+            android:id="@+id/cellTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:backgroundTint="@color/accent_color"
+            android:visibility="gone"/>
+
+
+    <Button
+            android:id="@+id/helpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/help"/>
+
+
+    <Button
+            android:id="@+id/saveGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/save_game"/>
+
 
 </LinearLayout>

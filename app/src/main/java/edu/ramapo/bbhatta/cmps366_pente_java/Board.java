@@ -699,6 +699,23 @@ public class Board {
 
     }
 
+    /**
+     * Gets all the positions in the board.
+     *
+     * @return All the positions in the board.
+     */
+    public List<Position> getAllPositions() {
+        ArrayList<Position> allPositions = new ArrayList<>();
+
+        for (int row = 0; row < this.numRows; row++) {
+            for (int col = 0; col < this.numCols; col++) {
+                allPositions.add(new Position(row, col));
+            }
+        }
+
+        return allPositions;
+    }
+
     public String displayString() {
         StringBuilder stringBuilder = new StringBuilder();
 

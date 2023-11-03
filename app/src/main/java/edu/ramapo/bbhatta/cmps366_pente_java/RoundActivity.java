@@ -1,14 +1,14 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
 import android.app.Activity;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.ArrayList;
 
 public class RoundActivity extends Activity {
 
+
+    GridView boardGridView;
 
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
@@ -16,6 +16,45 @@ public class RoundActivity extends Activity {
         setContentView(R.layout.activity_round);
 
         init();
+        initBoard();
+
+    }
+
+    private void initBoard() {
+        boardGridView = findViewById(R.id.boardGridView);
+
+        Round round = MainActivity.tournament.getRound();
+        Board board = round.getBoard();
+        int numRows = board.getNoRows();
+        int numCols = board.getNoCols();
+
+        // Set the number of columns in the grid view
+        boardGridView.setNumColumns(numCols);
+
+
+        ArrayList<String> boardArrayList = new ArrayList<>();
+
+        for (Position position : board.getAllPositions()) {
+            // Create a button with the id as the position string
+            Button button = new Button(this);
+            button.setTag(position.toString());
+
+            // Set the button's text to the stone's symbol
+            Stone stone = board.get(position);
+            if (stone == Stone.WHITE) {
+                button.setText("W");
+            } else if (stone == Stone.BLACK) {
+                button.setText("B");
+            } else {
+                button.setText("O");
+            }
+
+            // Add the button to the array list
+            boardArrayList.add(button.toString());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.board_cell, R.id.cellTextView, boardArrayList);
+        boardGridView.setAdapter(adapter);
 
     }
 

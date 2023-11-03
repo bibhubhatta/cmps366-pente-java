@@ -27,5 +27,7 @@
     <string name="player_name">Player Name</string>
     <string name="captures">Captures</string>
     <string name="round_score">Round Score</string>
+    <string name="help">Help</string>
+    <string name="save_game">Save Game</string>
 
 </resources>
