@@ -1,19 +1,24 @@
 <resources>
     <string name="app_name">Pente</string>
+
+    <!--Main Activity-->
+    <string name="title">Pente</string>
     <string name="start_new_tournament">Start New Tournament</string>
     <string name="load_tournament">Load Tournament</string>
-    <string name="title">Pente</string>
-    <string name="toss_coin">Toss Coin</string>
 
+    <!--Coin Toss Activity-->
+    <string name="toss_coin">Toss Coin</string>
     <string name="initial_result">Result: Not Tossed Yet</string>
+    <string name="result_prefix">Result: </string>
     <string name="result_won">You won!</string>
     <string name="result_lost">You lost!</string>
-    <string name="result_prefix">Result: </string>
     <string name="heads_option">Heads</string>
     <string name="tails_option">Tails</string>
     <string name="continue_text">Continue</string>
+
+    <!--Tournament Activity-->
     <string name="tournament">Tournament</string>
-    <string name="end_tournament">End Tournament</string>
     <string name="play_round">Play Round</string>
+    <string name="end_tournament">End Tournament</string>
 
 </resources>
