@@ -50,8 +50,8 @@ public class TournamentActivity extends AppCompatActivity {
                         tournament = tournament.initializeRound(players);
                     }
 
-//                    Intent intent = new Intent(TournamentActivity.this, RoundActivity.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(TournamentActivity.this, RoundActivity.class);
+                    startActivity(intent);
                 }
         );
     }
