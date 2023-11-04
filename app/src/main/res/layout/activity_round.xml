@@ -1,126 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <!-- Title -->
     <TextView
-            android:id="@+id/roundTitleTextView"
+        android:id="@+id/roundTitleTextView"
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
 
-            android:text="@string/round"
-            android:textSize="24sp"/>
+        android:text="@string/round"
+        android:textSize="24sp" />
 
     <!-- Player Captures and Scores-->
     <TableLayout
-            android:id="@+id/playerScoresTableLayout"
+        android:id="@+id/playerScoresTableLayout"
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-            android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp">
 
         <!--        Add header row-->
         <!--        Header contains Player Name, Capture and Score-->
         <TableRow
-                android:id="@+id/playerScoresHeaderTableRow"
+            android:id="@+id/playerScoresHeaderTableRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/playerNameHeaderTextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/table_cell_margin"
+
+                android:layout_weight="1"
+
+                android:text="@string/player_name"
+                android:textSize="18sp" />
 
             <TextView
-                    android:id="@+id/playerNameHeaderTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-
-                    android:layout_margin="@dimen/table_cell_margin"
-
-                    android:text="@string/player_name"
-                    android:textSize="18sp"/>
+                android:id="@+id/playerCapturesHeaderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/table_cell_margin"
+                android:layout_weight="1"
+                android:text="@string/captures"
+                android:textSize="18sp" />
 
             <TextView
-                    android:id="@+id/playerCapturesHeaderTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_margin="@dimen/table_cell_margin"
-                    android:text="@string/captures"
-                    android:textSize="18sp"/>
-
-            <TextView
-                    android:id="@+id/playerScoreHeaderTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/table_cell_margin"
-                    android:layout_weight="1"
-                    android:text="@string/round_score"
-                    android:textSize="18sp"/>
+                android:id="@+id/playerScoreHeaderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/table_cell_margin"
+                android:layout_weight="1"
+                android:text="@string/round_score"
+                android:textSize="18sp" />
         </TableRow>
 
     </TableLayout>
 
-    <!--    <GridLayout-->
-    <!--            android:id="@+id/boardGridLayout"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
+    <!-- Board -->
+    <LinearLayout
+        android:id="@+id/boardLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
-    <!--            android:layout_marginTop="16dp"-->
-    <!--            >-->
-
-
-    <!--    </GridLayout>-->
-    <GridView
-            android:id="@+id/boardGridView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:numColumns="8"
-            android:verticalSpacing="1dp"
-            android:horizontalSpacing="1dp"
-            android:stretchMode="columnWidth"
-            android:background="#000000"
-            android:gravity="center"
-            android:columnWidth="30dp"
-            android:padding="1dp"/>
-
-    <!--    Cell Layout-->
-    <TextView
-            android:id="@+id/cellTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
     <TextView
-            android:id="@+id/messageTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:backgroundTint="@color/accent_color"
-            android:visibility="gone"/>
+        android:id="@+id/messageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/accent_color"
+        android:textSize="18sp"
+        android:visibility="gone" />
 
 
     <Button
-            android:id="@+id/helpButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/help"/>
+        android:id="@+id/helpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/help" />
 
 
     <Button
-            android:id="@+id/saveGameButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/save_game"/>
+        android:id="@+id/saveGameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/save_game" />
 
 
 </LinearLayout>
