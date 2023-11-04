@@ -8,11 +8,27 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class RoundActivity extends AppCompatActivity {
+
+    @NonNull
+    private Button createCellButton(Board board, int row, int col) {
+        Position position = new Position(row, col);
+        String postionString = board.positionToString(position);
+
+        // Create a new button
+        Button button = new Button(this);
+        // Set the text to the row and column number
+        button.setText(postionString);
+        // Match width to wrap content
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        button.setLayoutParams(params);
+        return button;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +36,10 @@ public class RoundActivity extends AppCompatActivity {
         setContentView(R.layout.activity_round);
 
         init();
+        initBoard();
+    }
 
+    private void initBoard() {
         Round round = MainActivity.tournament.getRound();
         Board board = round.getBoard();
 
@@ -29,37 +48,29 @@ public class RoundActivity extends AppCompatActivity {
 
 
         for (int row = 0; row < board.getNoRows(); row++) {
-            // Create a new row
-            LinearLayout rowLayout = new LinearLayout(this);
-            // Set orientation to horizontal
-            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            // Set width to match parent and height to wrap content
-            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            rowLayout.setLayoutParams(rowParams);
-
-            for (int col = 0; col < board.getNoCols(); col++) {
-
-                Position position = new Position(row, col);
-                String postionString = board.positionToString(position);
-
-                // Create a new button
-                Button button = new Button(this);
-                // Set the text to the row and column number
-                button.setText(postionString);
-                // Match width to wrap content
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                button.setLayoutParams(params);
-                // Add the button to the row
-                rowLayout.addView(button);
-            }
+            LinearLayout rowLayout = createNewRow(board, row);
 
             // Add the row to the boardlayout
             boardLayout.addView(rowLayout);
         }
-
     }
 
+    @NonNull
+    private LinearLayout createNewRow(Board board, int row) {
+
+        LinearLayout rowLayout = new LinearLayout(this);
+        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // Set width to match parent and height to wrap content
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rowLayout.setLayoutParams(rowParams);
+
+        for (int col = 0; col < board.getNoCols(); col++) {
+            Button button = createCellButton(board, row, col);
+            rowLayout.addView(button);
+        }
+        return rowLayout;
+    }
 
     public void init() {
         TableLayout playerScoresTable = findViewById(R.id.playerScoresTableLayout);
