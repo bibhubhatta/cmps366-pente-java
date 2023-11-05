@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,19 @@ public class RoundActivity extends AppCompatActivity {
 
         // Set the tag to the position
         button.setTag(position);
+
+        // Set the background color to gray so that shadows are not added to the button
+        // which causes whitespace between the buttons
+        button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_gray));
+
+        // Set the margin so that the lines between the buttons are visible
+        int left = (col == 0) ? 10 : 0;
+        int top = (row == 0) ? 10 : 0;
+        int right = 10;
+        int bottom = 10;
+
+        params.setMargins(left, top, right, bottom);
+        button.setLayoutParams(params);
 
         // Set the on click listener
         button.setOnClickListener(view -> {
