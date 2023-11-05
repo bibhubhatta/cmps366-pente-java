@@ -39,10 +39,12 @@ public class RoundActivity extends AppCompatActivity {
         button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_gray));
 
         // Set the margin so that the lines between the buttons are visible
-        int left = (col == 0) ? 10 : 0;
-        int top = (row == 0) ? 10 : 0;
-        int right = 10;
-        int bottom = 10;
+        int boardCellStrokeWidth = (int) getResources().getDimension(R.dimen.board_cell_margin);
+
+        int left = (col == 0) ? boardCellStrokeWidth : 0;
+        int top = (row == 0) ? boardCellStrokeWidth : 0;
+        int right = boardCellStrokeWidth;
+        int bottom = boardCellStrokeWidth;
 
         params.setMargins(left, top, right, bottom);
         button.setLayoutParams(params);

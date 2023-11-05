@@ -78,10 +78,14 @@
             android:orientation="vertical">
 
             <!-- Board -->
+            <!-- Background is set to black so that the
+            margins between the buttons reveal the black background,
+            which look like gridlines -->
             <LinearLayout
                 android:id="@+id/boardLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#000000"
                 android:orientation="vertical">
 
             </LinearLayout>
