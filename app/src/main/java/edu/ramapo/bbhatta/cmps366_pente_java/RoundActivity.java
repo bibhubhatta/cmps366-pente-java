@@ -17,6 +17,90 @@ import java.util.ArrayList;
 
 public class RoundActivity extends AppCompatActivity {
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_round);
+
+        initRoundLayout();
+        initBoard();
+    }
+
+    public void initRoundLayout() {
+        TableLayout playerScoresTable = findViewById(R.id.playerScoresTableLayout);
+
+        Round round = MainActivity.tournament.getRound();
+
+        ArrayList<Player> players = (ArrayList<Player>) round.getPlayers();
+
+
+        for (Player player : players) {
+            TableRow row = new TableRow(this);
+
+            TextView playerNameTextView = getTableCellTextView(player.getName());
+            TextView playerCapturesTextView = getTableCellTextView(String.valueOf(round.getCaptures(player)));
+            TextView playerScoreTextView = getTableCellTextView(String.valueOf(round.getScore(player)));
+
+            row.addView(playerNameTextView);
+            row.addView(playerCapturesTextView);
+            row.addView(playerScoreTextView);
+
+            playerScoresTable.addView(row);
+        }
+
+
+    }
+
+    private TextView getTableCellTextView(String text) {
+        TextView tv = new TextView(this);
+        // set width and height
+        tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        // align the text to the center of the TextView
+        tv.setGravity(android.view.Gravity.CENTER);
+
+        tv.setText(text);
+
+        return tv;
+    }
+
+    private void initBoard() {
+        Round round = MainActivity.tournament.getRound();
+        Board board = round.getBoard();
+
+        // Get the boardlayout from the xml file
+        LinearLayout boardLayout = findViewById(R.id.boardLinearLayout);
+
+
+        for (int row = 0; row < board.getNoRows(); row++) {
+            LinearLayout rowLayout = createNewRow(board, row);
+
+            // Set height to 0 and weight to 1
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100, 1);
+            rowLayout.setLayoutParams(rowParams);
+
+            // Add the row to the boardlayout
+            boardLayout.addView(rowLayout);
+        }
+    }
+
+    @NonNull
+    private LinearLayout createNewRow(Board board, int row) {
+
+        LinearLayout rowLayout = new LinearLayout(this);
+        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        // Set width to match parent and height to wrap content
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rowLayout.setLayoutParams(rowParams);
+
+        for (int col = 0; col < board.getNoCols(); col++) {
+            Button button = createCellButton(board, row, col);
+            rowLayout.addView(button);
+        }
+        return rowLayout;
+    }
+
     @NonNull
     private Button createCellButton(Board board, int row, int col) {
         Position position = new Position(row, col);
@@ -58,90 +142,7 @@ public class RoundActivity extends AppCompatActivity {
 
         });
 
-
         return button;
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_round);
-
-        init();
-        initBoard();
-    }
-
-    private void initBoard() {
-        Round round = MainActivity.tournament.getRound();
-        Board board = round.getBoard();
-
-        // Get the boardlayout from the xml file
-        LinearLayout boardLayout = findViewById(R.id.boardLinearLayout);
-
-
-        for (int row = 0; row < board.getNoRows(); row++) {
-            LinearLayout rowLayout = createNewRow(board, row);
-
-            // Set height to 0 and weight to 1
-            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100, 1);
-            rowLayout.setLayoutParams(rowParams);
-
-            // Add the row to the boardlayout
-            boardLayout.addView(rowLayout);
-        }
-    }
-
-    @NonNull
-    private LinearLayout createNewRow(Board board, int row) {
-
-        LinearLayout rowLayout = new LinearLayout(this);
-        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        // Set width to match parent and height to wrap content
-        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        rowLayout.setLayoutParams(rowParams);
-
-        for (int col = 0; col < board.getNoCols(); col++) {
-            Button button = createCellButton(board, row, col);
-            rowLayout.addView(button);
-        }
-        return rowLayout;
-    }
-
-    public void init() {
-        TableLayout playerScoresTable = findViewById(R.id.playerScoresTableLayout);
-
-        Round round = MainActivity.tournament.getRound();
-
-        ArrayList<Player> players = (ArrayList<Player>) round.getPlayers();
-
-
-        for (Player player : players) {
-            TableRow row = new TableRow(this);
-
-            TextView playerNameTextView = getTableCellTextView(player.getName());
-            TextView playerCapturesTextView = getTableCellTextView(String.valueOf(round.getCaptures(player)));
-            TextView playerScoreTextView = getTableCellTextView(String.valueOf(round.getScore(player)));
-
-            row.addView(playerNameTextView);
-            row.addView(playerCapturesTextView);
-            row.addView(playerScoreTextView);
-
-            playerScoresTable.addView(row);
-        }
-
-
-    }
-
-    private TextView getTableCellTextView(String text) {
-        TextView tv = new TextView(this);
-        // set width and height
-        tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        // align the text to the center of the TextView
-        tv.setGravity(android.view.Gravity.CENTER);
-
-        tv.setText(text);
-
-        return tv;
-    }
 }
+
