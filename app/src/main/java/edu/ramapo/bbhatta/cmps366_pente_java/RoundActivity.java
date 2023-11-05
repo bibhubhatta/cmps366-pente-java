@@ -19,6 +19,21 @@ import java.util.ArrayList;
 public class RoundActivity extends AppCompatActivity {
 
 
+    private void addRowNumberToBoardLayout(Board board, int row, LinearLayout rowLayout) {
+        // Add row number to the left of the row
+        int displayRow = board.getNoRows() - row;
+
+        TextView rowNumberTextView = new TextView(this);
+        rowNumberTextView.setText(String.valueOf(displayRow));
+        rowNumberTextView.setGravity(android.view.Gravity.CENTER);
+        rowNumberTextView.setLayoutParams(new LinearLayout.LayoutParams(100, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Set the background color to white because the background of board layout is black to
+        // show the lines between the buttons
+        rowNumberTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        rowLayout.addView(rowNumberTextView, 0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +97,40 @@ public class RoundActivity extends AppCompatActivity {
 
             // Add the row to the boardlayout
             boardLayout.addView(rowLayout);
+
+            addRowNumberToBoardLayout(board, row, rowLayout);
         }
+
+        LinearLayout columnLettersLayout = getColumnLabelRow(board);
+
+        boardLayout.addView(columnLettersLayout);
+    }
+
+    @NonNull
+    private LinearLayout getColumnLabelRow(Board board) {
+        // Add column letters to the bottom of the board
+        LinearLayout columnLettersLayout = new LinearLayout(this);
+        columnLettersLayout.setOrientation(LinearLayout.HORIZONTAL);
+        columnLettersLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+        // Set the background color to white because the background of board layout is black to
+        // show the lines between the buttons
+        columnLettersLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+
+        // Add empty textview to the left of the column letters
+        TextView emptyTextView = new TextView(this);
+        emptyTextView.setLayoutParams(new LinearLayout.LayoutParams(100, ViewGroup.LayoutParams.MATCH_PARENT));
+        columnLettersLayout.addView(emptyTextView);
+
+        // Add column letters
+        for (int col = 0; col < board.getNoCols(); col++) {
+            TextView columnLetterTextView = new TextView(this);
+            columnLetterTextView.setText(String.valueOf((char) (col + 'A')));
+            columnLetterTextView.setGravity(android.view.Gravity.CENTER);
+            columnLetterTextView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+            columnLettersLayout.addView(columnLetterTextView);
+        }
+        return columnLettersLayout;
     }
 
     @NonNull
