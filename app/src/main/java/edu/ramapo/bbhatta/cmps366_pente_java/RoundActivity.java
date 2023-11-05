@@ -24,8 +24,9 @@ public class RoundActivity extends AppCompatActivity {
         Button button = new Button(this);
         // Set the text to the row and column number
         button.setText(postionString);
-        // Match width to wrap content
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        // Set layout width to 0 and weight to 1
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         button.setLayoutParams(params);
         return button;
     }
@@ -49,6 +50,10 @@ public class RoundActivity extends AppCompatActivity {
 
         for (int row = 0; row < board.getNoRows(); row++) {
             LinearLayout rowLayout = createNewRow(board, row);
+
+            // Set height to 0 and weight to 1
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100, 1);
+            rowLayout.setLayoutParams(rowParams);
 
             // Add the row to the boardlayout
             boardLayout.addView(rowLayout);
