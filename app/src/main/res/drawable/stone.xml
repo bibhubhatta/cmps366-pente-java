@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><!-- A white stone-->
+<!-- It is a circle that fits into the parent -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FFFFFF" /> <!-- Color is white -->
+</shape>

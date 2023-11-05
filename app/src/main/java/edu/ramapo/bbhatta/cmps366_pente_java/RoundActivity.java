@@ -1,5 +1,6 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,6 +123,26 @@ public class RoundActivity extends AppCompatActivity {
         // Set the margin so that the lines between the buttons are visible
         int boardCellStrokeWidth = (int) getResources().getDimension(R.dimen.board_cell_margin);
 
+        // Set the color of the button to the color of the stone at the position
+        Stone stone = board.get(position);
+        if (stone != null) {
+            Drawable stoneShape = ContextCompat.getDrawable(this, R.drawable.stone);
+
+            // Add the stone shape to the button foreground
+            button.setForeground(stoneShape);
+            // Set the button background to gray
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_gray));
+            if (stone == Stone.BLACK) {
+                // Set the stone shape color to black
+                assert stoneShape != null;
+                stoneShape.setTint(ContextCompat.getColor(this, R.color.black));
+            } else {
+                // Set the stone shape color to white
+                assert stoneShape != null;
+                stoneShape.setTint(ContextCompat.getColor(this, R.color.white));
+            }
+        }
+
         int left = (col == 0) ? boardCellStrokeWidth : 0;
         int top = (row == 0) ? boardCellStrokeWidth : 0;
         int right = boardCellStrokeWidth;
@@ -136,9 +157,19 @@ public class RoundActivity extends AppCompatActivity {
 
             // Show the message on the message textview
             TextView messageTextView = findViewById(R.id.messageTextView);
-            messageTextView.setText(board.positionToString(pos));
-            // Make the message textview visible
-            messageTextView.setVisibility(View.VISIBLE);
+
+            try {
+                // Make the move
+                MainActivity.tournament = MainActivity.tournament.makeMove(pos);
+                // Call the RoundActivity again
+                recreate();
+            } catch (Exception e) {
+                // Show the error message on the message textview
+                messageTextView.setText(e.getMessage());
+                // Make the message text view visible
+                messageTextView.setVisibility(View.VISIBLE);
+            }
+
 
         });
 
