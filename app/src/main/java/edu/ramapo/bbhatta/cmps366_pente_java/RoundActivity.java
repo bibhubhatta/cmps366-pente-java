@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,18 @@ public class RoundActivity extends AppCompatActivity {
         // Set layout width to 0 and weight to 1
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         button.setLayoutParams(params);
+
+        // Set the tag to the position
+        button.setTag(position);
+
+        // Set the on click listener
+        button.setOnClickListener(view -> {
+            Position pos = (Position) view.getTag();
+            // Show a toast with the position
+            Toast.makeText(this, board.positionToString(pos), Toast.LENGTH_SHORT).show();
+        });
+
+
         return button;
     }
 
