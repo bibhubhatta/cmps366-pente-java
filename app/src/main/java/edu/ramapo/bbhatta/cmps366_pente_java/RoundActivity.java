@@ -1,13 +1,13 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,8 +36,13 @@ public class RoundActivity extends AppCompatActivity {
         // Set the on click listener
         button.setOnClickListener(view -> {
             Position pos = (Position) view.getTag();
-            // Show a toast with the position
-            Toast.makeText(this, board.positionToString(pos), Toast.LENGTH_SHORT).show();
+
+            // Show the message on the message textview
+            TextView messageTextView = findViewById(R.id.messageTextView);
+            messageTextView.setText(board.positionToString(pos));
+            // Make the message textview visible
+            messageTextView.setVisibility(View.VISIBLE);
+
         });
 
 
