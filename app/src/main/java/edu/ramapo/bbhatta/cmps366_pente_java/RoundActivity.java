@@ -20,12 +20,9 @@ public class RoundActivity extends AppCompatActivity {
     @NonNull
     private Button createCellButton(Board board, int row, int col) {
         Position position = new Position(row, col);
-        String postionString = board.positionToString(position);
 
         // Create a new button
         Button button = new Button(this);
-        // Set the text to the row and column number
-        button.setText(postionString);
 
         // Set layout width to 0 and weight to 1
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
