@@ -1,5 +1,6 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -44,7 +45,11 @@ public class RoundActivity extends AppCompatActivity {
 
             // Set the on click listener for the continue button
             findViewById(R.id.continueButton).setOnClickListener(view -> {
+
                 // Start the tournament activity
+                Intent intent = new Intent(RoundActivity.this, TournamentActivity.class);
+                startActivity(intent);
+
                 finish();
             });
 
