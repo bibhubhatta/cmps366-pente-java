@@ -109,7 +109,6 @@ public class Tournament {
     public Tournament addPlayer(Player player, int score) {
         Tournament resultingTournament = new Tournament(this);
         resultingTournament.roster.putIfAbsent(player, score);
-        resultingTournament.round = round.addPlayer(player);
         return resultingTournament;
     }
 

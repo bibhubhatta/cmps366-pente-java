@@ -36,6 +36,13 @@ public class TournamentActivity extends AppCompatActivity {
                         // Initialize the round if the round is over
                         if (tournament.getRound().isOver()) {
                             tournament = tournament.initializeRound();
+
+                        }
+
+                        // If the round has not been initialized, initialize it
+                        // The round is not initialized if the current player is null
+                        if (tournament.getRound().getCurrentPlayer() == null) {
+                            tournament = tournament.initializeRound();
                         }
 
                         Intent intent = new Intent(TournamentActivity.this, RoundActivity.class);
