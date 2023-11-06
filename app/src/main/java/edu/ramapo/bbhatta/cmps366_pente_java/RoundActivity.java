@@ -30,6 +30,11 @@ public class RoundActivity extends AppCompatActivity {
         initRoundLayout();
         initBoard();
 
+        handleGameOver();
+
+    }
+
+    private void handleGameOver() {
         // If the round is over, show the winner, hide the help and save buttons, and show the continue button
         if (MainActivity.tournament.getRound().isOver()) {
 
