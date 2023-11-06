@@ -288,9 +288,9 @@ public class RoundActivity extends AppCompatActivity {
         // Set the tag to the position
         button.setTag(position);
 
-        // Set the background color to gray so that shadows are not added to the button
-        // which causes whitespace between the buttons
-        button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_gray));
+        // Add border and color to the button
+        Drawable border = ContextCompat.getDrawable(this, R.drawable.board_cell);
+        button.setBackground(border);
 
 
         // Set the on click listener
