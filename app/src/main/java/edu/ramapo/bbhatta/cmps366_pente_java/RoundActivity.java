@@ -32,6 +32,22 @@ public class RoundActivity extends AppCompatActivity {
 
         handleGameOver();
 
+        initButtons();
+
+    }
+
+    private void initButtons() {
+
+        // Set the on click listener for the help button
+        findViewById(R.id.helpButton).setOnClickListener(view -> {
+            Position bestMove = new Strategy(MainActivity.tournament.getRound()).getBestMove();
+            String bestMoveString = MainActivity.tournament.getRound().getBoard().positionToString(bestMove);
+
+            TextView messageTextView = findViewById(R.id.messageTextView);
+            messageTextView.setText(String.format("The best move is %s", bestMoveString));
+            messageTextView.setVisibility(View.VISIBLE);
+        });
+
     }
 
     private void handleGameOver() {
