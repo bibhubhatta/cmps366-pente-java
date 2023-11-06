@@ -362,7 +362,7 @@ public class RoundActivity extends AppCompatActivity {
     private void handleNextMove() {
 
         // Check if it is computer's turn
-        if (MainActivity.tournament.getRound().getCurrentPlayer() == Player.COMPUTER) {
+        if (MainActivity.tournament.getRound().getCurrentPlayer().equals(Player.COMPUTER)) {
             // Get the best move
             Position bestMove = new Strategy(MainActivity.tournament.getRound()).getBestMove();
 
