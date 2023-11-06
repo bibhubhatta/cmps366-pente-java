@@ -27,43 +27,6 @@
 
         android:layout_marginTop="16dp">
 
-        <!--        Add header row-->
-        <!--        Header contains Player Name, Capture and Score-->
-        <TableRow
-            android:id="@+id/playerScoresHeaderTableRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/playerNameHeaderTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/table_cell_margin"
-
-                android:layout_weight="1"
-
-                android:text="@string/player_name"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/playerCapturesHeaderTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/table_cell_margin"
-                android:layout_weight="1"
-                android:text="@string/captures"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/playerScoreHeaderTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/table_cell_margin"
-                android:layout_weight="1"
-                android:text="@string/round_score"
-                android:textSize="18sp" />
-        </TableRow>
-
     </TableLayout>
 
 

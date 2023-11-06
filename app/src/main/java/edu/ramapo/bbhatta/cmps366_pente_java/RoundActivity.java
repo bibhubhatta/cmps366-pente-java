@@ -1,5 +1,6 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -88,6 +89,16 @@ public class RoundActivity extends AppCompatActivity {
         // Sort players by score
         players.sort((player1, player2) -> round.getScore(player2) - round.getScore(player1));
 
+        // Add the table headers
+        TableRow headerRow = new TableRow(this);
+
+        headerRow.addView(getHeaderCellTextView("Player"));
+        headerRow.addView(getHeaderCellTextView("Stone"));
+        headerRow.addView(getHeaderCellTextView("Captures"));
+        headerRow.addView(getHeaderCellTextView("Score"));
+
+        playerScoresTable.addView(headerRow);
+
 
         for (Player player : players) {
             TableRow row = new TableRow(this);
@@ -95,8 +106,14 @@ public class RoundActivity extends AppCompatActivity {
             TextView playerNameTextView = getTableCellTextView(player.getName());
             TextView playerCapturesTextView = getTableCellTextView(String.valueOf(round.getCaptures(player)));
             TextView playerScoreTextView = getTableCellTextView(String.valueOf(round.getScore(player)));
+            Button playerStoneButton = getStoneButton(round.getStone(player));
+            // Set the stone button to be unclickable
+            playerStoneButton.setClickable(false);
+            // Set the stone button to have the same size as the text
+
 
             row.addView(playerNameTextView);
+            row.addView(playerStoneButton);
             row.addView(playerCapturesTextView);
             row.addView(playerScoreTextView);
 
@@ -113,10 +130,25 @@ public class RoundActivity extends AppCompatActivity {
 
     }
 
+    private TextView getHeaderCellTextView(String text) {
+        TextView tv = getTableCellTextView(text);
+
+        // Set the text to bold
+        tv.setTypeface(null, Typeface.BOLD);
+
+        return tv;
+    }
+
     private TextView getTableCellTextView(String text) {
         TextView tv = new TextView(this);
         // set width and height
-        tv.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        int layoutMargin = (int) getResources().getDimension(R.dimen.table_cell_margin);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(layoutMargin, layoutMargin, layoutMargin, layoutMargin);
+
+        tv.setLayoutParams(params);
+
         // align the text to the center of the TextView
         tv.setGravity(android.view.Gravity.CENTER);
 
@@ -214,8 +246,10 @@ public class RoundActivity extends AppCompatActivity {
     private Button createCellButton(Board board, int row, int col) {
         Position position = new Position(row, col);
 
-        // Create a new button
-        Button button = new Button(this);
+        Stone stone = board.get(position);
+
+        // Create a new stone button
+        Button button = getStoneButton(stone);
 
         // Set layout width to 0 and weight to 1
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
@@ -230,27 +264,6 @@ public class RoundActivity extends AppCompatActivity {
 
         // Set the margin so that the lines between the buttons are visible
         int boardCellStrokeWidth = (int) getResources().getDimension(R.dimen.board_cell_margin);
-
-        // Set the color of the button to the color of the stone at the position
-        Stone stone = board.get(position);
-        if (stone != null) {
-            Drawable stoneShape = ContextCompat.getDrawable(this, R.drawable.stone);
-
-            // Add the stone shape to the button foreground
-            button.setForeground(stoneShape);
-            // Set the button background to gray
-            button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_gray));
-            if (stone == Stone.BLACK) {
-                // Set the stone shape color to black
-                assert stoneShape != null;
-                stoneShape.setTint(ContextCompat.getColor(this, R.color.black));
-            } else {
-                // Set the stone shape color to white
-                assert stoneShape != null;
-                stoneShape.setTint(ContextCompat.getColor(this, R.color.white));
-            }
-        }
-
         int left = (col == 0) ? boardCellStrokeWidth : 0;
         int top = (row == 0) ? boardCellStrokeWidth : 0;
         int right = boardCellStrokeWidth;
@@ -280,6 +293,35 @@ public class RoundActivity extends AppCompatActivity {
 
 
         });
+
+        return button;
+    }
+
+    @NonNull
+    private Button getStoneButton(Stone stone) {
+        Button button = new Button(this);
+
+        if (stone != null) {
+            Drawable stoneShape = ContextCompat.getDrawable(this, R.drawable.stone);
+
+            if (stone == Stone.BLACK) {
+                // Set the stone shape color to black
+                assert stoneShape != null;
+                // Fill the stone shape with black
+                stoneShape.setTint(ContextCompat.getColor(this, R.color.black));
+            } else if (stone == Stone.WHITE) {
+                // Set the stone shape color to white
+                assert stoneShape != null;
+                stoneShape.setTint(ContextCompat.getColor(this, R.color.white));
+            }
+
+
+            // Add the stone shape to the button foreground
+            button.setForeground(stoneShape);
+        }
+        // Set background to null so that the background color is not changed
+        button.setBackground(null);
+
 
         return button;
     }
