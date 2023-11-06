@@ -411,13 +411,13 @@ public class Board {
         Position[] starts = new Position[getNoRows() + getNoCols() - 1];
 
         int index = 0;
-        for (int col = 0; col < getNoCols(); col++) {
-            starts[index] = new Position(0, col);
+        for (int row = getNoRows() - 1; row >= 0; row--) {
+            starts[index] = new Position(row, 0);
             index++;
         }
 
-        for (int row = 1; row < getNoRows(); row++) {
-            starts[index] = new Position(row, numCols - 1);
+        for (int col = 1; col < getNoCols(); col++) {
+            starts[index] = new Position(0, col);
             index++;
         }
 
