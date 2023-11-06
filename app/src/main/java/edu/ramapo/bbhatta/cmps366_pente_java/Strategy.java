@@ -50,12 +50,17 @@ public class Strategy {
     private int getPseudoScore(Position position) {
         int score = 0;
 
+        Player currentPlayer = round.getCurrentPlayer();
+
         for (Player player : round.getPlayers()) {
             Round testRound = round.setCurrentPlayer(player);
             testRound = testRound.makeMove(position);
 
+            // Prioritize capturing move over capture blocking move
+            int captureWeight = player == currentPlayer ? 150 : 100;
+
             score += testRound.getScore(player) * 1000;
-            score += testRound.getCaptures(player) * 100;
+            score += testRound.getCaptures(player) * captureWeight;
             score += getSequenceScore(testRound, position) * 10;
         }
 
