@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
@@ -109,11 +110,12 @@ public class RoundActivity extends AppCompatActivity {
             Button playerStoneButton = getStoneButton(round.getStone(player));
             // Set the stone button to be unclickable
             playerStoneButton.setClickable(false);
-            // Set the stone button to have the same size as the text
+
+            ConstraintLayout constraintLayout = getButtonView(playerStoneButton);
 
 
             row.addView(playerNameTextView);
-            row.addView(playerStoneButton);
+            row.addView(constraintLayout);
             row.addView(playerCapturesTextView);
             row.addView(playerScoreTextView);
 
@@ -128,6 +130,30 @@ public class RoundActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @NonNull
+    private ConstraintLayout getButtonView(Button playerStoneButton) {
+        // Create the ConstraintLayout
+        ConstraintLayout constraintLayout = new ConstraintLayout(this);
+        // Create the button container
+        ConstraintLayout buttonContainer = new ConstraintLayout(this);
+        buttonContainer.setLayoutParams(new ConstraintLayout.LayoutParams(0, 0));
+
+        // Set the dimension ratio for the FrameLayout
+        ConstraintLayout.LayoutParams frameLayoutParams = (ConstraintLayout.LayoutParams) buttonContainer.getLayoutParams();
+        frameLayoutParams.dimensionRatio = "H,1:1";
+        frameLayoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+        frameLayoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+        frameLayoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+
+        // Add the playerStoneButton to the buttonContainer
+        buttonContainer.addView(playerStoneButton);
+
+        // Add FrameLayout to ConstraintLayout
+        constraintLayout.addView(buttonContainer);
+
+        return constraintLayout;
     }
 
     private TextView getHeaderCellTextView(String text) {
@@ -169,7 +195,7 @@ public class RoundActivity extends AppCompatActivity {
             LinearLayout rowLayout = createNewRow(board, row);
 
             // Set height to 0 and weight to 1
-            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100, 1);
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
             rowLayout.setLayoutParams(rowParams);
 
             // Add the row to the boardlayout
@@ -237,7 +263,11 @@ public class RoundActivity extends AppCompatActivity {
 
         for (int col = 0; col < board.getNoCols(); col++) {
             Button button = createCellButton(board, row, col);
-            rowLayout.addView(button);
+            ConstraintLayout buttonView = getButtonView(button);
+            // set the layout width to 0 and weight to 1
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            buttonView.setLayoutParams(params);
+            rowLayout.addView(buttonView);
         }
         return rowLayout;
     }
@@ -262,15 +292,6 @@ public class RoundActivity extends AppCompatActivity {
         // which causes whitespace between the buttons
         button.setBackgroundColor(ContextCompat.getColor(this, R.color.light_gray));
 
-        // Set the margin so that the lines between the buttons are visible
-        int boardCellStrokeWidth = (int) getResources().getDimension(R.dimen.board_cell_margin);
-        int left = (col == 0) ? boardCellStrokeWidth : 0;
-        int top = (row == 0) ? boardCellStrokeWidth : 0;
-        int right = boardCellStrokeWidth;
-        int bottom = boardCellStrokeWidth;
-
-        params.setMargins(left, top, right, bottom);
-        button.setLayoutParams(params);
 
         // Set the on click listener
         button.setOnClickListener(view -> {
