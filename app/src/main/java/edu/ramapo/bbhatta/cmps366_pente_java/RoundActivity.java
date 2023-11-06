@@ -27,14 +27,17 @@ public class RoundActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
 
+        init();
+    }
+
+    private void init() {
         initRoundLayout();
         initBoard();
-
         handleGameOver();
-
         initButtons();
-
+        handleNextMove();
     }
+
 
     private void initButtons() {
 
@@ -108,6 +111,12 @@ public class RoundActivity extends AppCompatActivity {
 
     public void initRoundLayout() {
         TableLayout playerScoresTable = findViewById(R.id.playerScoresTableLayout);
+        // Clear the table
+        playerScoresTable.removeAllViews();
+
+        // Clear the message textview
+        TextView messageTextView = findViewById(R.id.messageTextView);
+        messageTextView.setVisibility(View.GONE);
 
         Round round = MainActivity.tournament.getRound();
 
@@ -215,6 +224,8 @@ public class RoundActivity extends AppCompatActivity {
 
         // Get the boardlayout from the xml file
         LinearLayout boardLayout = findViewById(R.id.boardLinearLayout);
+        // Clear the board layout
+        boardLayout.removeAllViews();
 
 
         for (int row = 0; row < board.getNoRows(); row++) {
@@ -331,8 +342,10 @@ public class RoundActivity extends AppCompatActivity {
             try {
                 // Make the move
                 MainActivity.tournament = MainActivity.tournament.makeMove(pos);
-                // Call the RoundActivity again
-                recreate();
+
+                // Update the round layout
+                init();
+
             } catch (Exception e) {
                 // Show the error message on the message textview
                 messageTextView.setText(e.getMessage());
@@ -344,6 +357,26 @@ public class RoundActivity extends AppCompatActivity {
         });
 
         return button;
+    }
+
+    private void handleNextMove() {
+
+        // Check if it is computer's turn
+        if (MainActivity.tournament.getRound().getCurrentPlayer() == Player.COMPUTER) {
+            // Get the best move
+            Position bestMove = new Strategy(MainActivity.tournament.getRound()).getBestMove();
+
+            // Find the button with the best move's position
+            Button button = findViewById(R.id.boardLinearLayout).findViewWithTag(bestMove);
+
+            // Simulate a click on the button
+            button.performClick();
+
+            // Explain the move
+            TextView messageTextView = findViewById(R.id.messageTextView);
+            messageTextView.setText(String.format("Computer played %s", MainActivity.tournament.getRound().getBoard().positionToString(bestMove)));
+            messageTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @NonNull
