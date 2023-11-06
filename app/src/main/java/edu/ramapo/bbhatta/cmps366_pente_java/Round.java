@@ -364,7 +364,20 @@ public class Round {
             return null;
         }
 
-        return players.get(player).numCaptures + board.getNoStoneSequences(getStone(player), 4) + board.getNoStoneSequences(getStone(player), 5) * 5;
+        // Get all the stone sequences of the player
+        Stone[][] allStoneSequences = board.getAllStoneSequences(getStone(player));
+
+        int score = 0;
+        for (Stone[] stoneSequence : allStoneSequences) {
+            if (stoneSequence.length == 4) {
+                score++;
+            } else if (stoneSequence.length >= 5) {
+                score += 5;
+            }
+        }
+
+        return score + getNoCapturedPairs(player);
+
     }
 
     /**
