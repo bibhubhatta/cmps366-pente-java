@@ -59,9 +59,12 @@ public class Strategy {
             // Prioritize capturing move over capture blocking move
             int captureWeight = player == currentPlayer ? 150 : 100;
 
+            // Prioritize sequence making move over sequence blocking move
+            int sequenceWeight = player == currentPlayer ? 15 : 10;
+
             score += testRound.getScore(player) * 1000;
             score += testRound.getCaptures(player) * captureWeight;
-            score += getSequenceScore(testRound, position) * 10;
+            score += getSequenceScore(testRound, position) * sequenceWeight;
         }
 
         score -= Position.distance(position, round.getBoard().getCenter());
