@@ -19,21 +19,6 @@ import java.util.ArrayList;
 public class RoundActivity extends AppCompatActivity {
 
 
-    private void addRowNumberToBoardLayout(Board board, int row, LinearLayout rowLayout) {
-        // Add row number to the left of the row
-        int displayRow = board.getNoRows() - row;
-
-        TextView rowNumberTextView = new TextView(this);
-        rowNumberTextView.setText(String.valueOf(displayRow));
-        rowNumberTextView.setGravity(android.view.Gravity.CENTER);
-        rowNumberTextView.setLayoutParams(new LinearLayout.LayoutParams(100, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        // Set the background color to white because the background of board layout is black to
-        // show the lines between the buttons
-        rowNumberTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        rowLayout.addView(rowNumberTextView, 0);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +89,21 @@ public class RoundActivity extends AppCompatActivity {
         LinearLayout columnLettersLayout = getColumnLabelRow(board);
 
         boardLayout.addView(columnLettersLayout);
+    }
+
+    private void addRowNumberToBoardLayout(Board board, int row, LinearLayout rowLayout) {
+        // Add row number to the left of the row
+        int displayRow = board.getNoRows() - row;
+
+        TextView rowNumberTextView = new TextView(this);
+        rowNumberTextView.setText(String.valueOf(displayRow));
+        rowNumberTextView.setGravity(android.view.Gravity.CENTER);
+        rowNumberTextView.setLayoutParams(new LinearLayout.LayoutParams(100, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Set the background color to white because the background of board layout is black to
+        // show the lines between the buttons
+        rowNumberTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        rowLayout.addView(rowNumberTextView, 0);
     }
 
     @NonNull
