@@ -85,6 +85,9 @@ public class RoundActivity extends AppCompatActivity {
 
         ArrayList<Player> players = (ArrayList<Player>) round.getPlayers();
 
+        // Sort players by score
+        players.sort((player1, player2) -> round.getScore(player2) - round.getScore(player1));
+
 
         for (Player player : players) {
             TableRow row = new TableRow(this);
