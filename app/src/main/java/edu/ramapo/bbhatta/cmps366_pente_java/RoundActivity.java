@@ -100,6 +100,13 @@ public class RoundActivity extends AppCompatActivity {
             row.addView(playerCapturesTextView);
             row.addView(playerScoreTextView);
 
+            // If the player is a winner, or is the current player, highlight the row
+            if (player == round.getWinner()) {
+                row.setBackgroundColor(ContextCompat.getColor(this, R.color.winner_highlight));
+            } else if (round.getWinner() == null && player == round.getCurrentPlayer()) {
+                row.setBackgroundColor(ContextCompat.getColor(this, R.color.current_player_highlight));
+            }
+
             playerScoresTable.addView(row);
         }
 

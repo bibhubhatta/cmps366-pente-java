@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_gray">#FFCCCCCC</color>
     <color name="accent_color">#FF00FFFF</color>
+    <color name="current_player_highlight">#03A9F4</color>
+    <color name="winner_highlight">#4CAF50</color>
 </resources>
