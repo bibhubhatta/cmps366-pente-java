@@ -26,6 +26,56 @@ public class RoundActivity extends AppCompatActivity {
 
         initRoundLayout();
         initBoard();
+
+        // If the round is over, show the winner, hide the help and save buttons, and show the continue button
+        if (MainActivity.tournament.getRound().isOver()) {
+
+            // Disable the boardLayout from being clicked
+            setUnclickable(findViewById(R.id.boardLinearLayout));
+
+            // Hide the help and save buttons
+            findViewById(R.id.helpButton).setVisibility(View.GONE);
+            findViewById(R.id.saveGameButton).setVisibility(View.GONE);
+
+            // Show the continue button
+            findViewById(R.id.continueButton).setVisibility(View.VISIBLE);
+
+            // Set the on click listener for the continue button
+            findViewById(R.id.continueButton).setOnClickListener(view -> {
+                // Start the tournament activity
+                finish();
+            });
+
+            // If there is a winner, show the winner
+            // Otherwise, show that the round is a draw
+            if (MainActivity.tournament.getRound().getWinner() != null) {
+                TextView messageTextView = findViewById(R.id.messageTextView);
+                messageTextView.setVisibility(View.VISIBLE);
+                messageTextView.setText(String.format("%s won!", MainActivity.tournament.getRound().getWinner().getName()));
+            } else {
+                TextView messageTextView = findViewById(R.id.messageTextView);
+                messageTextView.setVisibility(View.VISIBLE);
+                messageTextView.setText("The round is a draw!");
+            }
+        }
+    }
+
+    /**
+     * Sets the view and all of its children to unclickable.
+     * Copied from <a href="https://stackoverflow.com/a/21107367/">...</a>
+     *
+     * @param view The view to set unclickable.
+     */
+    private void setUnclickable(View view) {
+        if (view != null) {
+            view.setClickable(false);
+            if (view instanceof ViewGroup) {
+                ViewGroup vg = ((ViewGroup) view);
+                for (int i = 0; i < vg.getChildCount(); i++) {
+                    setUnclickable(vg.getChildAt(i));
+                }
+            }
+        }
     }
 
     public void initRoundLayout() {
