@@ -1,11 +1,16 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import static edu.ramapo.bbhatta.cmps366_pente_java.MainActivity.tournament;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class CoinTossActivity extends AppCompatActivity {
@@ -32,9 +37,24 @@ public class CoinTossActivity extends AppCompatActivity {
         tailsButton.setOnClickListener(view -> performCoinToss(getString(R.string.tails_option)));
 
         continueButton.setOnClickListener(view -> {
-            // Return whether the user won the toss and exit the activity
-            getIntent().putExtra(COIN_TOSS_RESULT_KEY, isWon);
-            setResult(RESULT_OK, getIntent());
+
+            // Add the players to the round in the tournament
+            ArrayList<Player> players = new ArrayList<>();
+            if (isWon) {
+                players.add(Player.HUMAN);
+                players.add(Player.COMPUTER);
+
+            } else {
+                players.add(Player.COMPUTER);
+                players.add(Player.HUMAN);
+
+            }
+            tournament = tournament.initializeRound(players);
+
+            // Start the round activity
+            Intent intent = new Intent(CoinTossActivity.this, RoundActivity.class);
+            startActivity(intent);
+
             finish();
         });
     }
@@ -54,6 +74,6 @@ public class CoinTossActivity extends AppCompatActivity {
         //Show a continue button and hide the heads and tails buttons
         headsButton.setVisibility(View.GONE);
         tailsButton.setVisibility(View.GONE);
-        findViewById(R.id.continueButton).setVisibility(View.VISIBLE);
+        continueButton.setVisibility(View.VISIBLE);
     }
 }
