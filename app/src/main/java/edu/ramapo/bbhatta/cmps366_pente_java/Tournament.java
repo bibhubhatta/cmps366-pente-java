@@ -34,6 +34,17 @@ public class Tournament {
         // Open file and read it as string
         String serialString = new String(Files.readAllBytes(file.toPath()));
 
+        return fromString(serialString);
+    }
+
+    /**
+     * Get a Pente object from the string representation of the Pente object.
+     *
+     * @param serialString The string representation of the Pente object.
+     * @return The Pente object.
+     */
+    public static Tournament fromString(String serialString) {
+
         // Create a serial object from the string
         Serial serial = new Serial(serialString);
 

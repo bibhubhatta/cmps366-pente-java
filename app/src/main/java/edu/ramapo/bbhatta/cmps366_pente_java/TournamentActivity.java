@@ -32,7 +32,11 @@ public class TournamentActivity extends AppCompatActivity {
 
         playRoundButton.setOnClickListener(view -> {
                     try {
-                        tournament = tournament.initializeRound();
+
+                        // Initialize the round if the round is over
+                        if (tournament.getRound().isOver()) {
+                            tournament = tournament.initializeRound();
+                        }
 
                         Intent intent = new Intent(TournamentActivity.this, RoundActivity.class);
                         startActivity(intent);
