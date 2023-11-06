@@ -264,6 +264,13 @@ public class RoundActivity extends AppCompatActivity {
         for (int col = 0; col < board.getNoCols(); col++) {
             Button button = createCellButton(board, row, col);
             ConstraintLayout buttonView = getButtonView(button);
+
+            Drawable border = ContextCompat.getDrawable(this, R.drawable.board_cell);
+            buttonView.setBackground(border);
+
+            // Add padding inside the ConstraintLayout
+            buttonView.setPadding(10, 10, 10, 10);
+
             // set the layout width to 0 and weight to 1
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
             buttonView.setLayoutParams(params);
@@ -287,11 +294,6 @@ public class RoundActivity extends AppCompatActivity {
 
         // Set the tag to the position
         button.setTag(position);
-
-        // Add border and color to the button
-        Drawable border = ContextCompat.getDrawable(this, R.drawable.board_cell);
-        button.setBackground(border);
-
 
         // Set the on click listener
         button.setOnClickListener(view -> {
