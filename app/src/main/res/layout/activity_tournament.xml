@@ -1,47 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <!-- Title -->
     <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="@string/tournament"
-            android:textSize="24sp"/>
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/tournament"
+        android:textSize="24sp" />
 
     <!-- Player Scores -->
     <TextView
-            android:id="@+id/playerScoresTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/titleTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text=""
-            android:textSize="18sp"/>
+        android:id="@+id/playerScoresTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textSize="18sp" />
 
     <!-- End Tournament Button -->
     <Button
-            android:id="@+id/endTournamentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/playerScoresTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="@string/end_tournament"/>
+        android:id="@+id/endTournamentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/end_tournament" />
 
     <!-- Play Another Round Button -->
     <Button
-            android:id="@+id/playRoundButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/endTournamentButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="@string/play_round"/>
-</RelativeLayout>
+        android:id="@+id/playRoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/play_round" />
+</LinearLayout>
