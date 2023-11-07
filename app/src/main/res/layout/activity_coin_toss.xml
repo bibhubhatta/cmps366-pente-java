@@ -1,48 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".CoinTossActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".CoinTossActivity">
 
-    <Button
-            android:id="@+id/headsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/heads_option"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"/>
-
-    <Button
-            android:id="@+id/tailsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tails_option"
-            android:layout_below="@id/headsButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"/>
 
     <TextView
-            android:id="@+id/resultTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tailsButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="@string/initial_result"
-            android:textSize="24sp"/>
+        android:id="@+id/resultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/toss_prompt"
+        android:textSize="24sp" />
 
     <Button
-            android:id="@+id/continueButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:id="@+id/headsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/heads_option" />
 
-            android:text="@string/continue_text"
-            android:layout_below="@id/resultTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            />
+    <Button
+        android:id="@+id/tailsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/tails_option" />
 
-</RelativeLayout>
+
+    <Button
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:text="@string/continue_text"
+        android:visibility="gone" />
+
+</LinearLayout>

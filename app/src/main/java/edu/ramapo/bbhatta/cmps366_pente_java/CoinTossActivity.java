@@ -69,7 +69,7 @@ public class CoinTossActivity extends AppCompatActivity {
             result = getString(R.string.result_lost);
         }
 
-        resultTextView.setText(getString(R.string.result_prefix) + result);
+        resultTextView.setText(result);
 
         //Show a continue button and hide the heads and tails buttons
         headsButton.setVisibility(View.GONE);
