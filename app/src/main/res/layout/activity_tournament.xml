@@ -23,6 +23,14 @@
         android:text=""
         android:textSize="18sp" />
 
+    <!-- Play Another Round Button -->
+    <Button
+        android:id="@+id/playRoundButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/play_round" />
+
     <!-- End Tournament Button -->
     <Button
         android:id="@+id/endTournamentButton"
@@ -31,11 +39,4 @@
         android:layout_marginTop="16dp"
         android:text="@string/end_tournament" />
 
-    <!-- Play Another Round Button -->
-    <Button
-        android:id="@+id/playRoundButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/play_round" />
 </LinearLayout>
