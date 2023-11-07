@@ -716,6 +716,25 @@ public class Board {
         return allPositions;
     }
 
+    /**
+     * Gets the neighbors of the given position.
+     *
+     * @param position The position to get the neighbors of.
+     * @return The neighbors of the given position in clockwise order.
+     */
+    public List<Position> getNeighbors(Position position) {
+        ArrayList<Position> neighbors = new ArrayList<>();
+        neighbors.add(Position.up(position));
+        neighbors.add(Position.upRight(position));
+        neighbors.add(Position.right(position));
+        neighbors.add(Position.downRight(position));
+        neighbors.add(Position.down(position));
+        neighbors.add(Position.downLeft(position));
+        neighbors.add(Position.left(position));
+        neighbors.add(Position.upLeft(position));
+        return neighbors;
+    }
+
     public String displayString() {
         StringBuilder stringBuilder = new StringBuilder();
 
