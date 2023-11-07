@@ -241,5 +241,35 @@ public class Tournament {
         return new Strategy(round).getBestMove();
     }
 
+    /**
+     * Gets the winner of the tournament.
+     * <p>
+     * The winner of the tournament is the player with the highest score.
+     * If there is a tie, then the winner is null.
+     *
+     * @return The winner of the tournament.
+     */
+    public Player getWinner() {
+
+        // Get the players in the tournament
+        Player[] players = roster.keySet().toArray(new Player[0]);
+
+        // Sort the players by score
+        Arrays.sort(players, (player1, player2) -> {
+            int score1 = roster.get(player1);
+            int score2 = roster.get(player2);
+
+            return Integer.compare(score2, score1);
+        });
+
+        // If there is a tie, return null
+        if (roster.get(players[0]).equals(roster.get(players[1]))) {
+            return null;
+        }
+
+        // Return the player with the highest score
+        return players[0];
+    }
+
 
 }

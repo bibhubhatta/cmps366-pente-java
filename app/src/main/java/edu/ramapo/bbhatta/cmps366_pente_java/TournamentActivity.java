@@ -4,6 +4,7 @@ import static edu.ramapo.bbhatta.cmps366_pente_java.MainActivity.pente;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,8 +27,33 @@ public class TournamentActivity extends AppCompatActivity {
         displayPlayerScores();
 
         endTournamentButton.setOnClickListener(view -> {
-            //  TODO: Show winner
-            finish();
+
+            displayPlayerScores();
+
+            // If there is a winner, display the winner
+            if (pente.getWinner() != null) {
+                String winner = pente.getWinner().getName() + " wins!";
+
+                playerScoresTextView.append("\n" + winner);
+            }
+            // Otherwise, display that the tournament is a draw
+            else {
+                playerScoresTextView.append("\nDraw!");
+            }
+
+            // Hide the play round button
+            playRoundButton.setVisibility(View.GONE);
+
+            // Rename the end tournament button to "Main Menu"
+            endTournamentButton.setText(R.string.main_menu);
+            // The end tournament button should take the user back to the main menu
+            endTournamentButton.setOnClickListener(view1 -> {
+                Intent intent = new Intent(TournamentActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            });
+
+
         });
 
         playRoundButton.setOnClickListener(view -> {
@@ -56,6 +82,7 @@ public class TournamentActivity extends AppCompatActivity {
                 }
         );
     }
+
 
     private void displayPlayerScores() {
         // Get the player scores from the Tournament instance and display them
