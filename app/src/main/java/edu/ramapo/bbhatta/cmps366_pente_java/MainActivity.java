@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int BOARD_SIZE = 19;
     private static final int PICK_SERIAL_FILE = 1;
-    public static Tournament tournament;
+    public static Tournament pente;
 
     private static void initializeTournament() {
 
-        tournament = new Tournament(BOARD_SIZE, BOARD_SIZE);
+        pente = new Tournament(BOARD_SIZE, BOARD_SIZE);
 
-        tournament = tournament.addPlayer(Player.HUMAN);
-        tournament = tournament.addPlayer(Player.COMPUTER);
+        pente = pente.addPlayer(Player.HUMAN);
+        pente = pente.addPlayer(Player.COMPUTER);
 
     }
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
             String serialString = stringBuilder.toString();
 
-            tournament = Tournament.fromString(serialString);
+            pente = Tournament.fromString(serialString);
 
             Intent intent = new Intent(MainActivity.this, TournamentActivity.class);
             startActivity(intent);

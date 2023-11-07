@@ -43,8 +43,8 @@ public class RoundActivity extends AppCompatActivity {
 
         // Set the on click listener for the help button
         findViewById(R.id.helpButton).setOnClickListener(view -> {
-            Position bestMove = new Strategy(MainActivity.tournament.getRound()).getBestMove();
-            String bestMoveString = MainActivity.tournament.getRound().getBoard().positionToString(bestMove);
+            Position bestMove = new Strategy(MainActivity.pente.getRound()).getBestMove();
+            String bestMoveString = MainActivity.pente.getRound().getBoard().positionToString(bestMove);
 
             TextView messageTextView = findViewById(R.id.messageTextView);
             messageTextView.setText(String.format("The best move is %s", bestMoveString));
@@ -55,7 +55,7 @@ public class RoundActivity extends AppCompatActivity {
 
     private void handleGameOver() {
         // If the round is over, show the winner, hide the help and save buttons, and show the continue button
-        if (MainActivity.tournament.getRound().isOver()) {
+        if (MainActivity.pente.getRound().isOver()) {
 
             // Disable the boardLayout from being clicked
             setUnclickable(findViewById(R.id.boardLinearLayout));
@@ -79,10 +79,10 @@ public class RoundActivity extends AppCompatActivity {
 
             // If there is a winner, show the winner
             // Otherwise, show that the round is a draw
-            if (MainActivity.tournament.getRound().getWinner() != null) {
+            if (MainActivity.pente.getRound().getWinner() != null) {
                 TextView messageTextView = findViewById(R.id.messageTextView);
                 messageTextView.setVisibility(View.VISIBLE);
-                messageTextView.setText(String.format("%s won!", MainActivity.tournament.getRound().getWinner().getName()));
+                messageTextView.setText(String.format("%s won!", MainActivity.pente.getRound().getWinner().getName()));
             } else {
                 TextView messageTextView = findViewById(R.id.messageTextView);
                 messageTextView.setVisibility(View.VISIBLE);
@@ -118,7 +118,7 @@ public class RoundActivity extends AppCompatActivity {
         TextView messageTextView = findViewById(R.id.messageTextView);
         messageTextView.setVisibility(View.GONE);
 
-        Round round = MainActivity.tournament.getRound();
+        Round round = MainActivity.pente.getRound();
 
         ArrayList<Player> players = (ArrayList<Player>) round.getPlayers();
 
@@ -219,7 +219,7 @@ public class RoundActivity extends AppCompatActivity {
     }
 
     private void initBoard() {
-        Round round = MainActivity.tournament.getRound();
+        Round round = MainActivity.pente.getRound();
         Board board = round.getBoard();
 
         // Get the boardlayout from the xml file
@@ -341,7 +341,7 @@ public class RoundActivity extends AppCompatActivity {
 
             try {
                 // Make the move
-                MainActivity.tournament = MainActivity.tournament.makeMove(pos);
+                MainActivity.pente = MainActivity.pente.makeMove(pos);
 
                 // Update the round layout
                 init();
@@ -362,9 +362,9 @@ public class RoundActivity extends AppCompatActivity {
     private void handleNextMove() {
 
         // Check if it is computer's turn
-        if (MainActivity.tournament.getRound().getCurrentPlayer().equals(Player.COMPUTER)) {
+        if (MainActivity.pente.getRound().getCurrentPlayer().equals(Player.COMPUTER)) {
             // Get the best move
-            Position bestMove = new Strategy(MainActivity.tournament.getRound()).getBestMove();
+            Position bestMove = new Strategy(MainActivity.pente.getRound()).getBestMove();
 
             // Find the button with the best move's position
             Button button = findViewById(R.id.boardLinearLayout).findViewWithTag(bestMove);
@@ -374,7 +374,7 @@ public class RoundActivity extends AppCompatActivity {
 
             // Explain the move
             TextView messageTextView = findViewById(R.id.messageTextView);
-            messageTextView.setText(String.format("Computer played %s", MainActivity.tournament.getRound().getBoard().positionToString(bestMove)));
+            messageTextView.setText(String.format("Computer played %s", MainActivity.pente.getRound().getBoard().positionToString(bestMove)));
             messageTextView.setVisibility(View.VISIBLE);
         }
     }

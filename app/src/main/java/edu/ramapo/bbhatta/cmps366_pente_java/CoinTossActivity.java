@@ -1,6 +1,6 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
-import static edu.ramapo.bbhatta.cmps366_pente_java.MainActivity.tournament;
+import static edu.ramapo.bbhatta.cmps366_pente_java.MainActivity.pente;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,7 +49,7 @@ public class CoinTossActivity extends AppCompatActivity {
                 players.add(Player.HUMAN);
 
             }
-            tournament = tournament.initializeRound(players);
+            pente = pente.initializeRound(players);
 
             // Start the round activity
             Intent intent = new Intent(CoinTossActivity.this, RoundActivity.class);
