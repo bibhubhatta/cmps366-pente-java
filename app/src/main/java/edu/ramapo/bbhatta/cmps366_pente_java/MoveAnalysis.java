@@ -7,159 +7,134 @@ import java.util.ArrayList;
  */
 public class MoveAnalysis {
 
-    /**
-     * Determines if a move is a winning move.
-     *
-     * @param round    The round to analyze.
-     * @param position The position to analyze.
-     * @return True if the move is a winning move, false otherwise.
-     */
-
-    public static boolean isWinningMove(Round round, Position position) {
-
-        try {
-            // If the round is already over, return false
-            if (round.isOver()) return false;
-            Round resultingRound = round.makeMove(position);
-            if (resultingRound.getWinner() != null) return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-        return false;
+    private MoveAnalysis() {
+        throw new IllegalStateException("Utility class");
     }
 
-
     /**
-     * Determines if a move is a win blocking move, i.e. it prevents one or more opponents from winning.
-     *
-     * @param round    The round to analyze.
-     * @param position The position to analyze.
-     * @return True if the move is a blocking move, false otherwise.
+     * Analyzes whether a move is a winning move for the current player.
      */
-    public static boolean isWinBlockingMove(Round round, Position position) {
-
-        for (Player player : round.getPlayers()) {
-            if (player == round.getCurrentPlayer()) continue;
-
-            Round testRound = round.setCurrentPlayer(player);
-
-            if (isWinningMove(testRound, position)) {
-                return true;
+    public static class WinningMoveAnalyzer implements MoveAnalyzer {
+        @Override
+        public boolean analyzeMove(Round round, Position position) {
+            try {
+                if (round.isOver()) return false;
+                Round resultingRound = round.makeMove(position);
+                return resultingRound.getWinner() != null;
+            } catch (Exception e) {
+                return false;
             }
         }
-
-        return false;
     }
 
     /**
-     * Determines if a move is a capture move, i.e. it captures one or more opponent stones.
-     *
-     * @param round    The round to analyze.
-     * @param position The position to analyze.
-     * @return True if the move is a capture move, false otherwise.
+     * Analyzes whether a move is a win-blocking move, preventing an opponent from winning.
      */
-    public static boolean isCaptureMove(Round round, Position position) {
+    public static class WinBlockingMoveAnalyzer implements MoveAnalyzer {
+        @Override
+        public boolean analyzeMove(Round round, Position position) {
+            for (Player player : round.getPlayers()) {
+                if (player == round.getCurrentPlayer()) continue;
 
-        try {
+                Round testRound = round.setCurrentPlayer(player);
 
-            Round resultingRound = round.makeMove(position);
-            if (resultingRound.getCaptures(round.getCurrentPlayer()) > round.getCaptures(round.getCurrentPlayer()))
-                return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-        return false;
-    }
-
-    /**
-     * Determines if a move is a capture block move, i.e. it prevents one or more opponents from capturing.
-     *
-     * @param round    The round to analyze.
-     * @param position The position to analyze.
-     * @return True if the move is a capture blocking move, false otherwise.
-     */
-    public static boolean isCaptureBlockMove(Round round, Position position) {
-
-        for (Player player : round.getPlayers()) {
-            if (player == round.getCurrentPlayer()) continue;
-
-            Round testRound = round.setCurrentPlayer(player);
-
-            if (isCaptureMove(testRound, position)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Determines if a move is a sequence making move, i.e. it extends a sequence of stones.
-     * A sequence is a line of two or more stones of the same color.
-     *
-     * @param round    The round to analyze.
-     * @param position The position to analyze.
-     * @return True if the move is a sequence making move, false otherwise.
-     */
-    public static boolean isSequenceMakingMove(Round round, Position position) {
-        try {
-            ArrayList<Position> neighbors = (ArrayList<Position>) round.getBoard().getNeighbors(position);
-            for (Position neighbor : neighbors) {
-                if (round.getBoard().get(neighbor) == round.getCurrentStone()) {
+                if (new WinningMoveAnalyzer().analyzeMove(testRound, position)) {
                     return true;
                 }
             }
-        } catch (Exception e) {
+
             return false;
         }
-
-        return false;
     }
 
     /**
-     * Determines if a move is a sequence blocking move, i.e. it prevents one or more opponents from extending a sequence.
-     * A sequence is a line of two or more stones of the same color.
-     *
-     * @param round    The round to analyze.
-     * @param position The position to analyze.
-     * @return True if the move is a sequence blocking move, false otherwise.
+     * Analyzes whether a move is a capture move, capturing one or more opponent stones.
      */
-    public static boolean isSequenceBlockingMove(Round round, Position position) {
-
-        for (Player player : round.getPlayers()) {
-            if (player == round.getCurrentPlayer()) continue;
-
-            Round testRound = round.setCurrentPlayer(player);
-
-            if (isSequenceMakingMove(testRound, position)) {
-                return true;
+    public static class CapturingMoveAnalyzer implements MoveAnalyzer {
+        @Override
+        public boolean analyzeMove(Round round, Position position) {
+            try {
+                Round resultingRound = round.makeMove(position);
+                return resultingRound.getCaptures(round.getCurrentPlayer()) > round.getCaptures(round.getCurrentPlayer());
+            } catch (Exception e) {
+                return false;
             }
         }
-
-        return false;
     }
 
     /**
-     * Determine is the move is the only available move.
-     *
-     * @param round    The round to analyze.
-     * @param position The position to analyze.
-     * @return True if the move is the only available move, false otherwise.
+     * Analyzes whether a move is a capture-blocking move, preventing an opponent from capturing.
      */
-    public static boolean isOnlyAvailableMove(Round round, Position position) {
-        try {
-            ArrayList<Position> availableMoves = (ArrayList<Position>) round.getAvailableMoves();
-            if (availableMoves.size() == 1) {
-                if (availableMoves.get(0).equals(position)) {
+    public static class CaptureBlockingMoveAnalyzer implements MoveAnalyzer {
+        @Override
+        public boolean analyzeMove(Round round, Position position) {
+            for (Player player : round.getPlayers()) {
+                if (player == round.getCurrentPlayer()) continue;
+
+                Round testRound = round.setCurrentPlayer(player);
+
+                if (new CapturingMoveAnalyzer().analyzeMove(testRound, position)) {
                     return true;
                 }
             }
-        } catch (Exception e) {
+
             return false;
         }
+    }
 
-        return false;
+    /**
+     * Analyzes whether a move is a sequence-making move, extending a sequence of stones.
+     */
+    public static class SequenceMakingMoveAnalyzer implements MoveAnalyzer {
+        @Override
+        public boolean analyzeMove(Round round, Position position) {
+            try {
+                ArrayList<Position> neighbors = new ArrayList<>(round.getBoard().getNeighbors(position));
+                for (Position neighbor : neighbors) {
+                    if (round.getBoard().get(neighbor) == round.getCurrentStone()) {
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                return false;
+            }
+
+            return false;
+        }
+    }
+
+    /**
+     * Analyzes whether a move is a sequence-blocking move, preventing an opponent from extending a sequence.
+     */
+    public static class SequenceBlockingMoveAnalyzer implements MoveAnalyzer {
+        @Override
+        public boolean analyzeMove(Round round, Position position) {
+            for (Player player : round.getPlayers()) {
+                if (player == round.getCurrentPlayer()) continue;
+
+                Round testRound = round.setCurrentPlayer(player);
+
+                if (new SequenceMakingMoveAnalyzer().analyzeMove(testRound, position)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    /**
+     * Analyzes whether a move is the only available move for the current player.
+     */
+    public static class OnlyAvailableMoveAnalyzer implements MoveAnalyzer {
+        @Override
+        public boolean analyzeMove(Round round, Position position) {
+            try {
+                ArrayList<Position> availableMoves = new ArrayList<>(round.getAvailableMoves());
+                return availableMoves.size() == 1 && availableMoves.get(0).equals(position);
+            } catch (Exception e) {
+                return false;
+            }
+        }
     }
 }
