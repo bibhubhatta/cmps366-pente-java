@@ -41,8 +41,17 @@ public class RoundActivity extends AppCompatActivity {
 
     private void initButtons() {
 
+        // Show the help and save buttons, but hide the play best move button
+        View helpButton = findViewById(R.id.helpButton);
+        View saveGameButton = findViewById(R.id.saveGameButton);
+        View playBestMoveButton = findViewById(R.id.playBestMoveButton);
+
+        helpButton.setVisibility(View.VISIBLE);
+        saveGameButton.setVisibility(View.VISIBLE);
+        playBestMoveButton.setVisibility(View.GONE);
+
         // Set the on click listener for the help button
-        findViewById(R.id.helpButton).setOnClickListener(view -> {
+        helpButton.setOnClickListener(view -> {
             Position bestMove = new Strategy(MainActivity.pente.getRound()).getBestMove();
             String bestMoveString = MainActivity.pente.getRound().getBoard().positionToString(bestMove);
             String rationale = new Strategy(MainActivity.pente.getRound()).getRationale(bestMove);
@@ -59,6 +68,25 @@ public class RoundActivity extends AppCompatActivity {
             // Set the background color of the button's parent to the highlight color
             constraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.best_move_highlight));
 
+            // Set the tag of the playBestMoveButton to the best move so that the button knows which move to play
+            playBestMoveButton.setTag(bestMove);
+
+            // Show the play best move button
+            playBestMoveButton.setVisibility(View.VISIBLE);
+
+            // Hide the help button
+            helpButton.setVisibility(View.GONE);
+        });
+
+
+        // Set the on click listener for the play best move button
+        findViewById(R.id.playBestMoveButton).setOnClickListener(view1 -> {
+            Position pos = (Position) view1.getTag();
+            // Remove the tag to prevent ambiguity with the actual cell button
+            view1.setTag(null);
+            // Simulate a click on the button
+            Button cellButton = findViewById(R.id.boardLinearLayout).findViewWithTag(pos);
+            cellButton.performClick();
         });
 
     }

@@ -31,5 +31,6 @@
     <string name="help">Help</string>
     <string name="save_game">Save Game</string>
     <string name="the_round_is_a_draw">The round is a draw!</string>
+    <string name="play_best_move">Play Best Move</string>
 
 </resources>
