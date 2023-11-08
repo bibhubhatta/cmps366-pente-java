@@ -101,6 +101,16 @@ public class RoundActivity extends AppCompatActivity {
             cellButton.performClick();
         });
 
+
+        // Set the on click listener for the continue button
+        continueButton.setOnClickListener(view -> {
+            // Start the tournament activity
+            Intent intent = new Intent(RoundActivity.this, TournamentActivity.class);
+            startActivity(intent);
+
+            finish();
+        });
+
     }
 
     private void highlightBoardCell(Position position, int color) {
@@ -130,15 +140,6 @@ public class RoundActivity extends AppCompatActivity {
             // Show the continue button
             continueButton.setVisibility(View.VISIBLE);
 
-            // Set the on click listener for the continue button
-            continueButton.setOnClickListener(view -> {
-
-                // Start the tournament activity
-                Intent intent = new Intent(RoundActivity.this, TournamentActivity.class);
-                startActivity(intent);
-
-                finish();
-            });
 
             // If there is a winner, show the winner
             // Otherwise, show that the round is a draw
