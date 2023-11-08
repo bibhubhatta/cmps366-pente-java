@@ -46,7 +46,7 @@ public class Strategy {
     public Position getBestMove() {
         ArrayList<Position> availablePositions = (ArrayList<Position>) round.getAvailableMoves();
 
-        int bestScore = 0;
+        int bestScore = Integer.MIN_VALUE;
         ArrayList<Position> bestMoves = new ArrayList<>();
 
         for (Position position : availablePositions) {
