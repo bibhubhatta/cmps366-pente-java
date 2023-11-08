@@ -7,4 +7,5 @@
     <color name="current_player_highlight">#03A9F4</color>
     <color name="winner_highlight">#4CAF50</color>
     <color name="best_move_highlight">#8BC34A</color>
+    <color name="played_cell_highlight">#FF9800</color>
 </resources>

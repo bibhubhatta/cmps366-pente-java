@@ -413,6 +413,9 @@ public class RoundActivity extends AppCompatActivity {
 
             String message = String.format("Computer played %s.%n%s", MainActivity.pente.getRound().getBoard().positionToString(bestMove), rationale);
             showMessage(message);
+
+            // Highlight the cell that was played
+            highlightBoardCell(bestMove, R.color.played_cell_highlight);
         }
     }
 
