@@ -57,8 +57,8 @@ public class RoundActivity extends AppCompatActivity {
     private void init() {
         initRoundLayout();
         initBoard();
-        handleGameOver();
         initButtons();
+        handleGameOver();
         handleNextMove();
     }
 
@@ -125,7 +125,7 @@ public class RoundActivity extends AppCompatActivity {
 
             // Hide the help and save buttons
             helpButton.setVisibility(View.GONE);
-            helpButton.setVisibility(View.GONE);
+            saveGameButton.setVisibility(View.GONE);
 
             // Show the continue button
             continueButton.setVisibility(View.VISIBLE);
