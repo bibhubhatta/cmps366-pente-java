@@ -51,6 +51,14 @@ public class RoundActivity extends AppCompatActivity {
             messageTextView.setText(String.format("The best move is %s.", bestMoveString));
             messageTextView.append(String.format("\n%s", rationale));
             messageTextView.setVisibility(View.VISIBLE);
+
+            // Highlight the best move
+            Button button = findViewById(R.id.boardLinearLayout).findViewWithTag(bestMove);
+            // Get the button's parent
+            ConstraintLayout constraintLayout = (ConstraintLayout) button.getParent();
+            // Set the background color of the button's parent to the highlight color
+            constraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.best_move_highlight));
+
         });
 
     }
