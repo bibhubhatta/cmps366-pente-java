@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.OutputStream;
@@ -18,12 +19,14 @@ public class SaveActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
 
+        final EditText fileNameEditText = findViewById(R.id.fileNameEditText);
         Button saveButton = findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveTextToDownloadsDirectory("hello.txt");
+                String fileName = fileNameEditText.getText().toString();
+                saveTextToDownloadsDirectory(fileName);
             }
         });
     }
