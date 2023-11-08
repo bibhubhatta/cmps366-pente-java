@@ -12,10 +12,11 @@ public class Strategy {
 
     private final LinkedHashMap<MoveAnalyzer, String> moveAnalyzers = new LinkedHashMap<>();
     Round round;
-    Random random = new Random();
+    Random random;
 
     public Strategy(Round round) {
         this.round = round;
+        this.random = new Random();
 
         moveAnalyzers.put(new MoveAnalysis.WinningMoveAnalyzer(), "is a winning move");
         moveAnalyzers.put(new MoveAnalysis.WinBlockingMoveAnalyzer(), "is a win-blocking move");
@@ -28,7 +29,8 @@ public class Strategy {
     }
 
     public Strategy(Strategy strategy) {
-        this.round = strategy.round;
+        this.round = new Round(strategy.round);
+        this.random = strategy.random;
     }
 
     /**
