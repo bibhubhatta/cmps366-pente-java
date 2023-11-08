@@ -1,6 +1,7 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -29,11 +30,15 @@ public class RoundActivity extends AppCompatActivity {
     private Button saveGameButton;
     private View continueButton;
 
+    private Resources resources;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
+
+        resources = getResources();
 
         findViews();
         init();
@@ -71,38 +76,44 @@ public class RoundActivity extends AppCompatActivity {
             String bestMoveString = MainActivity.pente.getRound().getBoard().positionToString(bestMove);
             String rationale = new Strategy(MainActivity.pente.getRound()).getRationale(bestMove);
 
-            messageTextView.setText(String.format("The best move is %s.", bestMoveString));
-            messageTextView.append(String.format("%n%s", rationale));
-            messageTextView.setVisibility(View.VISIBLE);
+            String message = String.format("The best move is %s.%n%s", bestMoveString, rationale);
 
-            // Highlight the best move
-            Button button = boardLayout.findViewWithTag(bestMove);
-            // Get the button's parent
-            ConstraintLayout constraintLayout = (ConstraintLayout) button.getParent();
-            // Set the background color of the button's parent to the highlight color
-            constraintLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.best_move_highlight));
+            showMessage(message);
+            highlightBoardCell(bestMove, R.color.best_move_highlight);
 
             // Set the tag of the playBestMoveButton to the best move so that the button knows which move to play
             playBestMoveButton.setTag(bestMove);
 
             // Show the play best move button
             playBestMoveButton.setVisibility(View.VISIBLE);
-
             // Hide the help button
             helpButton.setVisibility(View.GONE);
         });
 
 
         // Set the on click listener for the play best move button
-        playBestMoveButton.setOnClickListener(view1 -> {
-            Position pos = (Position) view1.getTag();
+        playBestMoveButton.setOnClickListener(view -> {
+            Position pos = (Position) view.getTag();
             // Remove the tag to prevent ambiguity with the actual cell button
-            view1.setTag(null);
+            view.setTag(null);
             // Simulate a click on the button
             Button cellButton = boardLayout.findViewWithTag(pos);
             cellButton.performClick();
         });
 
+    }
+
+    private void highlightBoardCell(Position position, int color) {
+        Button button = boardLayout.findViewWithTag(position);
+        // Get the button's parent
+        ConstraintLayout constraintLayout = (ConstraintLayout) button.getParent();
+        // Set the background color of the button's parent to the highlight color
+        constraintLayout.setBackgroundColor(ContextCompat.getColor(this, color));
+    }
+
+    private void showMessage(String message) {
+        messageTextView.setText(message);
+        messageTextView.setVisibility(View.VISIBLE);
     }
 
     private void handleGameOver() {
@@ -132,11 +143,10 @@ public class RoundActivity extends AppCompatActivity {
             // If there is a winner, show the winner
             // Otherwise, show that the round is a draw
             if (MainActivity.pente.getRound().getWinner() != null) {
-                messageTextView.setVisibility(View.VISIBLE);
-                messageTextView.setText(String.format("%s won!", MainActivity.pente.getRound().getWinner().getName()));
+                String result = String.format("%s wins!", MainActivity.pente.getRound().getWinner().getName());
+                showMessage(result);
             } else {
-                messageTextView.setVisibility(View.VISIBLE);
-                messageTextView.setText(R.string.the_round_is_a_draw);
+                showMessage(String.valueOf(R.string.the_round_is_a_draw));
             }
         }
     }
@@ -176,10 +186,10 @@ public class RoundActivity extends AppCompatActivity {
         // Add the table headers
         TableRow headerRow = new TableRow(this);
 
-        headerRow.addView(getHeaderCellTextView("Player"));
-        headerRow.addView(getHeaderCellTextView("Stone"));
-        headerRow.addView(getHeaderCellTextView("Captures"));
-        headerRow.addView(getHeaderCellTextView("Score"));
+        headerRow.addView(getHeaderCellTextView(resources.getString(R.string.player_name)));
+        headerRow.addView(getHeaderCellTextView(resources.getString(R.string.stone)));
+        headerRow.addView(getHeaderCellTextView(resources.getString(R.string.captures)));
+        headerRow.addView(getHeaderCellTextView(resources.getString(R.string.score)));
 
         playerScoresTable.addView(headerRow);
 
@@ -195,7 +205,6 @@ public class RoundActivity extends AppCompatActivity {
             playerStoneButton.setClickable(false);
 
             ConstraintLayout constraintLayout = getButtonView(playerStoneButton);
-
 
             row.addView(playerNameTextView);
             row.addView(constraintLayout);
@@ -251,7 +260,6 @@ public class RoundActivity extends AppCompatActivity {
     private TextView getTableCellTextView(String text) {
         TextView tv = new TextView(this);
         // set width and height
-
         int layoutMargin = (int) getResources().getDimension(R.dimen.table_cell_margin);
         TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(layoutMargin, layoutMargin, layoutMargin, layoutMargin);
@@ -301,9 +309,6 @@ public class RoundActivity extends AppCompatActivity {
         rowNumberTextView.setGravity(android.view.Gravity.CENTER);
         rowNumberTextView.setLayoutParams(new LinearLayout.LayoutParams(100, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        // Set the background color to white because the background of board layout is black to
-        // show the lines between the buttons
-        rowNumberTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         rowLayout.addView(rowNumberTextView, 0);
     }
 
@@ -313,10 +318,6 @@ public class RoundActivity extends AppCompatActivity {
         LinearLayout columnLettersLayout = new LinearLayout(this);
         columnLettersLayout.setOrientation(LinearLayout.HORIZONTAL);
         columnLettersLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-
-        // Set the background color to white because the background of board layout is black to
-        // show the lines between the buttons
-        columnLettersLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
         // Add empty textview to the left of the column letters
         TextView emptyTextView = new TextView(this);
@@ -371,7 +372,7 @@ public class RoundActivity extends AppCompatActivity {
         // Create a new stone button
         Button button = getStoneButton(stone);
 
-        // Set layout width to 0 and weight to 1
+        // Set layout width to 0 and weight to 1 so that the buttons are evenly spaced
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         button.setLayoutParams(params);
 
@@ -381,49 +382,35 @@ public class RoundActivity extends AppCompatActivity {
         // Set the on click listener
         button.setOnClickListener(view -> {
             Position pos = (Position) view.getTag();
-
-            // Show the message on the message textview
-            TextView messageTextView = findViewById(R.id.messageTextView);
-
-            try {
-                // Make the move
-                MainActivity.pente = MainActivity.pente.makeMove(pos);
-
-                // Update the round layout
-                init();
-
-            } catch (Exception e) {
-                // Show the error message on the message textview
-                messageTextView.setText(e.getMessage());
-                // Make the message text view visible
-                messageTextView.setVisibility(View.VISIBLE);
-            }
-
-
+            makeMove(pos);
         });
 
         return button;
+    }
+
+    private void makeMove(Position position) {
+        try {
+            MainActivity.pente = MainActivity.pente.makeMove(position);
+            // Update the round layout
+            init();
+        } catch (Exception e) {
+            showMessage(e.getMessage());
+        }
     }
 
     private void handleNextMove() {
 
         // Check if it is computer's turn
         if (MainActivity.pente.getRound().getCurrentPlayer().equals(Player.COMPUTER)) {
-            // Get the best move
-            Position bestMove = new Strategy(MainActivity.pente.getRound()).getBestMove();
+            // Get the best move and rationale
+            Strategy strategy = new Strategy(MainActivity.pente.getRound());
+            Position bestMove = strategy.getBestMove();
+            String rationale = strategy.getRationale(bestMove);
 
-            // Find the button with the best move's position
-            Button button = findViewById(R.id.boardLinearLayout).findViewWithTag(bestMove);
+            makeMove(bestMove);
 
-            // Explain the move
-            String rationale = new Strategy(MainActivity.pente.getRound()).getRationale(bestMove);
-
-            // Simulate a click on the button
-            button.performClick();
-
-            messageTextView.setText(String.format("Computer played %s.", MainActivity.pente.getRound().getBoard().positionToString(bestMove)));
-            messageTextView.append(String.format("%n%s", rationale));
-            messageTextView.setVisibility(View.VISIBLE);
+            String message = String.format("Computer played %s.%n%s", MainActivity.pente.getRound().getBoard().positionToString(bestMove), rationale);
+            showMessage(message);
         }
     }
 
@@ -445,13 +432,11 @@ public class RoundActivity extends AppCompatActivity {
                 stoneShape.setTint(ContextCompat.getColor(this, R.color.white));
             }
 
-
             // Add the stone shape to the button foreground
             button.setForeground(stoneShape);
         }
         // Set background to null so that the background color is not changed
         button.setBackground(null);
-
 
         return button;
     }

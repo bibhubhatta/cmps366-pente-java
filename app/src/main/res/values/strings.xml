@@ -25,8 +25,10 @@
 
     <!--Round Activity-->
     <string name="round">Round</string>
-    <string name="player_name">Player Name</string>
+    <string name="player_name">Player</string>
+    <string name="stone">Stone</string>
     <string name="captures">Captures</string>
+    <string name="score">Score</string>
     <string name="round_score">Round Score</string>
     <string name="help">Help</string>
     <string name="save_game">Save Game</string>
