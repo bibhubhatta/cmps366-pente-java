@@ -111,6 +111,12 @@ public class RoundActivity extends AppCompatActivity {
             finish();
         });
 
+        // Set the on click listener for the save game button
+        saveGameButton.setOnClickListener(view -> {
+            Intent intent = new Intent(RoundActivity.this, SaveActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void highlightBoardCell(Position position, int color) {
