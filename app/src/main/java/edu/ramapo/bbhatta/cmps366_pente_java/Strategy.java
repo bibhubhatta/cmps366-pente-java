@@ -1,6 +1,7 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Random;
 
 /**
@@ -9,11 +10,21 @@ import java.util.Random;
  */
 public class Strategy {
 
+    private final LinkedHashMap<MoveAnalyzer, String> moveAnalyzers = new LinkedHashMap<>();
     Round round;
     Random random = new Random();
 
     public Strategy(Round round) {
         this.round = round;
+
+        moveAnalyzers.put(new MoveAnalysis.WinningMoveAnalyzer(), "is a winning move");
+        moveAnalyzers.put(new MoveAnalysis.WinBlockingMoveAnalyzer(), "is a win-blocking move");
+        moveAnalyzers.put(new MoveAnalysis.CapturingMoveAnalyzer(), "is a capturing move");
+        moveAnalyzers.put(new MoveAnalysis.CaptureBlockingMoveAnalyzer(), "is a capture-blocking move");
+        moveAnalyzers.put(new MoveAnalysis.SequenceMakingMoveAnalyzer(), "is a sequence-making move");
+        moveAnalyzers.put(new MoveAnalysis.SequenceBlockingMoveAnalyzer(), "is a sequence-blocking move");
+        moveAnalyzers.put(new MoveAnalysis.OnlyAvailableMoveAnalyzer(), "is the only available move");
+
     }
 
     public Strategy(Strategy strategy) {
@@ -50,6 +61,31 @@ public class Strategy {
         }
 
         return bestMoves.get(random.nextInt(bestMoves.size()));
+    }
+
+    public String getRationale(Position position) {
+        StringBuilder rationale = new StringBuilder();
+
+        if (new MoveAnalysis.SecondMoveOfFirstPlayerAnalyzer().analyzeMove(round, position))
+            rationale.append("This is the second move of the first player. So it is at least 3 spaces away from the center. ");
+
+        for (MoveAnalyzer moveAnalyzer : moveAnalyzers.keySet()) {
+            if (moveAnalyzer.analyzeMove(round, position)) {
+
+                if (rationale.length() == 0) {
+                    rationale.append("This move ");
+                } else {
+                    rationale.append("It also ");
+                }
+                rationale.append(moveAnalyzers.get(moveAnalyzer)).append(". ");
+            }
+        }
+
+        if (rationale.length() == 0) {
+            rationale.append("This move is random.");
+        }
+
+        return rationale.toString();
     }
 
     /**

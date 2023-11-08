@@ -296,7 +296,7 @@ public class Round {
         return board.getNoStones() == 0;
     }
 
-    private boolean isSecondTurnOfFirstPlayer() {
+    public boolean isSecondTurnOfFirstPlayer() {
         return board.getNoStones() == players.size() && getCurrentPlayer().equals(getFirstPlayer());
     }
 

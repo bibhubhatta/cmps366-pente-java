@@ -112,9 +112,11 @@ public class MoveAnalysis {
             for (Player player : round.getPlayers()) {
                 if (player == round.getCurrentPlayer()) continue;
 
-                Round testRound = round.setCurrentPlayer(player);
+                // Make the move before checking because it could be a capturing move
+                Round resultingRound = round.makeMove(position);
+                resultingRound = resultingRound.setCurrentPlayer(player);
 
-                if (new SequenceMakingMoveAnalyzer().analyzeMove(testRound, position)) {
+                if (new SequenceMakingMoveAnalyzer().analyzeMove(resultingRound, position)) {
                     return true;
                 }
             }
@@ -132,6 +134,20 @@ public class MoveAnalysis {
             try {
                 ArrayList<Position> availableMoves = new ArrayList<>(round.getAvailableMoves());
                 return availableMoves.size() == 1 && availableMoves.get(0).equals(position);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Analyzes whether the current move is the second move of the first player.
+     */
+    public static class SecondMoveOfFirstPlayerAnalyzer implements MoveAnalyzer {
+        @Override
+        public boolean analyzeMove(Round round, Position position) {
+            try {
+                return round.isSecondTurnOfFirstPlayer();
             } catch (Exception e) {
                 return false;
             }

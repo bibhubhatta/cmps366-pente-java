@@ -45,9 +45,11 @@ public class RoundActivity extends AppCompatActivity {
         findViewById(R.id.helpButton).setOnClickListener(view -> {
             Position bestMove = new Strategy(MainActivity.pente.getRound()).getBestMove();
             String bestMoveString = MainActivity.pente.getRound().getBoard().positionToString(bestMove);
+            String rationale = new Strategy(MainActivity.pente.getRound()).getRationale(bestMove);
 
             TextView messageTextView = findViewById(R.id.messageTextView);
-            messageTextView.setText(String.format("The best move is %s", bestMoveString));
+            messageTextView.setText(String.format("The best move is %s.", bestMoveString));
+            messageTextView.append(String.format("\n%s", rationale));
             messageTextView.setVisibility(View.VISIBLE);
         });
 
@@ -369,12 +371,15 @@ public class RoundActivity extends AppCompatActivity {
             // Find the button with the best move's position
             Button button = findViewById(R.id.boardLinearLayout).findViewWithTag(bestMove);
 
+            // Explain the move
+            TextView messageTextView = findViewById(R.id.messageTextView);
+            String rationale = new Strategy(MainActivity.pente.getRound()).getRationale(bestMove);
+
             // Simulate a click on the button
             button.performClick();
 
-            // Explain the move
-            TextView messageTextView = findViewById(R.id.messageTextView);
-            messageTextView.setText(String.format("Computer played %s", MainActivity.pente.getRound().getBoard().positionToString(bestMove)));
+            messageTextView.setText(String.format("Computer played %s.", MainActivity.pente.getRound().getBoard().positionToString(bestMove)));
+            messageTextView.append(String.format("%n%s", rationale));
             messageTextView.setVisibility(View.VISIBLE);
         }
     }
