@@ -115,10 +115,21 @@ public class RoundActivity extends AppCompatActivity {
 
     private void highlightBoardCell(Position position, int color) {
         Button button = boardLayout.findViewWithTag(position);
-        // Get the button's parent
-        ConstraintLayout constraintLayout = (ConstraintLayout) button.getParent();
-        // Set the background color of the button's parent to the highlight color
-        constraintLayout.setBackgroundColor(ContextCompat.getColor(this, color));
+
+        ConstraintLayout cellToHighlight;
+        int opacity;
+        if (button.getForeground() != null) {
+            cellToHighlight = (ConstraintLayout) button.getParent().getParent();
+            opacity = 64;
+        } else {
+            cellToHighlight = (ConstraintLayout) button.getParent();
+            opacity = 255;
+        }
+
+        Drawable highlight = ContextCompat.getDrawable(this, color);
+        highlight.setAlpha(opacity);
+        cellToHighlight.setForeground(ContextCompat.getDrawable(this, color));
+
     }
 
     private void showMessage(String message) {
@@ -139,7 +150,6 @@ public class RoundActivity extends AppCompatActivity {
 
             // Show the continue button
             continueButton.setVisibility(View.VISIBLE);
-
 
             // If there is a winner, show the winner
             // Otherwise, show that the round is a draw
