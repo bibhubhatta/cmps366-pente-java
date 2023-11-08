@@ -157,7 +157,7 @@ public class Strategy {
             int sequenceLength = stoneSequence.length;
             if (sequenceLength < 2) continue;
             if (stoneSequence[0] == stone) {
-                score += sequenceLength * sequenceLength;
+                score += sequenceLength * sequenceLength * sequenceLength;
             }
         }
 
