@@ -21,13 +21,32 @@ import java.util.ArrayList;
 
 public class RoundActivity extends AppCompatActivity {
 
+    private TableLayout playerScoresTable;
+    private LinearLayout boardLayout;
+    private TextView messageTextView;
+    private Button helpButton;
+    private Button playBestMoveButton;
+    private Button saveGameButton;
+    private View continueButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
 
+        findViews();
         init();
+    }
+
+    private void findViews() {
+        playerScoresTable = findViewById(R.id.playerScoresTableLayout);
+        boardLayout = findViewById(R.id.boardLinearLayout);
+        messageTextView = findViewById(R.id.messageTextView);
+        helpButton = findViewById(R.id.helpButton);
+        playBestMoveButton = findViewById(R.id.playBestMoveButton);
+        saveGameButton = findViewById(R.id.saveGameButton);
+        continueButton = findViewById(R.id.continueButton);
     }
 
     private void init() {
@@ -42,10 +61,6 @@ public class RoundActivity extends AppCompatActivity {
     private void initButtons() {
 
         // Show the help and save buttons, but hide the play best move button
-        View helpButton = findViewById(R.id.helpButton);
-        View saveGameButton = findViewById(R.id.saveGameButton);
-        View playBestMoveButton = findViewById(R.id.playBestMoveButton);
-
         helpButton.setVisibility(View.VISIBLE);
         saveGameButton.setVisibility(View.VISIBLE);
         playBestMoveButton.setVisibility(View.GONE);
@@ -56,13 +71,12 @@ public class RoundActivity extends AppCompatActivity {
             String bestMoveString = MainActivity.pente.getRound().getBoard().positionToString(bestMove);
             String rationale = new Strategy(MainActivity.pente.getRound()).getRationale(bestMove);
 
-            TextView messageTextView = findViewById(R.id.messageTextView);
             messageTextView.setText(String.format("The best move is %s.", bestMoveString));
-            messageTextView.append(String.format("\n%s", rationale));
+            messageTextView.append(String.format("%n%s", rationale));
             messageTextView.setVisibility(View.VISIBLE);
 
             // Highlight the best move
-            Button button = findViewById(R.id.boardLinearLayout).findViewWithTag(bestMove);
+            Button button = boardLayout.findViewWithTag(bestMove);
             // Get the button's parent
             ConstraintLayout constraintLayout = (ConstraintLayout) button.getParent();
             // Set the background color of the button's parent to the highlight color
@@ -80,12 +94,12 @@ public class RoundActivity extends AppCompatActivity {
 
 
         // Set the on click listener for the play best move button
-        findViewById(R.id.playBestMoveButton).setOnClickListener(view1 -> {
+        playBestMoveButton.setOnClickListener(view1 -> {
             Position pos = (Position) view1.getTag();
             // Remove the tag to prevent ambiguity with the actual cell button
             view1.setTag(null);
             // Simulate a click on the button
-            Button cellButton = findViewById(R.id.boardLinearLayout).findViewWithTag(pos);
+            Button cellButton = boardLayout.findViewWithTag(pos);
             cellButton.performClick();
         });
 
@@ -96,17 +110,17 @@ public class RoundActivity extends AppCompatActivity {
         if (MainActivity.pente.getRound().isOver()) {
 
             // Disable the boardLayout from being clicked
-            setUnclickable(findViewById(R.id.boardLinearLayout));
+            setUnclickable(boardLayout);
 
             // Hide the help and save buttons
-            findViewById(R.id.helpButton).setVisibility(View.GONE);
-            findViewById(R.id.saveGameButton).setVisibility(View.GONE);
+            helpButton.setVisibility(View.GONE);
+            helpButton.setVisibility(View.GONE);
 
             // Show the continue button
-            findViewById(R.id.continueButton).setVisibility(View.VISIBLE);
+            continueButton.setVisibility(View.VISIBLE);
 
             // Set the on click listener for the continue button
-            findViewById(R.id.continueButton).setOnClickListener(view -> {
+            continueButton.setOnClickListener(view -> {
 
                 // Start the tournament activity
                 Intent intent = new Intent(RoundActivity.this, TournamentActivity.class);
@@ -118,11 +132,9 @@ public class RoundActivity extends AppCompatActivity {
             // If there is a winner, show the winner
             // Otherwise, show that the round is a draw
             if (MainActivity.pente.getRound().getWinner() != null) {
-                TextView messageTextView = findViewById(R.id.messageTextView);
                 messageTextView.setVisibility(View.VISIBLE);
                 messageTextView.setText(String.format("%s won!", MainActivity.pente.getRound().getWinner().getName()));
             } else {
-                TextView messageTextView = findViewById(R.id.messageTextView);
                 messageTextView.setVisibility(View.VISIBLE);
                 messageTextView.setText(R.string.the_round_is_a_draw);
             }
@@ -148,12 +160,10 @@ public class RoundActivity extends AppCompatActivity {
     }
 
     public void initRoundLayout() {
-        TableLayout playerScoresTable = findViewById(R.id.playerScoresTableLayout);
         // Clear the table
         playerScoresTable.removeAllViews();
 
         // Clear the message textview
-        TextView messageTextView = findViewById(R.id.messageTextView);
         messageTextView.setVisibility(View.GONE);
 
         Round round = MainActivity.pente.getRound();
@@ -260,8 +270,6 @@ public class RoundActivity extends AppCompatActivity {
         Round round = MainActivity.pente.getRound();
         Board board = round.getBoard();
 
-        // Get the boardlayout from the xml file
-        LinearLayout boardLayout = findViewById(R.id.boardLinearLayout);
         // Clear the board layout
         boardLayout.removeAllViews();
 
@@ -408,7 +416,6 @@ public class RoundActivity extends AppCompatActivity {
             Button button = findViewById(R.id.boardLinearLayout).findViewWithTag(bestMove);
 
             // Explain the move
-            TextView messageTextView = findViewById(R.id.messageTextView);
             String rationale = new Strategy(MainActivity.pente.getRound()).getRationale(bestMove);
 
             // Simulate a click on the button
