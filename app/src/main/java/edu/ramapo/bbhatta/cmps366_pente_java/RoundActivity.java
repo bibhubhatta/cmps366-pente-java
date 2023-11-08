@@ -400,6 +400,8 @@ public class RoundActivity extends AppCompatActivity {
 
     private void handleNextMove() {
 
+        if (MainActivity.pente.getRound().isOver()) return;
+
         // Check if it is computer's turn
         if (MainActivity.pente.getRound().getCurrentPlayer().equals(Player.COMPUTER)) {
             // Get the best move and rationale
