@@ -30,5 +30,6 @@
     <string name="round_score">Round Score</string>
     <string name="help">Help</string>
     <string name="save_game">Save Game</string>
+    <string name="the_round_is_a_draw">The round is a draw!</string>
 
 </resources>

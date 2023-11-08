@@ -88,7 +88,7 @@ public class RoundActivity extends AppCompatActivity {
             } else {
                 TextView messageTextView = findViewById(R.id.messageTextView);
                 messageTextView.setVisibility(View.VISIBLE);
-                messageTextView.setText("The round is a draw!");
+                messageTextView.setText(R.string.the_round_is_a_draw);
             }
         }
     }
