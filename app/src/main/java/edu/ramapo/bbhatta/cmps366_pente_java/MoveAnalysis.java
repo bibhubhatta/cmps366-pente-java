@@ -34,7 +34,7 @@ public class MoveAnalysis {
         @Override
         public boolean analyzeMove(Round round, Position position) {
             for (Player player : round.getPlayers()) {
-                if (player == round.getCurrentPlayer()) continue;
+                if (player.equals(round.getCurrentPlayer())) continue;
 
                 Round testRound = round.setCurrentPlayer(player);
 
