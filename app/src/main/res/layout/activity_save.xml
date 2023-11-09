@@ -2,19 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+
+    android:padding="20dp">
+
 
     <EditText
         android:id="@+id/fileNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter File Name" />
+        android:autofillHints="fileName"
+        android:hint="@string/enter_file_name"
+        android:inputType="textCapWords"
+        android:maxLines="1" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:text="@string/save" />
 
 </LinearLayout>

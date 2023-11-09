@@ -5,21 +5,26 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.OutputStream;
+import java.util.Objects;
 
 public class SaveActivity extends Activity {
+
+    private Button saveButton;
+    private EditText fileNameEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
 
-        final EditText fileNameEditText = findViewById(R.id.fileNameEditText);
-        Button saveButton = findViewById(R.id.saveButton);
+        fileNameEditText = findViewById(R.id.fileNameEditText);
+        saveButton = findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(view -> {
             String fileName = fileNameEditText.getText().toString();
@@ -40,8 +45,16 @@ public class SaveActivity extends Activity {
 
 
         try (OutputStream outputStream = getContentResolver().openOutputStream(uri)) {
-            outputStream.write("hello".getBytes());
+            Objects.requireNonNull(outputStream).write("hello".getBytes());
             Toast.makeText(this, "Text saved to Downloads", Toast.LENGTH_SHORT).show();
+
+            // Hide the text input
+            fileNameEditText.setVisibility(View.GONE);
+
+            // Rename the save button to exit
+            saveButton.setText(R.string.exit);
+            saveButton.setOnClickListener(view -> finish());
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed to save text", Toast.LENGTH_SHORT).show();
