@@ -1,5 +1,10 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static edu.ramapo.bbhatta.cmps366_pente_java.models.Player.COMPUTER;
+import static edu.ramapo.bbhatta.cmps366_pente_java.models.Player.HUMAN;
+
 import org.junit.Test;
 
 import java.io.File;
@@ -7,10 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.ramapo.bbhatta.cmps366_pente_java.Player.COMPUTER;
-import static edu.ramapo.bbhatta.cmps366_pente_java.Player.HUMAN;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Player;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Position;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Stone;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Tournament;
 
 public class DemoTest {
 

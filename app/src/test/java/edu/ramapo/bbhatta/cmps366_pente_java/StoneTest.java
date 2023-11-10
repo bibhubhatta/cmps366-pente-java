@@ -1,9 +1,11 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+
+import org.junit.Test;
+
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Stone;
 
 public class StoneTest {
 

@@ -1,9 +1,13 @@
-package edu.ramapo.bbhatta.cmps366_pente_java;
+package edu.ramapo.bbhatta.cmps366_pente_java.views;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Scanner;
+
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Player;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Position;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Tournament;
 
 public class ConsolePente {
     public static void main(String[] args) {

@@ -1,10 +1,19 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Board;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Position;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Stone;
 
 public class BoardTest {
 

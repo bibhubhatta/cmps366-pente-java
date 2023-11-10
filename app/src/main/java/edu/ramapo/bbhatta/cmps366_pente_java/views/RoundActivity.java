@@ -1,4 +1,4 @@
-package edu.ramapo.bbhatta.cmps366_pente_java;
+package edu.ramapo.bbhatta.cmps366_pente_java.views;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,6 +19,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+
+import edu.ramapo.bbhatta.cmps366_pente_java.R;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Board;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Player;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Position;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Round;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Stone;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Strategy;
 
 public class RoundActivity extends AppCompatActivity {
 

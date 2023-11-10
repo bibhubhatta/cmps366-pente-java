@@ -1,4 +1,4 @@
-package edu.ramapo.bbhatta.cmps366_pente_java;
+package edu.ramapo.bbhatta.cmps366_pente_java.models;
 
 import java.util.ArrayList;
 import java.util.Scanner;

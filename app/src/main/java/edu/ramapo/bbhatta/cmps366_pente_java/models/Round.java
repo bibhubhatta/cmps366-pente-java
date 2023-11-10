@@ -1,4 +1,4 @@
-package edu.ramapo.bbhatta.cmps366_pente_java;
+package edu.ramapo.bbhatta.cmps366_pente_java.models;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -387,7 +387,7 @@ public class Round {
      * @return the stone of the specified player
      * If the player is not added to the round, null is returned
      */
-    protected Stone getStone(Player player) {
+    public Stone getStone(Player player) {
         if (!players.containsKey(player)) {
             return null;
         }
@@ -403,7 +403,7 @@ public class Round {
      * @return the winner of the round
      * If there is no winner, null is returned
      */
-    protected Player getWinner() {
+    public Player getWinner() {
         for (Player player : players.keySet()) {
             if (getNoCapturedPairs(player) >= 5) {
                 return player;
@@ -437,7 +437,7 @@ public class Round {
      *
      * @return true if the round is over, false otherwise
      */
-    protected boolean isOver() {
+    public boolean isOver() {
         return getWinner() != null || isDraw();
     }
 

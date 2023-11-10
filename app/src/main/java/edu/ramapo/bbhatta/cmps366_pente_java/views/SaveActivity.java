@@ -1,4 +1,4 @@
-package edu.ramapo.bbhatta.cmps366_pente_java;
+package edu.ramapo.bbhatta.cmps366_pente_java.views;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import java.io.OutputStream;
 import java.util.Objects;
+
+import edu.ramapo.bbhatta.cmps366_pente_java.R;
 
 public class SaveActivity extends Activity {
 

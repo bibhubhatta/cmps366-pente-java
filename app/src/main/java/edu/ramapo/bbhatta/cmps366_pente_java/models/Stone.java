@@ -1,4 +1,4 @@
-package edu.ramapo.bbhatta.cmps366_pente_java;
+package edu.ramapo.bbhatta.cmps366_pente_java.models;
 
 /**
  * Represents a stone on the board.
@@ -16,11 +16,11 @@ public class Stone {
     /*
      * The black stone.
      */
-    static final Stone BLACK = new Stone('B');
+    public static final Stone BLACK = new Stone('B');
     /*
      * The white stone.
      */
-    static final Stone WHITE = new Stone('W');
+    public static final Stone WHITE = new Stone('W');
 
     /*
      * The empty stone.

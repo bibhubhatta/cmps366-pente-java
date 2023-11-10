@@ -1,6 +1,6 @@
-package edu.ramapo.bbhatta.cmps366_pente_java;
+package edu.ramapo.bbhatta.cmps366_pente_java.views;
 
-import static edu.ramapo.bbhatta.cmps366_pente_java.MainActivity.pente;
+import static edu.ramapo.bbhatta.cmps366_pente_java.views.MainActivity.pente;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import edu.ramapo.bbhatta.cmps366_pente_java.R;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Player;
 
 public class TournamentActivity extends AppCompatActivity {
 
