@@ -45,7 +45,8 @@ public class SaveActivity extends Activity {
 
 
         try (OutputStream outputStream = getContentResolver().openOutputStream(uri)) {
-            Objects.requireNonNull(outputStream).write("hello".getBytes());
+            String output = MainActivity.pente.getSerialString();
+            Objects.requireNonNull(outputStream).write(output.getBytes());
             Toast.makeText(this, "Text saved to Downloads", Toast.LENGTH_SHORT).show();
 
             // Hide the text input

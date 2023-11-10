@@ -272,4 +272,38 @@ public class Tournament {
     }
 
 
+    public String getSerialString() {
+        String boardStr = round.getBoard().toString();
+
+        Player human = Player.HUMAN;
+        Player computer = Player.COMPUTER;
+
+        int humanCapturedPairs = getNoCaptures(human);
+        int humanScore = roster.get(human);
+
+        int computerCapturedPairs = getNoCaptures(computer);
+        int computerScore = roster.get(computer);
+
+        Player currentPlayer = getCurrentPlayer();
+        String nextPlayerStr = (currentPlayer.equals(Player.HUMAN)) ? "Human" : "Computer";
+        Stone currentStone = getCurrentStone();
+        String nextStoneStr = (currentStone.equals(Stone.WHITE)) ? "White" : "Black";
+
+        String serial = String.format(
+                "Board:\n%s\n"
+                        + "Human:\n"
+                        + "Captured pairs: %d\n"
+                        + "Score: %d\n\n"
+                        + "Computer:\n"
+                        + "Captured pairs: %d\n"
+                        + "Score: %d\n\n"
+                        + "Next Player: %s - %s",
+                boardStr, humanCapturedPairs, humanScore, computerCapturedPairs,
+                computerScore, nextPlayerStr, nextStoneStr
+        );
+
+
+        return serial;
+    }
+
 }

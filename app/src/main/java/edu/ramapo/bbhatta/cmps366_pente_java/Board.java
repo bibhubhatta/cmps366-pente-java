@@ -1,5 +1,7 @@
 package edu.ramapo.bbhatta.cmps366_pente_java;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,6 +68,33 @@ public class Board {
                 this.boardArray[row][col] = board.get(row, col);
             }
         }
+    }
+
+    /**
+     * Gets the string representation of the board.
+     * It can be used in serialization.
+     *
+     * @return The string representation of the board.
+     */
+    @NonNull
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int row = 0; row < this.numRows; row++) {
+            for (int col = 0; col < this.numCols; col++) {
+                Stone stone = this.boardArray[row][col];
+                if (stone != null) {
+                    stringBuilder.append(stone);
+                } else {
+                    stringBuilder.append("O");
+                }
+            }
+
+            stringBuilder.append("\n");
+        }
+
+        return stringBuilder.toString();
     }
 
     /**
