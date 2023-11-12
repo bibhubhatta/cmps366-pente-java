@@ -36,6 +36,7 @@ public class RoundActivity extends AppCompatActivity {
     private Button helpButton;
     private Button playBestMoveButton;
     private Button saveGameButton;
+    private Button logButton;
     private View continueButton;
 
     private Resources resources;
@@ -60,6 +61,7 @@ public class RoundActivity extends AppCompatActivity {
         playBestMoveButton = findViewById(R.id.playBestMoveButton);
         saveGameButton = findViewById(R.id.saveGameButton);
         continueButton = findViewById(R.id.continueButton);
+        logButton = findViewById(R.id.logButton);
     }
 
     private void init() {
@@ -125,6 +127,12 @@ public class RoundActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Set the on click listener for the log button
+        logButton.setOnClickListener(view -> {
+            Intent intent = new Intent(RoundActivity.this, LogActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void highlightBoardCell(Position position, int color) {
@@ -146,7 +154,13 @@ public class RoundActivity extends AppCompatActivity {
 
     }
 
+
     private void showMessage(String message) {
+        showMessage(message, true);
+    }
+
+    private void showMessage(String message, Boolean showInLog) {
+        if (Boolean.TRUE.equals(showInLog)) MainActivity.log.add(message);
         messageTextView.setText(message);
         messageTextView.setVisibility(View.VISIBLE);
     }
@@ -218,6 +232,9 @@ public class RoundActivity extends AppCompatActivity {
 
         playerScoresTable.addView(headerRow);
 
+        StringBuilder roundScoreLog = new StringBuilder();
+
+        roundScoreLog.append("Round scores:\n");
 
         for (Player player : players) {
             TableRow row = new TableRow(this);
@@ -243,8 +260,14 @@ public class RoundActivity extends AppCompatActivity {
                 row.setBackgroundColor(ContextCompat.getColor(this, R.color.winner_highlight));
             }
 
+            roundScoreLog.append(player.getName()).append(" Captures: ").append(round.getCaptures(player)).append("\n");
+            roundScoreLog.append(player.getName()).append(" Score: ").append(round.getScore(player)).append("\n");
+
             playerScoresTable.addView(row);
         }
+
+        roundScoreLog.append("Current player: ").append(round.getCurrentPlayer().getName()).append("\n");
+        MainActivity.log.add(roundScoreLog.toString());
 
 
     }
@@ -415,7 +438,9 @@ public class RoundActivity extends AppCompatActivity {
 
     private void makeMove(Position position) {
         try {
+            String logMessage = String.format("%s played %s", MainActivity.pente.getRound().getCurrentPlayer().getName(), MainActivity.pente.getRound().getBoard().positionToString(position));
             MainActivity.pente = MainActivity.pente.makeMove(position);
+            MainActivity.log.add(logMessage);
             // Update the round layout
             init();
         } catch (Exception e) {
@@ -434,10 +459,13 @@ public class RoundActivity extends AppCompatActivity {
             Position bestMove = strategy.getBestMove();
             String rationale = strategy.getRationale(bestMove);
 
+            String logMessage = String.format("Computer is playing %s.%n%s", MainActivity.pente.getRound().getBoard().positionToString(bestMove), rationale);
+            MainActivity.log.add(logMessage);
+
             makeMove(bestMove);
 
             String message = String.format("Computer played %s.%n%s", MainActivity.pente.getRound().getBoard().positionToString(bestMove), rationale);
-            showMessage(message);
+            showMessage(message, false);
 
             // Highlight the cell that was played
             highlightBoardCell(bestMove, R.color.played_cell_highlight);

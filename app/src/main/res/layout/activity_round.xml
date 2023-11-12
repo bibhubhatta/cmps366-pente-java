@@ -96,6 +96,13 @@
                 android:text="@string/continue_text"
                 android:visibility="gone" />
 
+            <Button
+                android:id="@+id/logButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/log" />
+
         </LinearLayout>
     </ScrollView>
 

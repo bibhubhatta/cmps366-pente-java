@@ -39,4 +39,12 @@
         android:layout_marginTop="16dp"
         android:text="@string/end_tournament" />
 
+    <!-- Log Button -->
+    <Button
+        android:id="@+id/logButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/log" />
+
 </LinearLayout>

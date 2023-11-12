@@ -1,5 +1,6 @@
 package edu.ramapo.bbhatta.cmps366_pente_java.views;
 
+import static edu.ramapo.bbhatta.cmps366_pente_java.views.MainActivity.log;
 import static edu.ramapo.bbhatta.cmps366_pente_java.views.MainActivity.pente;
 
 import android.content.Intent;
@@ -26,6 +27,7 @@ public class TournamentActivity extends AppCompatActivity {
         playerScoresTextView = findViewById(R.id.playerScoresTextView);
         Button endTournamentButton = findViewById(R.id.endTournamentButton);
         Button playRoundButton = findViewById(R.id.playRoundButton);
+        Button logButton = findViewById(R.id.logButton);
 
         displayPlayerScores();
 
@@ -38,10 +40,12 @@ public class TournamentActivity extends AppCompatActivity {
                 String winner = pente.getWinner().getName() + " wins!";
 
                 playerScoresTextView.append("\n" + winner);
+                log.add(winner);
             }
             // Otherwise, display that the tournament is a draw
             else {
                 playerScoresTextView.append("\nDraw!");
+                log.add("Draw!");
             }
 
             // Hide the play round button
@@ -65,6 +69,7 @@ public class TournamentActivity extends AppCompatActivity {
                         // Initialize the round if the round is over
                         if (pente.getRound().isOver()) {
                             pente = pente.initializeRound();
+                            log.add("New round started");
 
                         }
 
@@ -78,21 +83,30 @@ public class TournamentActivity extends AppCompatActivity {
                         startActivity(intent);
                     } catch (IllegalStateException e) {
 
+                        log.add("Both players have same score. Coin toss to determine who goes first");
                         Intent intent = new Intent(TournamentActivity.this, CoinTossActivity.class);
                         startActivity(intent);
                     }
 
                 }
         );
+
+
+        // Set the on click listener for the log button
+        logButton.setOnClickListener(view -> {
+            Intent intent = new Intent(TournamentActivity.this, LogActivity.class);
+            startActivity(intent);
+        });
     }
 
 
     private void displayPlayerScores() {
         // Get the player scores from the Tournament instance and display them
-        StringBuilder playerScores = new StringBuilder("Player Scores:\n");
+        StringBuilder playerScores = new StringBuilder("Tournament Scores:\n");
         for (Player player : pente.getPlayers()) {
             playerScores.append(player.getName()).append(": ").append(pente.getScore(player)).append("\n");
         }
         playerScoresTextView.setText(playerScores.toString());
+        log.add(playerScores.toString());
     }
 }

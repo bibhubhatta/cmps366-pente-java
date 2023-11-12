@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 import edu.ramapo.bbhatta.cmps366_pente_java.R;
+import edu.ramapo.bbhatta.cmps366_pente_java.models.Log;
 import edu.ramapo.bbhatta.cmps366_pente_java.models.Player;
 import edu.ramapo.bbhatta.cmps366_pente_java.models.Tournament;
 
@@ -24,8 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int PICK_SERIAL_FILE = 1;
     static Tournament pente;
 
+    static Log log;
+
     private static void initializeTournament() {
 
+        log.clear();
+        log.add("New tournament started");
         pente = new Tournament(BOARD_SIZE, BOARD_SIZE);
 
         pente = pente.addPlayer(Player.HUMAN);
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        log = new Log();
 
         Button startNewTournamentButton = findViewById(R.id.btn_start_new_tournament);
         Button loadTournamentButton = findViewById(R.id.btn_load_tournament);
@@ -90,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
             String serialString = stringBuilder.toString();
 
             pente = Tournament.fromString(serialString);
+            log.clear();
+            log.add("Tournament loaded from file");
 
             Intent intent = new Intent(MainActivity.this, TournamentActivity.class);
             startActivity(intent);

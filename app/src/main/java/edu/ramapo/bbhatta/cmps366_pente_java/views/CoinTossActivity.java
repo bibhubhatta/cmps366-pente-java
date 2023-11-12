@@ -1,5 +1,6 @@
 package edu.ramapo.bbhatta.cmps366_pente_java.views;
 
+import static edu.ramapo.bbhatta.cmps366_pente_java.views.MainActivity.log;
 import static edu.ramapo.bbhatta.cmps366_pente_java.views.MainActivity.pente;
 
 import android.content.Intent;
@@ -68,8 +69,10 @@ public class CoinTossActivity extends AppCompatActivity {
         String result;
         if (isWon) {
             result = getString(R.string.result_won);
+            log.add("Human won the coin toss. Human will go first.");
         } else {
             result = getString(R.string.result_lost);
+            log.add("Human lost the coin toss. Computer will go first.");
         }
 
         resultTextView.setText(result);

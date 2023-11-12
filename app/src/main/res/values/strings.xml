@@ -34,8 +34,14 @@
     <string name="save_game">Save Game</string>
     <string name="the_round_is_a_draw">The round is a draw!</string>
     <string name="play_best_move">Play Best Move</string>
+
+    <!--Save Activity-->
     <string name="enter_file_name">Enter File Name</string>
     <string name="save">Save</string>
     <string name="exit">Exit</string>
+
+    <!--Log Activity-->
+    <string name="back">Back</string>
+    <string name="log">Log</string>
 
 </resources>
