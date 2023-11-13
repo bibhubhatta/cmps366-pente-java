@@ -502,9 +502,9 @@ public class RoundActivity extends AppCompatActivity {
      * @return The emoji for the given stone.
      */
     String getStoneEmoji(Stone stone) {
-        if (stone == Stone.BLACK) {
+        if (stone.equals(Stone.BLACK)) {
             return "⚫";
-        } else if (stone == Stone.WHITE) {
+        } else if (stone.equals(Stone.WHITE)) {
             return "⚪";
         } else {
             return "";
