@@ -19,11 +19,11 @@ public class Strategy {
         this.random = new Random();
 
         moveAnalyzers.put(new MoveAnalysis.WinningMoveAnalyzer(), "is a winning move");
-        moveAnalyzers.put(new MoveAnalysis.WinBlockingMoveAnalyzer(), "is a win-blocking move");
+        moveAnalyzers.put(new MoveAnalysis.WinBlockingMoveAnalyzer(), "prevents the opponent from winning");
         moveAnalyzers.put(new MoveAnalysis.CapturingMoveAnalyzer(), "is a capturing move");
-        moveAnalyzers.put(new MoveAnalysis.CaptureBlockingMoveAnalyzer(), "is a capture-blocking move");
-        moveAnalyzers.put(new MoveAnalysis.SequenceMakingMoveAnalyzer(), "is a sequence-making move");
-        moveAnalyzers.put(new MoveAnalysis.SequenceBlockingMoveAnalyzer(), "is a sequence-blocking move");
+        moveAnalyzers.put(new MoveAnalysis.CaptureBlockingMoveAnalyzer(), "prevents the opponent from capturing");
+        moveAnalyzers.put(new MoveAnalysis.SequenceMakingMoveAnalyzer(), "makes a sequence");
+        moveAnalyzers.put(new MoveAnalysis.SequenceBlockingMoveAnalyzer(), "prevents the opponent from making a sequence");
         moveAnalyzers.put(new MoveAnalysis.OnlyAvailableMoveAnalyzer(), "is the only available move");
 
     }
