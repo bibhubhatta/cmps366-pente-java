@@ -242,14 +242,10 @@ public class RoundActivity extends AppCompatActivity {
             TextView playerNameTextView = getTableCellTextView(player.getName());
             TextView playerCapturesTextView = getTableCellTextView(String.valueOf(round.getCaptures(player)));
             TextView playerScoreTextView = getTableCellTextView(String.valueOf(round.getScore(player)));
-            Button playerStoneButton = getStoneButton(round.getStone(player));
-            // Set the stone button to be unclickable
-            playerStoneButton.setClickable(false);
-
-            ConstraintLayout constraintLayout = getButtonView(playerStoneButton);
+            TextView playerStoneTextView = getTableCellTextView(getStoneEmoji(round.getStone(player)));
 
             row.addView(playerNameTextView);
-            row.addView(constraintLayout);
+            row.addView(playerStoneTextView);
             row.addView(playerCapturesTextView);
             row.addView(playerScoreTextView);
 
@@ -497,6 +493,22 @@ public class RoundActivity extends AppCompatActivity {
         button.setBackground(null);
 
         return button;
+    }
+
+    /**
+     * Returns the emoji for the given stone.
+     *
+     * @param stone The stone to get the emoji for.
+     * @return The emoji for the given stone.
+     */
+    String getStoneEmoji(Stone stone) {
+        if (stone == Stone.BLACK) {
+            return "⚫";
+        } else if (stone == Stone.WHITE) {
+            return "⚪";
+        } else {
+            return "";
+        }
     }
 }
 
