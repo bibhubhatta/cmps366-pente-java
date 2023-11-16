@@ -410,6 +410,25 @@ public class RoundActivity extends AppCompatActivity {
      * https://stackoverflow.com/questions/8698687/android-layout-width-layout-height-how-it-works
      * https://stackoverflow.com/questions/5049852/android-drawing-separator-divider-line-in-layout
      * https://stackoverflow.com/questions/25740594/remove-the-space-between-two-linearlayout
+     * https://developer.android.com/develop/ui/views/layout/relative
+     * https://developer.android.com/develop/ui/views/layout/recyclerview
+     * https://developer.android.com/develop/ui/views/layout/recyclerview-custom
+     * https://developer.android.com/develop/ui/views/layout/linear
+     * https://developer.android.com/reference/android/widget/ArrayAdapter
+     * https://stackoverflow.com/questions/14728157/dynamic-gridlayout
+     * https://stackoverflow.com/questions/14647810/easier-way-to-get-views-id-string-by-its-id-int
+     * https://developer.android.com/reference/android/widget/GridLayout.LayoutParams
+     * https://stackoverflow.com/questions/11307218/gridview-vs-gridlayout-in-android-apps
+     * https://copyprogramming.com/howto/dynamically-change-the-number-of-columns-of-a-gridlayoutmanager
+     * https://developer.android.com/reference/android/widget/ArrayAdapter
+     * https://stackoverflow.com/questions/42340991/how-to-create-a-dynamic-gridview
+     * https://stackoverflow.com/questions/44285444/android-studio-creating-board-programmatically
+     * https://stackoverflow.com/questions/4259467/how-to-make-space-between-linearlayout-children
+     * https://developer.android.com/reference/android/support/v7/widget/LinearLayoutCompat
+     * https://stackoverflow.com/questions/24293069/android-when-is-my-view-complete-drawn-and-visible-on-the-display
+     * https://stackoverflow.com/questions/3470420/is-it-possible-to-evenly-distribute-buttons-across-the-width-of-a-linearlayout
+     * https://stackoverflow.com/questions/66619024/how-to-create-a-square-button-90-degree-angles-android-studio
+     * https://stackoverflow.com/questions/2948212/android-layout-with-square-buttons
      */
     private void initBoard() {
         Round round = MainActivity.pente.getRound();
