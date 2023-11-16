@@ -9,6 +9,10 @@ import edu.ramapo.bbhatta.cmps366_pente_java.models.Player;
 import edu.ramapo.bbhatta.cmps366_pente_java.models.Position;
 import edu.ramapo.bbhatta.cmps366_pente_java.models.Tournament;
 
+/**
+ * Console-based implementation of the Pente game.
+ * Used for initial testing and debugging.
+ */
 public class ConsolePente {
     public static void main(String[] args) {
         Tournament tournament;

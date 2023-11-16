@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Contains methods for analyzing moves for a given round.
+ * Uses command pattern: See https://en.wikipedia.org/wiki/Command_pattern
  */
 public class MoveAnalysis {
 

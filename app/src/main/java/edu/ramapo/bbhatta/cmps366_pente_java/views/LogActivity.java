@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import edu.ramapo.bbhatta.cmps366_pente_java.R;
 
+/**
+ * Activity for the log screen.
+ * Displays the log of the game.
+ */
 public class LogActivity extends AppCompatActivity {
 
     private TextView logTextView;

@@ -17,6 +17,9 @@ import java.util.Random;
 import edu.ramapo.bbhatta.cmps366_pente_java.R;
 import edu.ramapo.bbhatta.cmps366_pente_java.models.Player;
 
+/**
+ * Activity for the coin toss screen.
+ */
 public class CoinTossActivity extends AppCompatActivity {
 
     static final String COIN_TOSS_RESULT_KEY = "coin_toss_result";
@@ -27,6 +30,11 @@ public class CoinTossActivity extends AppCompatActivity {
     private TextView resultTextView;
     private Button continueButton;
 
+    /**
+     * Initialize the coin toss activity.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +71,12 @@ public class CoinTossActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Perform a coin toss.
+     * Assistance: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Random.html">...</a>
+     *
+     * @param userChoice The user's choice.
+     */
     private void performCoinToss(String userChoice) {
         isWon = random.nextBoolean();
 

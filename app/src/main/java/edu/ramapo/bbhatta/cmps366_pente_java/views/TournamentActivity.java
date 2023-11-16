@@ -100,6 +100,9 @@ public class TournamentActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Display the player scores.
+     */
     private void displayPlayerScores() {
         // Get the player scores from the Tournament instance and display them
         StringBuilder playerScores = new StringBuilder("Tournament Scores:\n");

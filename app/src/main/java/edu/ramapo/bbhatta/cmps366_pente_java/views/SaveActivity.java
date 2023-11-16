@@ -34,6 +34,18 @@ public class SaveActivity extends Activity {
         });
     }
 
+    /**
+     * Save the text to the Downloads directory.
+     * <p>
+     * Assistance for this method from:
+     * https://stackoverflow.com/questions/59511147/create-copy-file-in-android-q-using-mediastore
+     * https://www.youtube.com/watch?v=idsUMiWjfnM
+     * https://stackoverflow.com/questions/61984396/save-txt-file-on-android-q
+     * https://www.google.com/search?q=media+store+save+txt+file+android&sca_esv=580414175&ei=qFZLZebpOabtptQP8-yukAU&ved=0ahUKEwjm3c2YjbSCAxWmtokEHXO2C1IQ4dUDCBA&uact=5&oq=media+store+save+txt+file+android&gs_lp=Egxnd3Mtd2l6LXNlcnAiIW1lZGlhIHN0b3JlIHNhdmUgdHh0IGZpbGUgYW5kcm9pZDIFEAAYogQyCBAAGIkFGKIEMgUQABiiBEjFD1DyBlj3DHABeAGQAQCYAWygAbICqgEDMy4xuAEDyAEA-AEBwgIKEAAYRxjWBBiwA8ICChAhGKABGMMEGAriAwQYACBBiAYBkAYI&sclient=gws-wiz-serp
+     * https://stackoverflow.com/questions/61984396/save-txt-file-on-android-q
+     *
+     * @param fileName The name of the file to save.
+     */
     private void saveTextToDownloadsDirectory(String fileName) {
         ContentValues values = new ContentValues();
         values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);

@@ -28,6 +28,11 @@ import edu.ramapo.bbhatta.cmps366_pente_java.models.Round;
 import edu.ramapo.bbhatta.cmps366_pente_java.models.Stone;
 import edu.ramapo.bbhatta.cmps366_pente_java.models.Strategy;
 
+/**
+ * Activity for the round screen. Shows the board and the player scores.
+ * Also handles the game over state and the next move.
+ * Waits for the user to click on a cell to make a move.
+ */
 public class RoundActivity extends AppCompatActivity {
 
     private TableLayout playerScoresTable;
@@ -53,6 +58,9 @@ public class RoundActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Find the views by their id, so that they can be used in the activity.
+     */
     private void findViews() {
         playerScoresTable = findViewById(R.id.playerScoresTableLayout);
         boardLayout = findViewById(R.id.boardLinearLayout);
@@ -64,6 +72,11 @@ public class RoundActivity extends AppCompatActivity {
         logButton = findViewById(R.id.logButton);
     }
 
+    /**
+     * Updates the layout and handles game over and checks if computer plays next.
+     * Assistance from: https://stackoverflow.com/questions/45903391/how-to-change-layout-of-fragment-without-recreating-it?rq=1
+     * https://stackoverflow.com/questions/72011727/how-to-update-content-of-the-activity-without-creating-new-activity
+     */
     private void init() {
         initRoundLayout();
         initBoard();
@@ -73,6 +86,10 @@ public class RoundActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Initializes the buttons with the appropriate on click listeners.
+     * Assistance from: https://developer.android.com/reference/android/widget/Button
+     */
     private void initButtons() {
 
         // Show the help and save buttons, but hide the play best move button
@@ -135,6 +152,17 @@ public class RoundActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Highlights the cell at the given position with the given color.
+     * Used for highlighting the best move and the cell that was played.
+     * <p>
+     * Assistance:
+     * https://stackoverflow.com/questions/20743124/setting-transparency-to-buttons-in-android
+     * https://stackoverflow.com/questions/3263169/android-how-to-make-view-highlight-when-clicked
+     *
+     * @param position
+     * @param color
+     */
     private void highlightBoardCell(Position position, int color) {
         Button button = boardLayout.findViewWithTag(position);
 
@@ -155,16 +183,32 @@ public class RoundActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Shows the given message in the message textview and adds it to the log by default.
+     *
+     * @param message
+     */
     private void showMessage(String message) {
         showMessage(message, true);
     }
 
+    /**
+     * Shows the given message in the message textview and adds it to the log if showInLog is true.
+     *
+     * @param message
+     * @param showInLog Whether to add the message in the log.
+     */
     private void showMessage(String message, Boolean showInLog) {
         if (Boolean.TRUE.equals(showInLog)) MainActivity.log.add(message);
         messageTextView.setText(message);
         messageTextView.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Handles the game over state.
+     * Assistance from:
+     * https://stackoverflow.com/questions/7493287/android-how-do-i-get-string-from-resources-using-its-name
+     */
     private void handleGameOver() {
         // If the round is over, show the winner, hide the help and save buttons, and show the continue button
         if (MainActivity.pente.getRound().isOver()) {
@@ -192,7 +236,8 @@ public class RoundActivity extends AppCompatActivity {
 
     /**
      * Sets the view and all of its children to unclickable.
-     * Copied from <a href="https://stackoverflow.com/a/21107367/">...</a>
+     * Assistance from <a href="https://stackoverflow.com/a/21107367/">...</a>
+     * https://stackoverflow.com/questions/22639218/how-to-get-all-buttons-ids-in-one-time-on-android
      *
      * @param view The view to set unclickable.
      */
@@ -208,6 +253,11 @@ public class RoundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Initializes the round layout.
+     * Shows the player stones, captures, and scores.
+     * Highlights the current player and the winner.
+     */
     public void initRoundLayout() {
         // Clear the table
         playerScoresTable.removeAllViews();
@@ -268,6 +318,17 @@ public class RoundActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates a new ConstraintLayout with the given button as its child.
+     * The view is a square so that the board cells are square.
+     * Assistance from:
+     * https://developer.android.com/develop/ui/views/layout/improving-layouts/reusing-layouts
+     * https://stackoverflow.com/questions/12311346/how-to-set-fixed-aspect-ratio-for-a-layout-in-android
+     * https://stackoverflow.com/questions/16748124/custom-square-linearlayout-how
+     *
+     * @param playerStoneButton
+     * @return
+     */
     @NonNull
     private ConstraintLayout getButtonView(Button playerStoneButton) {
         // Create the ConstraintLayout
@@ -301,6 +362,14 @@ public class RoundActivity extends AppCompatActivity {
         return tv;
     }
 
+    /**
+     * Creates a new TextView for the table cell.
+     * Assistance from: https://developer.android.com/develop/ui/views/layout/improving-layouts/reusing-layouts
+     * https://developer.android.com/develop/ui/views/layout/improving-layouts/reusing-layouts
+     *
+     * @param text
+     * @return
+     */
     private TextView getTableCellTextView(String text) {
         TextView tv = new TextView(this);
         // set width and height
@@ -318,6 +387,30 @@ public class RoundActivity extends AppCompatActivity {
         return tv;
     }
 
+    /**
+     * Initializes the board layout.
+     * Creates a new board layout with the given board.
+     * <p>
+     * Assistance from:
+     * https://developer.android.com/develop/ui/views/layout/relative
+     * https://developer.android.com/develop/ui/views/layout/recyclerview
+     * https://developer.android.com/develop/ui/views/layout/recyclerview-custom
+     * https://developer.android.com/develop/ui/views/layout/linear
+     * https://developer.android.com/reference/android/widget/ArrayAdapter
+     * https://stackoverflow.com/questions/14728157/dynamic-gridlayout
+     * https://stackoverflow.com/questions/14647810/easier-way-to-get-views-id-string-by-its-id-int
+     * https://stackoverflow.com/questions/42860162/imitate-tablelayout-with-constraintlayout
+     * https://karishma-agr1996.medium.com/linear-layout-v-s-constraint-layout-6b64e7a08ed7
+     * https://stackoverflow.com/questions/58777314/should-i-always-use-constraintlayout-for-everything
+     * https://stackoverflow.com/questions/41411721/convert-linearlayout-to-constraintlayout-issue
+     * https://www.geeksforgeeks.org/framelayout-in-android/#
+     * https://developer.android.com/reference/android/widget/FrameLayout
+     * https://stackoverflow.com/questions/6917496/adding-a-view-to-a-linearlayout-at-a-specified-position
+     * https://stackoverflow.com/questions/42607556/how-to-add-linear-layout-to-be-always-the-first-element-in-recyclerview
+     * https://stackoverflow.com/questions/8698687/android-layout-width-layout-height-how-it-works
+     * https://stackoverflow.com/questions/5049852/android-drawing-separator-divider-line-in-layout
+     * https://stackoverflow.com/questions/25740594/remove-the-space-between-two-linearlayout
+     */
     private void initBoard() {
         Round round = MainActivity.pente.getRound();
         Board board = round.getBoard();
@@ -344,6 +437,13 @@ public class RoundActivity extends AppCompatActivity {
         boardLayout.addView(columnLettersLayout);
     }
 
+    /**
+     * Adds the row number to the left of the row.
+     *
+     * @param board
+     * @param row
+     * @param rowLayout
+     */
     private void addRowNumberToBoardLayout(Board board, int row, LinearLayout rowLayout) {
         // Add row number to the left of the row
         int displayRow = board.getNoRows() - row;
@@ -356,6 +456,12 @@ public class RoundActivity extends AppCompatActivity {
         rowLayout.addView(rowNumberTextView, 0);
     }
 
+    /**
+     * Create a row for the column letters.
+     *
+     * @param board
+     * @return The row for the column letters.
+     */
     @NonNull
     private LinearLayout getColumnLabelRow(Board board) {
         // Add column letters to the bottom of the board
@@ -379,6 +485,17 @@ public class RoundActivity extends AppCompatActivity {
         return columnLettersLayout;
     }
 
+    /**
+     * Creates a new row for the board.
+     * Assistance from:
+     * https://stackoverflow.com/questions/37518745/evenly-spacing-views-using-constraintlayout
+     * https://stackoverflow.com/questions/4641072/how-to-set-layout-weight-attribute-dynamically-from-code
+     * https://stackoverflow.com/questions/21671356/padding-inside-a-button-element-not-removable
+     *
+     * @param board
+     * @param row
+     * @return
+     */
     @NonNull
     private LinearLayout createNewRow(Board board, int row) {
 
@@ -407,6 +524,25 @@ public class RoundActivity extends AppCompatActivity {
         return rowLayout;
     }
 
+    /**
+     * Creates a new button for the given cell.
+     * <p>
+     * Assistance from:
+     * https://stackoverflow.com/questions/23251068/using-layout-as-a-button
+     * https://stackoverflow.com/questions/5646944/how-to-set-shapes-opacity
+     * https://stackoverflow.com/questions/15111402/how-can-i-create-a-border-around-an-android-linearlayout
+     * <p>
+     * https://stackoverflow.com/questions/59166753/how-do-i-create-a-drawable-circle
+     * https://stackoverflow.com/questions/3185103/how-to-define-a-circle-shape-in-an-android-xml-drawable-file
+     * https://stackoverflow.com/questions/6061387/android-drawable-specifying-shape-width-in-percent-in-the-xml-file
+     * <p>
+     * https://stackoverflow.com/questions/25883504/android-image-button-how-to-apply-different-sizes-for-the-foreground-and-backg
+     *
+     * @param board
+     * @param row
+     * @param col
+     * @return
+     */
     @NonNull
     private Button createCellButton(Board board, int row, int col) {
         Position position = new Position(row, col);
@@ -432,6 +568,12 @@ public class RoundActivity extends AppCompatActivity {
         return button;
     }
 
+    /**
+     * Makes a move at the given position and updates the round layout.
+     * Also logs the move.
+     *
+     * @param position
+     */
     private void makeMove(Position position) {
         try {
             String logMessage = String.format("%s played %s", MainActivity.pente.getRound().getCurrentPlayer().getName(), MainActivity.pente.getRound().getBoard().positionToString(position));
@@ -444,6 +586,9 @@ public class RoundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles the next move if it is the computer's turn.
+     */
     private void handleNextMove() {
 
         if (MainActivity.pente.getRound().isOver()) return;
@@ -468,6 +613,28 @@ public class RoundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Returns a new button with the given stone in the foreground.
+     * <p>
+     * Assistance:
+     * https://developer.android.com/develop/ui/views/layout/improving-layouts/reusing-layouts
+     * https://stackoverflow.com/questions/39847823/add-stroke-to-a-drawable-with-xml
+     * https://stackoverflow.com/questions/54672076/how-to-dynamically-add-stroke-to-drawables
+     * <p>
+     * https://stackoverflow.com/questions/49639231/constraintlayout-proportional-width-height-to-self
+     * https://intellipaat.com/community/26808/set-margins-in-a-linearlayout-programmatically
+     * https://stackoverflow.com/questions/11376516/change-drawable-color-programmatically
+     * https://www.youtube.com/watch?v=MeCjfgR86MU
+     * https://stackoverflow.com/questions/16884524/programmatically-add-border-to-linearlayout
+     * https://stackoverflow.com/questions/17823451/set-android-shape-color-programmatically
+     * https://stackoverflow.com/questions/65613925/how-can-you-set-the-fill-color-of-a-shape-from-an-imageview-without-affecting-th
+     * https://stackoverflow.com/questions/3402787/how-to-have-a-transparent-imagebutton-android
+     * <p>
+     * https://stackoverflow.com/questions/44249150/set-constraintlayout-width-to-match-parent-width-programmatically
+     *
+     * @param stone
+     * @return
+     */
     @NonNull
     private Button getStoneButton(Stone stone) {
         Button button = new Button(this);
@@ -497,6 +664,7 @@ public class RoundActivity extends AppCompatActivity {
 
     /**
      * Returns the emoji for the given stone.
+     * This was originally Ankit's idea to use emojis for the stones.
      *
      * @param stone The stone to get the emoji for.
      * @return The emoji for the given stone.
