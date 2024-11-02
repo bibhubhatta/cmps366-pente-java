@@ -89,105 +89,82 @@ easily changed for a variable length.
 ## First player of the round being determined
 
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr>
-<th style="text-align: left;"><img src="./media/image4.png"
-style="width:2.02083in;height:4.375in" /></th>
-<th style="text-align: left;"><img src="./media/image11.png"
-style="width:2.02083in;height:4.375in" /></th>
-<th style="text-align: left;"><img src="./media/image7.png"
-style="width:2.02083in;height:4.375in" /></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
+    <colgroup>
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+    </colgroup>
+    <tbody>
+        <tr>
+            <td style="text-align: left;"><img src="./media/image4.png" style="width:2.02in; height:4.375in" /></td>
+            <td style="text-align: left;"><img src="./media/image11.png" style="width:2.02in; height:4.375in" /></td>
+            <td style="text-align: left;"><img src="./media/image7.png" style="width:2.02in; height:4.375in" /></td>
+        </tr>
+    </tbody>
 </table>
 
 ## Computer’s move being explained
 
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr>
-<th><img src="./media/image9.png"
-style="width:2.02083in;height:4.375in" /></th>
-<th><img src="./media/image2.png"
-style="width:2.02083in;height:4.375in" /></th>
-<th><img src="./media/image12.png"
-style="width:2.02083in;height:4.375in" /></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
+    <colgroup>
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+    </colgroup>
+    <tbody>
+        <tr>
+            <td><img src="./media/image9.png" style="width:2.02in; height:4.375in" /></td>
+            <td><img src="./media/image2.png" style="width:2.02in; height:4.375in" /></td>
+            <td><img src="./media/image12.png" style="width:2.02in; height:4.375in" /></td>
+        </tr>
+    </tbody>
 </table>
 
 ## Computer providing help
 
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr>
-<th style="text-align: left;"><img src="./media/image6.png"
-style="width:2.02083in;height:4.375in" /></th>
-<th style="text-align: left;"><img src="./media/image1.png"
-style="width:2.02083in;height:4.375in" /></th>
-<th style="text-align: left;"><img src="./media/image3.png"
-style="width:2.02083in;height:4.375in" /></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
+    <colgroup>
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+        <col style="width: 33%" />
+    </colgroup>
+    <tbody>
+        <tr>
+            <td style="text-align: left;"><img src="./media/image6.png" style="width:2.02in; height:4.375in" /></td>
+            <td style="text-align: left;"><img src="./media/image1.png" style="width:2.02in; height:4.375in" /></td>
+            <td style="text-align: left;"><img src="./media/image3.png" style="width:2.02in; height:4.375in" /></td>
+        </tr>
+    </tbody>
 </table>
 
 ## Winner of the round being announced
 
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr>
-<th style="text-align: center;"><img src="./media/image9.png"
-style="width:3.11521in;height:6.75521in" /></th>
-<th style="text-align: left;"><img src="./media/image8.png"
-style="width:3.10417in;height:6.72222in" /></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
+    <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+    </colgroup>
+    <tbody>
+        <tr>
+            <td style="text-align: center;"><img src="./media/image9.png" style="width:3.115in; height:6.755in" /></td>
+            <td style="text-align: left;"><img src="./media/image8.png" style="width:3.104in; height:6.722in" /></td>
+        </tr>
+    </tbody>
 </table>
 
 ## Winner of the tournament being announced
 
 <table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr>
-<th style="text-align: left;"><img src="./media/image5.png"
-style="width:3.10417in;height:6.72222in" /></th>
-<th style="text-align: left;"><img src="./media/image10.png"
-style="width:3.10417in;height:6.72222in" /></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
+    <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+    </colgroup>
+    <tbody>
+        <tr>
+            <td style="text-align: left;"><img src="./media/image5.png" style="width:3.104in; height:6.722in" /></td>
+            <td style="text-align: left;"><img src="./media/image10.png" style="width:3.104in; height:6.722in" /></td>
+        </tr>
+    </tbody>
 </table>
 
 # Description of Classes
@@ -195,152 +172,136 @@ style="width:3.10417in;height:6.72222in" /></th>
 ## Models
 
 <table>
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 83%" />
-</colgroup>
-<thead>
-<tr>
-<th>Board</th>
-<th>The board used for the game</th>
-</tr>
-<tr>
-<th>Log</th>
-<th>Stores the log entries</th>
-</tr>
-<tr>
-<th>MoveAnalyzer</th>
-<th>Interface for classes that would be used to analyze moves. This is
-need for the command pattern; see: <a
-href="https://en.wikipedia.org/wiki/Command_pattern"><u>https://en.wikipedia.org/wiki/Command_pattern</u></a></th>
-</tr>
-<tr>
-<th>MoveAnalysis</th>
-<th>Container class for MoveAnalyzer classes that check for different
-move strategies, eg. winning move, capturing move, etc.</th>
-</tr>
-<tr>
-<th>Player</th>
-<th>Represent a player and stores the name. The player class does not
-make moves or store scores; It is the responsibility of the round and
-tournament classes. It only identifies the player in the round and
-tournaments</th>
-</tr>
-<tr>
-<th>Position</th>
-<th>Represents a position in the board; Class is used because it
-contains methods to generate string representations and calculate
-distances. It also has other methods such as getting neighbors and cells
-in directions</th>
-</tr>
-<tr>
-<th>Round</th>
-<th>Represents a round in the game. Is responsible for making moves,
-tracking captures, scores, and wins as well as validating moves</th>
-</tr>
-<tr>
-<th>Serial</th>
-<th>Parses and generates serial strings</th>
-</tr>
-<tr>
-<th>Stone</th>
-<th>Represents a stone in the board</th>
-</tr>
-<tr>
-<th>Strategy</th>
-<th>Decides on which move to play -- separated into a class from the
-player so that the same player can use multiple types of strategies</th>
-</tr>
-<tr>
-<th>Tournament</th>
-<th>Represents the Tournament</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
+    <colgroup>
+        <col style="width: 16%" />
+        <col style="width: 83%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Class</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Board</td>
+            <td>The board used for the game</td>
+        </tr>
+        <tr>
+            <td>Log</td>
+            <td>Stores the log entries</td>
+        </tr>
+        <tr>
+            <td>MoveAnalyzer</td>
+            <td>Interface for classes that analyze moves. Needed for the command pattern; see: <a href="https://en.wikipedia.org/wiki/Command_pattern">Command Pattern</a></td>
+        </tr>
+        <tr>
+            <td>MoveAnalysis</td>
+            <td>Container class for MoveAnalyzer classes that check for different move strategies, e.g., winning move, capturing move, etc.</td>
+        </tr>
+        <tr>
+            <td>Player</td>
+            <td>Represents a player and stores the name. The Player class does not make moves or store scores; this is managed by the Round and Tournament classes. Player only identifies the player in these contexts.</td>
+        </tr>
+        <tr>
+            <td>Position</td>
+            <td>Represents a position on the board. Class is used because it contains methods to generate string representations, calculate distances, get neighbors, and cells in specific directions.</td>
+        </tr>
+        <tr>
+            <td>Round</td>
+            <td>Represents a round in the game. Responsible for making moves, tracking captures, scores, and wins as well as validating moves.</td>
+        </tr>
+        <tr>
+            <td>Serial</td>
+            <td>Parses and generates serial strings</td>
+        </tr>
+        <tr>
+            <td>Stone</td>
+            <td>Represents a stone on the board</td>
+        </tr>
+        <tr>
+            <td>Strategy</td>
+            <td>Determines which move to play, separate from the player so a player can use different strategies.</td>
+        </tr>
+        <tr>
+            <td>Tournament</td>
+            <td>Represents the tournament.</td>
+        </tr>
+    </tbody>
 </table>
 
 ## View/Controllers
 
 <table>
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 80%" />
-</colgroup>
-<thead>
-<tr>
-<th>CoinTossActivity</th>
-<th>Performs the coin toss and initializes a round with the appropriate
-player playing first</th>
-</tr>
-<tr>
-<th>ConsolePente</th>
-<th>A console implementation of the game for initial testing and
-debugging</th>
-</tr>
-<tr>
-<th>LogActivity</th>
-<th>Displays the log when the log button is clicked</th>
-</tr>
-<tr>
-<th>MainActivity</th>
-<th>The main landing activity when the app is opened. Provides option to
-start a new tournament or load from file</th>
-</tr>
-<tr>
-<th>RoundActivity</th>
-<th>The activity where the users play the game. It shows the captures,
-scores, board, help, and option to save. Users play the game through
-this activity. It also checks if it is the computer's turn and makes the
-move</th>
-</tr>
-<tr>
-<th>SaveActivity</th>
-<th>Provides a text box to enter the file name and save the game state
-to the downloads folder</th>
-</tr>
-<tr>
-<th>TournamentActivity</th>
-<th>Displays the tournament scores, provides the option for quitting or
-starting another round. If the user quits, displays the final score and
-result</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
+    <colgroup>
+        <col style="width: 19%" />
+        <col style="width: 80%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Class</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CoinTossActivity</td>
+            <td>Performs the coin toss and initializes a round with the appropriate player playing first</td>
+        </tr>
+        <tr>
+            <td>ConsolePente</td>
+            <td>A console implementation of the game for initial testing and debugging</td>
+        </tr>
+        <tr>
+            <td>LogActivity</td>
+            <td>Displays the log when the log button is clicked</td>
+        </tr>
+        <tr>
+            <td>MainActivity</td>
+            <td>The main landing activity when the app is opened. Provides option to start a new tournament or load from file</td>
+        </tr>
+        <tr>
+            <td>RoundActivity</td>
+            <td>The activity where users play the game. Shows captures, scores, board, help, and save options. It also checks if it’s the computer's turn and makes the move</td>
+        </tr>
+        <tr>
+            <td>SaveActivity</td>
+            <td>Provides a text box to enter the file name and save the game state to the downloads folder</td>
+        </tr>
+        <tr>
+            <td>TournamentActivity</td>
+            <td>Displays tournament scores, allows quitting or starting another round, and if the user quits, shows the final score and result</td>
+        </tr>
+    </tbody>
 </table>
 
-All activities have their corresponding layout xmls inside res/layout.
+All activities have their corresponding layout XML files in `res/layout`.
 
-# Data Structures
+## Data Structures
 
 <table>
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 80%" />
-</colgroup>
-<thead>
-<tr>
-<th><strong>Name/ Structure named defined using “using”</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-<tr>
-<th>2-d Array</th>
-<th>Used to store the board</th>
-</tr>
-<tr>
-<th>ArrayList</th>
-<th>Used to store stone sequences / positions when the number of items
-is not known</th>
-</tr>
-<tr>
-<th>LinkedHashMap</th>
-<th>To store the player and their scores in the Tournament class, and to
-store player and the player details in the round such as the stone they
-are playing, the number of captured pairs, and the player after
-them</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
+    <colgroup>
+        <col style="width: 19%" />
+        <col style="width: 80%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Name/Structure</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2-d Array</td>
+            <td>Used to store the board</td>
+        </tr>
+        <tr>
+            <td>ArrayList</td>
+            <td>Stores stone sequences or positions when the number of items is variable</td>
+        </tr>
+        <tr>
+            <td>LinkedHashMap</td>
+            <td>Stores players and scores in the Tournament class, and stores player details in the Round class, such as stone type, number of captured pairs, and next player</td>
+        </tr>
+    </tbody>
 </table>
